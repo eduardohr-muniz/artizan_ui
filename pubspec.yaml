@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shadcn_ui: ^0.24.0
+  shadcn_ui: ^0.21.0
 
 dev_dependencies:
   flutter_test:

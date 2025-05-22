@@ -196,7 +196,7 @@ class ArtTextFormField extends StatelessWidget {
       onChanged: onChanged,
       valueTransformer: valueTransformer,
       onReset: onReset,
-      focusNode: focusNode,
+      // focusNode: focusNode,
       decoration: decoration,
       placeholder: placeholder,
       magnifierConfiguration: magnifierConfiguration,
@@ -261,8 +261,8 @@ class ArtTextFormField extends StatelessWidget {
       placeholderAlignment: placeholderAlignment,
       inputPadding: inputPadding,
       gap: gap,
-      constraints: constraints,
-      groupId: groupId,
+      // constraints: constraints,
+      // groupId: groupId,
     );
   }
 }
