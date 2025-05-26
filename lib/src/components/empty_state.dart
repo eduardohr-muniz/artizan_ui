@@ -75,7 +75,7 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
 
   Widget _icon() {
     return CircleAvatar(
-      backgroundColor: (widget.color ?? theme.colorScheme.primary).withOpacity(.2),
+      backgroundColor: (widget.color ?? theme.colorScheme.primary).withValues(alpha: .2),
       child: IconTheme(
         data: IconThemeData(
           color: widget.color ?? theme.colorScheme.foreground,
