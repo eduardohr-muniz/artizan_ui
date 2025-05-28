@@ -15,3 +15,4 @@ export './color_scheme/stone.dart';
 export './color_scheme/violet.dart';
 export './color_scheme/yellow.dart';
 export './color_scheme/zinc.dart';
+export './text_theme.dart';

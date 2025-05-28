@@ -11,8 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.2
   shadcn_ui:
     git: https://github.com/eduardohr-muniz/flutter-shadcn-ui
+  boxy: ^2.2.0
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_test:

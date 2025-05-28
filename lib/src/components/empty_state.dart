@@ -1,4 +1,4 @@
-import 'package:artizan_ui/src/themes/theme.dart';
+import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 
 enum ArtEmptyStateVariant {
@@ -57,12 +57,14 @@ class ArtEmptyState extends StatefulWidget {
 }
 
 class _ArtEmptyStateState extends State<ArtEmptyState> {
-  late final theme = ArtTheme.of(context);
+  ArtThemeData get theme => ArtTheme.of(context);
 
   Widget _title() => DefaultTextStyle(
         style: theme.textTheme.small,
         child: Flexible(
-          child: Text(widget.title!),
+          child: Text(
+            widget.title!,
+          ),
         ),
       );
 
