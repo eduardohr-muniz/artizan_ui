@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
-List<String> typePressed = [
-  'onTap',
-  'onTapFuture'
-];
+List<String> typePressed = ['onTap', 'onTapFuture'];
 
 onTap(String type) async {
   if (type == 'onTap') {

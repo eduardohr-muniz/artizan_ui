@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -16,9 +17,6 @@ typedef ArtPopoverController = ShadPopoverController;
 
 /// Controlador do select
 typedef ArtSelectController<T> = ShadSelectController<T>;
-
-/// Decoração do select
-typedef ArtDecoration = ShadDecoration;
 
 /// Widget principal do ArtSelect
 class ArtSelect<T> extends StatelessWidget {
