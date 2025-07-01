@@ -16,7 +16,9 @@ dependencies:
     git: https://github.com/eduardohr-muniz/flutter-shadcn-ui
   boxy: ^2.2.0
   collection: ^1.18.0
-  auto_form_validate: ^1.0.5
+  # auto_form_validate: ^1.0.5+2
+  auto_form_validate:
+    git: https://github.com/eduardohr-muniz/auto_form_validate
 
 dev_dependencies:
   flutter_test:
