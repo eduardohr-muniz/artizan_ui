@@ -307,6 +307,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
   }
 
   _handleInitalValueController() {
+    if (widget.formController == null) return;
     if (widget.controller!.text.isNotEmpty) {
       widget.controller!.text = widget.formController!.helper.formatValue(value: widget.controller!.text);
     }
