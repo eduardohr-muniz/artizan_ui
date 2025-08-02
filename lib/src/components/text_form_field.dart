@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artizan_ui/artizan_ui.dart';
 import 'package:auto_form_validate/form_controller.dart';
 import 'package:flutter/gestures.dart';
@@ -334,8 +336,13 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
     return null;
   }
 
-  String? Function(String? v)? _validator() {
-    return widget.validator ?? (v) => widget.formController?.helper.validate(v, focusNode: _focusNode);
+  String? Function(String?)? _validator() {
+    if (widget.validator != null) return widget.validator;
+    if (widget.formController != null && _focusNode != null) {
+      return (v) => widget.formController?.helper.validate(value: v, focusNode: _focusNode);
+    }
+    if (widget.formController != null && _focusNode == null) log('🔍 [ArtTextFormField] Error: FormController != null && _focusNode == null');
+    return null;
   }
 
   List<TextInputFormatter>? _inputFormatters() {
