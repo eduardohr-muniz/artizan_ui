@@ -34,7 +34,8 @@ class ArtPaipColorScheme extends ArtColorScheme {
     super.cardForeground = const Color(0xff09090b),
     super.popover = const Color(0xffffffff),
     super.popoverForeground = const Color(0xff09090b),
-    super.primary = const Color(0xff027957),
+    super.primary = const Color(0xff165DFB),
+    // super.primary = const Color(0xff027957),
     super.primaryForeground = const Color(0xfffafafa),
     super.secondary = const Color(0xfff4f4f5),
     super.secondaryForeground = const Color(0xff18181b),
@@ -46,7 +47,8 @@ class ArtPaipColorScheme extends ArtColorScheme {
     super.destructiveForeground = const Color(0xfffafafa),
     super.border = const Color(0xffe4e4e7),
     super.input = const Color(0xffe4e4e7),
-    super.ring = const Color(0xff05AC66),
+    super.ring = const Color(0xff92C5FD),
+    // super.ring = const Color(0xff05AC66),
     super.selection = const Color(0xFFB4D7FF),
   });
 

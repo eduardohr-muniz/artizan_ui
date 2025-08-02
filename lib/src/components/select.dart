@@ -1,7 +1,9 @@
 import 'dart:ui';
-import 'package:artizan_ui/artizan_ui.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+
+import 'package:artizan_ui/artizan_ui.dart';
 
 /// Typedef para o construtor da opção selecionada
 typedef ArtSelectedOptionBuilder<T> = ShadSelectedOptionBuilder<T>;
@@ -515,6 +517,43 @@ class ArtSelectMultiple<T> extends StatelessWidget {
       allowDeselection: allowDeselection,
       controller: controller,
       error: error,
+    );
+  }
+}
+
+class ArtOption<T> extends StatelessWidget {
+  final T value;
+  final Widget child;
+  final Color? hoveredBackgroundColor;
+  final EdgeInsets? padding;
+  final Widget? selectedIcon;
+  final BorderRadius? radius;
+  final OrderPolicy<Widget>? orderPolicy;
+  final TextDirection? direction;
+
+  const ArtOption({
+    super.key,
+    required this.value,
+    required this.child,
+    this.hoveredBackgroundColor,
+    this.padding,
+    this.selectedIcon,
+    this.radius,
+    this.orderPolicy,
+    this.direction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ShadOption<T>(
+      value: value,
+      hoveredBackgroundColor: hoveredBackgroundColor,
+      padding: padding,
+      selectedIcon: selectedIcon,
+      radius: radius,
+      orderPolicy: orderPolicy,
+      direction: direction,
+      child: child,
     );
   }
 }

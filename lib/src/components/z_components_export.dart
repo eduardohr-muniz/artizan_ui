@@ -12,3 +12,4 @@ export './alert.dart';
 export './sheet.dart';
 export './select.dart';
 export './input_otp.dart';
+export './check_box.dart';

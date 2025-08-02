@@ -335,7 +335,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
   }
 
   String? Function(String? v)? _validator() {
-    return widget.validator ?? (v) => widget.formController?.helper.validate(v);
+    return widget.validator ?? (v) => widget.formController?.helper.validate(v, focusNode: _focusNode);
   }
 
   List<TextInputFormatter>? _inputFormatters() {
