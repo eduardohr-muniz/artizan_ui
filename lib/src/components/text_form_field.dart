@@ -140,7 +140,7 @@ class ArtTextFormField extends StatefulWidget {
     this.smartDashesType,
     this.smartQuotesType,
     this.enableSuggestions = true,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
     this.expands = false,
     this.readOnly = false,
@@ -230,7 +230,7 @@ class ArtTextFormField extends StatefulWidget {
     this.smartDashesType,
     this.smartQuotesType,
     this.enableSuggestions = true,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
     this.expands = false,
     this.readOnly = false,
@@ -329,10 +329,13 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
   }
 
   void Function(String v)? _onChanged(String v) {
-    if (widget.formController != null && widget.formController!.formaters.length > 1) {
-      widget.formController!.helper.updateMask(value: v, controller: widget.controller!, regexFilter: widget.formController!.regexFilter, textInputType: widget.formController!.textInputType);
-    }
     widget.onChanged == null ? null : widget.onChanged!(v);
+    if (widget.formController != null && widget.formController!.formaters.length > 1) {
+      final newValue = widget.formController!.helper.updateMask(value: v, controller: widget.controller!, regexFilter: widget.formController!.regexFilter, textInputType: widget.formController!.textInputType);
+      if (newValue != null) {
+        print('newValue: $newValue');
+      }
+    }
     return null;
   }
 
@@ -396,7 +399,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           smartDashesType: widget.smartDashesType,
           smartQuotesType: widget.smartQuotesType,
           enableSuggestions: widget.enableSuggestions,
-          maxLines: widget.maxLines,
+          maxLines: widget.maxLines! >= 1 ? widget.maxLines : null,
           minLines: widget.minLines,
           expands: widget.expands,
           readOnly: widget.readOnly,
