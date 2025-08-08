@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 /// Widget que encapsula o ShadPopover
+
 class ArtPopover extends StatelessWidget {
   const ArtPopover({
     super.key,
@@ -47,7 +48,7 @@ class ArtPopover extends StatelessWidget {
   final FocusNode? focusNode;
 
   /// A posição do popover no sistema de coordenadas global
-  final ShadAnchorBase? anchor;
+  final ArtAnchorBase? anchor;
 
   /// Os efeitos de animação aplicados ao popover
   final List<Effect<dynamic>>? effects;

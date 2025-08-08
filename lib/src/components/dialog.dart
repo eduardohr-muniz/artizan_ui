@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 enum ArtDialogVariant {
@@ -7,6 +8,131 @@ enum ArtDialogVariant {
 }
 
 typedef ArtPosition = ShadPosition;
+
+/// Converts ArtDialogVariant to ShadDialogVariant
+ShadDialogVariant _buildShadDialogVariantFromArtDialogVariant(ArtDialogVariant variant) {
+  switch (variant) {
+    case ArtDialogVariant.primary:
+      return ShadDialogVariant.primary;
+    case ArtDialogVariant.alert:
+      return ShadDialogVariant.alert;
+  }
+}
+
+/// Displays an [ArtDialog] as a modal dialog with animation.
+///
+/// Shows a dialog with customizable barrier and animation properties, returning
+/// a [Future] with the result when the dialog is dismissed.
+Future<T?> showArtDialog<T>({
+  /// The build context in which to show the dialog.
+  required BuildContext context,
+
+  /// The builder function to create the dialog content.
+  required WidgetBuilder builder,
+
+  /// Whether the dialog can be dismissed by tapping outside the barrier.
+  /// Defaults to true.
+  bool barrierDismissible = true,
+
+  /// The color of the barrier behind the dialog.
+  /// Defaults to a semi-transparent black (0xcc000000).
+  Color barrierColor = const Color(0xcc000000),
+
+  /// The accessibility label for the barrier.
+  /// Defaults to an empty string.
+  String barrierLabel = '',
+
+  /// Whether to use the root navigator for routing.
+  /// Defaults to true.
+  bool useRootNavigator = true,
+
+  /// Optional route settings for navigation.
+  RouteSettings? routeSettings,
+
+  /// The anchor point for positioning the dialog.
+  Offset? anchorPoint,
+
+  /// The animation effects when the dialog appears.
+  /// Defaults to fade and scale-in if not specified.
+  List<Effect<dynamic>>? animateIn,
+
+  /// The animation effects when the dialog disappears.
+  /// Defaults to fade and scale-out if not specified.
+  List<Effect<dynamic>>? animateOut,
+
+  /// The variant of the dialog to display.
+  /// Defaults to [ArtDialogVariant.primary].
+  ArtDialogVariant variant = ArtDialogVariant.primary,
+}) {
+  return showShadDialog<T>(
+    context: context,
+    builder: builder,
+    barrierDismissible: barrierDismissible,
+    barrierColor: barrierColor,
+    barrierLabel: barrierLabel,
+    useRootNavigator: useRootNavigator,
+    routeSettings: routeSettings,
+    anchorPoint: anchorPoint,
+    animateIn: animateIn,
+    animateOut: animateOut,
+    variant: _buildShadDialogVariantFromArtDialogVariant(variant),
+  );
+}
+
+/// Displays an [ArtDialog] alert variant as a modal dialog with animation.
+///
+/// Convenience function for showing alert dialogs with pre-configured styling.
+Future<T?> showArtDialogAlert<T>({
+  /// The build context in which to show the dialog.
+  required BuildContext context,
+
+  /// The builder function to create the dialog content.
+  required WidgetBuilder builder,
+
+  /// Whether the dialog can be dismissed by tapping outside the barrier.
+  /// Defaults to true.
+  bool barrierDismissible = true,
+
+  /// The color of the barrier behind the dialog.
+  /// Defaults to a semi-transparent black (0xcc000000).
+  Color barrierColor = const Color(0xcc000000),
+
+  /// The accessibility label for the barrier.
+  /// Defaults to an empty string.
+  String barrierLabel = '',
+
+  /// Whether to use the root navigator for routing.
+  /// Defaults to true.
+  bool useRootNavigator = true,
+
+  /// Optional route settings for navigation.
+  RouteSettings? routeSettings,
+
+  /// The anchor point for positioning the dialog.
+  Offset? anchorPoint,
+
+  /// The animation effects when the dialog appears.
+  /// Defaults to fade and scale-in if not specified.
+  List<Effect<dynamic>>? animateIn,
+
+  /// The animation effects when the dialog disappears.
+  /// Defaults to fade and scale-out if not specified.
+  List<Effect<dynamic>>? animateOut,
+}) {
+  return showArtDialog<T>(
+    context: context,
+    builder: builder,
+    barrierDismissible: barrierDismissible,
+    barrierColor: barrierColor,
+    barrierLabel: barrierLabel,
+    useRootNavigator: useRootNavigator,
+    routeSettings: routeSettings,
+    anchorPoint: anchorPoint,
+    animateIn: animateIn,
+    animateOut: animateOut,
+    variant: ArtDialogVariant.alert,
+  );
+}
 
 class ArtDialog extends StatelessWidget {
   final ArtDialogVariant variant;
@@ -140,14 +266,5 @@ class ArtDialog extends StatelessWidget {
       scrollPadding: scrollPadding,
       child: child,
     );
-  }
-
-  ShadDialogVariant _buildShadDialogVariantFromArtDialogVariant(ArtDialogVariant variant) {
-    switch (variant) {
-      case ArtDialogVariant.primary:
-        return ShadDialogVariant.primary;
-      case ArtDialogVariant.alert:
-        return ShadDialogVariant.alert;
-    }
   }
 }

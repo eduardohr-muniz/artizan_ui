@@ -5,7 +5,7 @@ homepage: none
 publish_to: none
 
 environment:
-  sdk: ^3.4.2
+  sdk: ">=3.7.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -13,7 +13,8 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.2
   shadcn_ui:
-    git: https://github.com/eduardohr-muniz/flutter-shadcn-ui
+    ^0.27.1
+    # git: https://github.com/eduardohr-muniz/flutter-shadcn-ui
   boxy: ^2.2.0
   collection: ^1.18.0
   # auto_form_validate: ^1.0.5+2
