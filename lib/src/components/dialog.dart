@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-enum ArtDialogVariant {
-  primary,
-  alert,
-}
+enum ArtDialogVariant { primary, alert }
 
 typedef ArtPosition = ShadPosition;
 
@@ -234,37 +231,40 @@ class ArtDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShadDialog.raw(
-      variant: _buildShadDialogVariantFromArtDialogVariant(variant),
-      title: title,
-      description: description,
-      actions: actions,
-      closeIcon: closeIcon,
-      closeIconData: closeIconData,
-      closeIconPosition: closeIconPosition,
-      radius: radius,
-      backgroundColor: backgroundColor,
-      expandActionsWhenTiny: expandActionsWhenTiny,
-      padding: padding,
-      gap: gap,
-      constraints: constraints,
-      border: border,
-      shadows: shadows,
-      removeBorderRadiusWhenTiny: removeBorderRadiusWhenTiny,
-      actionsAxis: actionsAxis,
-      actionsMainAxisSize: actionsMainAxisSize,
-      actionsMainAxisAlignment: actionsMainAxisAlignment,
-      actionsVerticalDirection: actionsVerticalDirection,
-      titleStyle: titleStyle,
-      descriptionStyle: descriptionStyle,
-      titleTextAlign: titleTextAlign,
-      descriptionTextAlign: descriptionTextAlign,
-      alignment: alignment,
-      mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: crossAxisAlignment,
-      scrollable: scrollable,
-      scrollPadding: scrollPadding,
-      child: child,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 21),
+      child: ShadDialog.raw(
+        variant: _buildShadDialogVariantFromArtDialogVariant(variant),
+        title: title,
+        description: description,
+        actions: actions,
+        closeIcon: closeIcon,
+        closeIconData: closeIconData,
+        closeIconPosition: closeIconPosition,
+        radius: radius,
+        backgroundColor: backgroundColor,
+        expandActionsWhenTiny: expandActionsWhenTiny,
+        padding: padding,
+        gap: gap,
+        constraints: constraints,
+        border: border,
+        shadows: shadows,
+        removeBorderRadiusWhenTiny: removeBorderRadiusWhenTiny ?? false,
+        actionsAxis: actionsAxis,
+        actionsMainAxisSize: actionsMainAxisSize,
+        actionsMainAxisAlignment: actionsMainAxisAlignment,
+        actionsVerticalDirection: actionsVerticalDirection,
+        titleStyle: titleStyle,
+        descriptionStyle: descriptionStyle,
+        titleTextAlign: titleTextAlign,
+        descriptionTextAlign: descriptionTextAlign,
+        alignment: alignment,
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
+        scrollable: scrollable,
+        scrollPadding: scrollPadding,
+        child: child,
+      ),
     );
   }
 }
