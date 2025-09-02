@@ -8,10 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'dart:ui' as ui;
 
-enum ArtTextFieldVariant {
-  primary,
-  underline;
-}
+enum ArtTextFieldVariant { primary, underline }
 
 class ArtTextFormField extends StatefulWidget {
   final Object? id;
@@ -190,12 +187,12 @@ class ArtTextFormField extends StatefulWidget {
     this.constraints,
     this.groupId,
     this.formController,
-  })  : variant = ArtTextFieldVariant.primary,
-        helperText = null,
-        counterText = null,
-        prefixText = null,
-        suffixText = null,
-        placeHolderText = null;
+  }) : variant = ArtTextFieldVariant.primary,
+       helperText = null,
+       counterText = null,
+       prefixText = null,
+       suffixText = null,
+       placeHolderText = null;
 
   const ArtTextFormField.underline({
     super.key,
@@ -294,6 +291,7 @@ class ArtTextFormField extends StatefulWidget {
 
 class _ArtTextFormFieldState extends State<ArtTextFormField> {
   late final FocusNode? _focusNode;
+  late bool _obscureText = widget.obscureText;
 
   @override
   void initState() {
@@ -326,6 +324,13 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
 
   TextInputType? _keyboardType() {
     return widget.keyboardType ?? widget.formController?.textInputType;
+  }
+
+  Widget? _trailing() {
+    if (widget.obscureText == true) {
+      return ExcludeFocus(child: ArtIconButton.secondary(icon: Icon(_obscureText ? LucideIcons.eyeOff : LucideIcons.eye), iconSize: 18, height: 24, width: 24, padding: EdgeInsets.zero, onPressed: () => setState(() => _obscureText = !_obscureText)));
+    }
+    return widget.trailing;
   }
 
   void Function(String v)? _onChanged(String v) {
@@ -394,7 +399,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           textDirection: widget.textDirection,
           autofocus: widget.autofocus,
           obscuringCharacter: widget.obscuringCharacter,
-          obscureText: widget.obscureText,
+          obscureText: _obscureText,
           autocorrect: widget.autocorrect,
           smartDashesType: widget.smartDashesType,
           smartQuotesType: widget.smartQuotesType,
@@ -439,7 +444,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           selectionColor: widget.selectionColor,
           padding: widget.padding,
           leading: widget.leading,
-          trailing: widget.trailing,
+          trailing: _trailing(),
           mainAxisAlignment: widget.mainAxisAlignment,
           crossAxisAlignment: widget.crossAxisAlignment,
           placeholderStyle: widget.placeholderStyle,
@@ -469,7 +474,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           textDirection: widget.textDirection,
           autofocus: widget.autofocus,
           obscuringCharacter: widget.obscuringCharacter,
-          obscureText: widget.obscureText,
+          obscureText: _obscureText,
           autocorrect: widget.autocorrect,
           smartDashesType: widget.smartDashesType,
           smartQuotesType: widget.smartQuotesType,
@@ -490,6 +495,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
             suffixText: widget.suffixText,
             label: widget.label,
             hintText: widget.placeHolderText,
+            suffixIcon: _trailing(),
             alignLabelWithHint: true,
             isDense: true,
           ),

@@ -20,6 +20,7 @@ dependencies:
   # auto_form_validate: ^1.0.5+2
   auto_form_validate:
     path: ../../auto_form_validate
+  lucide_icons_flutter: ^3.0.9
     # git: https://github.com/eduardohr-muniz/auto_form_validate
 
 dev_dependencies:
