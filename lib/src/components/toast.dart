@@ -6,10 +6,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 const kDefaultToastDuration = Duration(seconds: 4);
 
 /// Variants available for the [ArtToast] widget.
-enum ArtToastVariant {
-  primary,
-  destructive,
-}
+enum ArtToastVariant { primary, destructive }
 
 /// A customizable toast notification widget that wraps [ShadToast].
 class ArtToast extends StatelessWidget {
@@ -70,6 +67,34 @@ class ArtToast extends StatelessWidget {
     this.closeIconPosition,
     this.constraints,
   }) : variant = ArtToastVariant.destructive;
+  const ArtToast.raw({
+    super.key,
+    this.id,
+    this.title,
+    this.description,
+    this.action,
+    this.closeIcon,
+    this.closeIconData,
+    this.alignment,
+    this.offset,
+    this.duration = kDefaultToastDuration,
+    this.textDirection,
+    this.animateIn,
+    this.animateOut,
+    this.crossAxisAlignment,
+    this.showCloseIconOnlyWhenHovered,
+    this.titleStyle,
+    this.descriptionStyle,
+    this.actionPadding,
+    this.border,
+    this.radius,
+    this.shadows,
+    this.backgroundColor,
+    this.padding,
+    this.closeIconPosition,
+    this.constraints,
+    required this.variant,
+  });
 
   /// The unique identifier for the toast.
   final Object? id;
@@ -148,9 +173,9 @@ class ArtToast extends StatelessWidget {
 
   /// Maps [ArtToastVariant] to [ShadToastVariant].
   ShadToastVariant get _shadVariant => switch (variant) {
-        ArtToastVariant.primary => ShadToastVariant.primary,
-        ArtToastVariant.destructive => ShadToastVariant.destructive,
-      };
+    ArtToastVariant.primary => ShadToastVariant.primary,
+    ArtToastVariant.destructive => ShadToastVariant.destructive,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -220,10 +245,7 @@ class ArtToast extends StatelessWidget {
 /// A widget that manages and displays toasts within the widget tree.
 class ArtToaster extends StatelessWidget {
   /// Creates a toaster widget that wraps the provided child.
-  const ArtToaster({
-    super.key,
-    required this.child,
-  });
+  const ArtToaster({super.key, required this.child});
 
   /// The widget below the toaster in the tree.
   final Widget child;
@@ -246,10 +268,7 @@ class ArtToaster extends StatelessWidget {
 
 class ArtSonner extends StatelessWidget {
   /// Creates a toaster widget that wraps the provided child.
-  const ArtSonner({
-    super.key,
-    required this.child,
-  });
+  const ArtSonner({super.key, required this.child});
 
   /// The widget below the toaster in the tree.
   final Widget child;
