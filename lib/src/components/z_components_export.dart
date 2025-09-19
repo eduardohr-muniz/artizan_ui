@@ -17,3 +17,4 @@ export './context_menu.dart';
 export './menu_bar.dart';
 export './popover.dart';
 export './separator.dart';
+export './tabs.dart';

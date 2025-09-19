@@ -130,6 +130,7 @@ class ArtSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShadSheet(
       title: title,
+
       description: description,
       actions: actions,
       constraints: constraints,
