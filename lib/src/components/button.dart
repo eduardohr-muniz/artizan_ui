@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:artizan_ui/artizan_ui.dart';
+import 'package:artizan_ui/src/components/loader_on_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -16,13 +19,11 @@ enum ArtButtonVariant {
   const ArtButtonVariant(this.shadVariant);
 }
 
-enum ArtButtonSize {
-  regular,
-  sm,
-  lg,
-}
+enum ArtButtonSize { regular, sm, lg }
 
-class ArtButton extends StatelessWidget {
+typedef ArtButtonTheme = ShadButtonTheme;
+
+class ArtButton extends StatefulWidget {
   const ArtButton({
     super.key,
     this.child,
@@ -388,7 +389,7 @@ class ArtButton extends StatelessWidget {
     this.trailing,
   }) : variant = ArtButtonVariant.link;
 
-  final VoidCallback? onPressed;
+  final FutureOr<void> Function()? onPressed;
 
   final VoidCallback? onLongPress;
 
@@ -487,63 +488,103 @@ class ArtButton extends StatelessWidget {
   final bool? expands;
 
   @override
+  State<ArtButton> createState() => _ArtButtonState();
+}
+
+class _ArtButtonState extends State<ArtButton> {
+  bool _isLoading = false;
+
+  Widget? _effectiveChild(BuildContext context, ArtThemeData theme) {
+    if (widget.child == null) return null;
+    final foregroundColor = _buttonTheme(theme).foregroundColor;
+    if (_isLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.child!);
+    return widget.child;
+  }
+
+  FutureOr<void> _effectiveOnPressed() async {
+    final isFuture = widget.onPressed is Future Function();
+    if (isFuture) {
+      setState(() => _isLoading = true);
+      try {
+        await widget.onPressed!();
+      } finally {
+        setState(() => _isLoading = false);
+      }
+      return;
+    }
+    widget.onPressed!();
+  }
+
+  ArtButtonTheme _buttonTheme(ArtThemeData theme) {
+    return switch (widget.variant) {
+      ArtButtonVariant.primary => theme.primaryButtonTheme,
+      ArtButtonVariant.destructive => theme.destructiveButtonTheme,
+      ArtButtonVariant.secondary => theme.secondaryButtonTheme,
+      ArtButtonVariant.ghost => theme.ghostButtonTheme,
+      ArtButtonVariant.outline => theme.outlineButtonTheme,
+      ArtButtonVariant.link => theme.linkButtonTheme,
+    };
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = ArtTheme.of(context);
+
     return ShadButton.raw(
-      variant: variant.shadVariant,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      leading: leading,
-      trailing: trailing,
+      variant: widget.variant.shadVariant,
+      onPressed: _effectiveOnPressed,
+      onLongPress: widget.onLongPress,
+      leading: widget.leading,
+      trailing: widget.trailing,
       size: _mapSize(),
-      cursor: cursor,
-      width: width,
-      height: height,
-      padding: padding,
-      backgroundColor: backgroundColor,
-      hoverBackgroundColor: hoverBackgroundColor,
-      foregroundColor: variant == ArtButtonVariant.outline ? theme.colorScheme.foreground : foregroundColor,
-      hoverForegroundColor: hoverForegroundColor,
-      pressedBackgroundColor: pressedBackgroundColor,
-      pressedForegroundColor: pressedForegroundColor,
-      autofocus: autofocus,
-      focusNode: focusNode,
-      shadows: shadows,
-      gradient: gradient,
-      textDecoration: textDecoration,
-      hoverTextDecoration: hoverTextDecoration,
-      decoration: decoration,
-      enabled: enabled,
-      statesController: statesController,
-      mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: crossAxisAlignment,
-      hoverStrategies: hoverStrategies,
-      onHoverChange: onHoverChange,
-      onTapDown: onTapDown,
-      onTapUp: onTapUp,
-      onTapCancel: onTapCancel,
-      onSecondaryTapDown: onSecondaryTapDown,
-      onSecondaryTapUp: onSecondaryTapUp,
-      onSecondaryTapCancel: onSecondaryTapCancel,
-      onLongPressStart: onLongPressStart,
-      onLongPressCancel: onLongPressCancel,
-      onLongPressUp: onLongPressUp,
-      onLongPressDown: onLongPressDown,
-      onLongPressEnd: onLongPressEnd,
-      onDoubleTap: onDoubleTap,
-      onDoubleTapDown: onDoubleTapDown,
-      onDoubleTapCancel: onDoubleTapCancel,
-      longPressDuration: longPressDuration,
-      textDirection: textDirection,
-      gap: gap,
-      onFocusChange: onFocusChange,
-      expands: expands,
-      child: child,
+      cursor: widget.cursor,
+      width: widget.width,
+      height: widget.height,
+      padding: widget.padding,
+      backgroundColor: widget.backgroundColor,
+      hoverBackgroundColor: widget.hoverBackgroundColor,
+      foregroundColor: widget.variant == ArtButtonVariant.outline ? theme.colorScheme.foreground : widget.foregroundColor,
+      hoverForegroundColor: widget.hoverForegroundColor,
+      pressedBackgroundColor: widget.pressedBackgroundColor,
+      pressedForegroundColor: widget.pressedForegroundColor,
+      autofocus: widget.autofocus,
+      focusNode: widget.focusNode,
+      shadows: widget.shadows,
+      gradient: widget.gradient,
+      textDecoration: widget.textDecoration,
+      hoverTextDecoration: widget.hoverTextDecoration,
+      decoration: widget.decoration,
+      enabled: widget.enabled,
+      statesController: widget.statesController,
+      mainAxisAlignment: widget.mainAxisAlignment,
+      crossAxisAlignment: widget.crossAxisAlignment,
+      hoverStrategies: widget.hoverStrategies,
+      onHoverChange: widget.onHoverChange,
+      onTapDown: widget.onTapDown,
+      onTapUp: widget.onTapUp,
+      onTapCancel: widget.onTapCancel,
+      onSecondaryTapDown: widget.onSecondaryTapDown,
+      onSecondaryTapUp: widget.onSecondaryTapUp,
+      onSecondaryTapCancel: widget.onSecondaryTapCancel,
+      onLongPressStart: widget.onLongPressStart,
+      onLongPressCancel: widget.onLongPressCancel,
+      onLongPressUp: widget.onLongPressUp,
+      onLongPressDown: widget.onLongPressDown,
+      onLongPressEnd: widget.onLongPressEnd,
+      onDoubleTap: widget.onDoubleTap,
+      onDoubleTapDown: widget.onDoubleTapDown,
+      onDoubleTapCancel: widget.onDoubleTapCancel,
+      longPressDuration: widget.longPressDuration,
+      textDirection: widget.textDirection,
+      gap: widget.gap,
+      onFocusChange: widget.onFocusChange,
+      expands: widget.expands,
+      child: _effectiveChild(context, theme),
     );
   }
 
   ShadButtonSize? _mapSize() {
-    switch (size) {
+    switch (widget.size) {
       case ArtButtonSize.sm:
         return ShadButtonSize.sm;
       case ArtButtonSize.lg:

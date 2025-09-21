@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:artizan_ui/artizan_ui.dart';
+import 'package:artizan_ui/src/components/loader_on_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class ArtIconButton extends StatelessWidget {
+class ArtIconButton extends StatefulWidget {
   const ArtIconButton({
     super.key,
     required this.icon,
@@ -89,10 +92,7 @@ class ArtIconButton extends StatelessWidget {
     this.onDoubleTapDown,
     this.onDoubleTapCancel,
     this.longPressDuration,
-  }) : assert(
-          variant != ArtButtonVariant.link,
-          "ShadIconButton doesn't support the link variant",
-        );
+  }) : assert(variant != ArtButtonVariant.link, "ShadIconButton doesn't support the link variant");
 
   const ArtIconButton.destructive({
     super.key,
@@ -268,7 +268,7 @@ class ArtIconButton extends StatelessWidget {
 
   final ArtButtonVariant variant;
 
-  final VoidCallback? onPressed;
+  final FutureOr<void> Function()? onPressed;
 
   final VoidCallback? onLongPress;
 
@@ -347,48 +347,88 @@ class ArtIconButton extends StatelessWidget {
   final ValueChanged<bool>? onFocusChange;
 
   @override
+  State<ArtIconButton> createState() => _ArtIconButtonState();
+}
+
+class _ArtIconButtonState extends State<ArtIconButton> {
+  bool _isLoading = false;
+
+  Widget _effectiveIcon(BuildContext context, ArtThemeData theme) {
+    final foregroundColor = _buttonTheme(theme).foregroundColor;
+    if (_isLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.icon);
+    return widget.icon;
+  }
+
+  FutureOr<void> _effectiveOnPressed() async {
+    final isFuture = widget.onPressed is Future Function();
+    if (isFuture) {
+      setState(() => _isLoading = true);
+      try {
+        await widget.onPressed!();
+      } finally {
+        setState(() => _isLoading = false);
+      }
+      return;
+    }
+    widget.onPressed!();
+  }
+
+  ArtButtonTheme _buttonTheme(ArtThemeData theme) {
+    return switch (widget.variant) {
+      ArtButtonVariant.primary => theme.primaryButtonTheme,
+      ArtButtonVariant.destructive => theme.destructiveButtonTheme,
+      ArtButtonVariant.secondary => theme.secondaryButtonTheme,
+      ArtButtonVariant.ghost => theme.ghostButtonTheme,
+      ArtButtonVariant.outline => theme.outlineButtonTheme,
+      ArtButtonVariant.link => theme.linkButtonTheme,
+    };
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final theme = ArtTheme.of(context);
+
     return ShadIconButton.raw(
-      icon: icon,
-      iconSize: iconSize,
-      variant: variant.shadVariant,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      cursor: cursor,
-      width: width,
-      height: height,
-      padding: padding,
-      backgroundColor: backgroundColor,
-      hoverBackgroundColor: hoverBackgroundColor,
-      foregroundColor: foregroundColor,
-      hoverForegroundColor: hoverForegroundColor,
-      autofocus: autofocus,
-      focusNode: focusNode,
-      pressedBackgroundColor: pressedBackgroundColor,
-      pressedForegroundColor: pressedForegroundColor,
-      shadows: shadows,
-      gradient: gradient,
-      decoration: decoration,
-      enabled: enabled,
-      statesController: statesController,
-      hoverStrategies: hoverStrategies,
-      onHoverChange: onHoverChange,
-      onTapDown: onTapDown,
-      onTapUp: onTapUp,
-      onTapCancel: onTapCancel,
-      onSecondaryTapDown: onSecondaryTapDown,
-      onSecondaryTapUp: onSecondaryTapUp,
-      onSecondaryTapCancel: onSecondaryTapCancel,
-      onLongPressStart: onLongPressStart,
-      onLongPressCancel: onLongPressCancel,
-      onLongPressUp: onLongPressUp,
-      onLongPressDown: onLongPressDown,
-      onLongPressEnd: onLongPressEnd,
-      onDoubleTap: onDoubleTap,
-      onDoubleTapDown: onDoubleTapDown,
-      onDoubleTapCancel: onDoubleTapCancel,
-      longPressDuration: longPressDuration,
-      onFocusChange: onFocusChange,
+      icon: _effectiveIcon(context, theme),
+      iconSize: widget.iconSize,
+      variant: widget.variant.shadVariant,
+      onPressed: _effectiveOnPressed,
+      onLongPress: widget.onLongPress,
+      cursor: widget.cursor,
+      width: widget.width,
+      height: widget.height,
+      padding: widget.padding,
+      backgroundColor: widget.backgroundColor,
+      hoverBackgroundColor: widget.hoverBackgroundColor,
+      foregroundColor: widget.foregroundColor,
+      hoverForegroundColor: widget.hoverForegroundColor,
+      autofocus: widget.autofocus,
+      focusNode: widget.focusNode,
+      pressedBackgroundColor: widget.pressedBackgroundColor,
+      pressedForegroundColor: widget.pressedForegroundColor,
+      shadows: widget.shadows,
+      gradient: widget.gradient,
+      decoration: widget.decoration,
+      enabled: widget.enabled,
+      statesController: widget.statesController,
+      hoverStrategies: widget.hoverStrategies,
+      onHoverChange: widget.onHoverChange,
+      onTapDown: widget.onTapDown,
+      onTapUp: widget.onTapUp,
+      onTapCancel: widget.onTapCancel,
+      onSecondaryTapDown: widget.onSecondaryTapDown,
+      onSecondaryTapUp: widget.onSecondaryTapUp,
+      onSecondaryTapCancel: widget.onSecondaryTapCancel,
+      onLongPressStart: widget.onLongPressStart,
+      onLongPressCancel: widget.onLongPressCancel,
+      onLongPressUp: widget.onLongPressUp,
+      onLongPressDown: widget.onLongPressDown,
+      onLongPressEnd: widget.onLongPressEnd,
+      onDoubleTap: widget.onDoubleTap,
+      onDoubleTapDown: widget.onDoubleTapDown,
+      onDoubleTapCancel: widget.onDoubleTapCancel,
+      longPressDuration: widget.longPressDuration,
+      onFocusChange: widget.onFocusChange,
     );
   }
 }
