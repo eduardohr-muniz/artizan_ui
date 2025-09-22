@@ -505,14 +505,15 @@ class _ArtButtonState extends State<ArtButton> {
 
   bool get _effectiveIsLoading => widget.isLoading ?? _isLoading;
 
-  Widget? _effectiveChild(BuildContext context, ArtThemeData theme) {
-    if (widget.child == null) return null;
+  Widget? _effectiveTrailing(BuildContext context, ArtThemeData theme) {
+    if (_effectiveIsLoading == false) return widget.trailing;
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (_effectiveIsLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.child!);
-    return widget.child;
+    if (widget.trailing == null) return SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, strokeCap: StrokeCap.round, color: foregroundColor ?? context.artColorScheme.foreground));
+    return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.child!);
   }
 
   FutureOr<void> _effectiveOnPressed() async {
+    if (_effectiveIsLoading) return;
     final isFuture = widget.onPressed is Future Function();
     if (isFuture && widget.isLoading == null) {
       setState(() => _isLoading = true);
@@ -546,7 +547,7 @@ class _ArtButtonState extends State<ArtButton> {
       onPressed: _effectiveOnPressed,
       onLongPress: widget.onLongPress,
       leading: widget.leading,
-      trailing: widget.trailing,
+      trailing: _effectiveTrailing(context, theme),
       size: _mapSize(),
       cursor: widget.cursor,
       width: widget.width,
@@ -590,7 +591,7 @@ class _ArtButtonState extends State<ArtButton> {
       gap: widget.gap,
       onFocusChange: widget.onFocusChange,
       expands: widget.expands,
-      child: _effectiveChild(context, theme),
+      child: widget.child,
     );
   }
 

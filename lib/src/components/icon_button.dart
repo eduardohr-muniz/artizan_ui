@@ -370,6 +370,7 @@ class _ArtIconButtonState extends State<ArtIconButton> {
   }
 
   FutureOr<void> _effectiveOnPressed() async {
+    if (_effectiveIsLoading) return;
     final isFuture = widget.onPressed is Future Function();
     if (isFuture && widget.isLoading == null) {
       setState(() => _isLoading = true);
