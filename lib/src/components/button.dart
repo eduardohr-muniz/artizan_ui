@@ -74,6 +74,7 @@ class ArtButton extends StatefulWidget {
     this.gap,
     this.onFocusChange,
     this.expands,
+    this.isLoading,
   }) : variant = ArtButtonVariant.primary;
 
   const ArtButton.raw({
@@ -127,6 +128,7 @@ class ArtButton extends StatefulWidget {
     this.gap,
     this.onFocusChange,
     this.expands,
+    this.isLoading,
   });
 
   const ArtButton.destructive({
@@ -179,6 +181,7 @@ class ArtButton extends StatefulWidget {
     this.gap,
     this.onFocusChange,
     this.expands,
+    this.isLoading,
   }) : variant = ArtButtonVariant.destructive;
 
   const ArtButton.outline({
@@ -231,6 +234,7 @@ class ArtButton extends StatefulWidget {
     this.gap,
     this.onFocusChange,
     this.expands,
+    this.isLoading,
   }) : variant = ArtButtonVariant.outline;
 
   const ArtButton.secondary({
@@ -283,6 +287,7 @@ class ArtButton extends StatefulWidget {
     this.gap,
     this.onFocusChange,
     this.expands,
+    this.isLoading,
   }) : variant = ArtButtonVariant.secondary;
 
   const ArtButton.ghost({
@@ -335,6 +340,7 @@ class ArtButton extends StatefulWidget {
     this.gap,
     this.onFocusChange,
     this.expands,
+    this.isLoading,
   }) : variant = ArtButtonVariant.ghost;
 
   const ArtButton.link({
@@ -387,6 +393,7 @@ class ArtButton extends StatefulWidget {
     this.expands,
     this.leading,
     this.trailing,
+    this.isLoading,
   }) : variant = ArtButtonVariant.link;
 
   final FutureOr<void> Function()? onPressed;
@@ -487,6 +494,8 @@ class ArtButton extends StatefulWidget {
 
   final bool? expands;
 
+  final bool? isLoading;
+
   @override
   State<ArtButton> createState() => _ArtButtonState();
 }
@@ -494,16 +503,18 @@ class ArtButton extends StatefulWidget {
 class _ArtButtonState extends State<ArtButton> {
   bool _isLoading = false;
 
+  bool get _effectiveIsLoading => widget.isLoading ?? _isLoading;
+
   Widget? _effectiveChild(BuildContext context, ArtThemeData theme) {
     if (widget.child == null) return null;
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (_isLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.child!);
+    if (_effectiveIsLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.child!);
     return widget.child;
   }
 
   FutureOr<void> _effectiveOnPressed() async {
     final isFuture = widget.onPressed is Future Function();
-    if (isFuture) {
+    if (isFuture && widget.isLoading == null) {
       setState(() => _isLoading = true);
       try {
         await widget.onPressed!();

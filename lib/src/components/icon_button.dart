@@ -48,6 +48,7 @@ class ArtIconButton extends StatefulWidget {
     this.onDoubleTapCancel,
     this.longPressDuration,
     this.onFocusChange,
+    this.isLoading,
   }) : variant = ArtButtonVariant.primary;
 
   const ArtIconButton.raw({
@@ -92,6 +93,7 @@ class ArtIconButton extends StatefulWidget {
     this.onDoubleTapDown,
     this.onDoubleTapCancel,
     this.longPressDuration,
+    this.isLoading,
   }) : assert(variant != ArtButtonVariant.link, "ShadIconButton doesn't support the link variant");
 
   const ArtIconButton.destructive({
@@ -135,6 +137,7 @@ class ArtIconButton extends StatefulWidget {
     this.onDoubleTapDown,
     this.onDoubleTapCancel,
     this.longPressDuration,
+    this.isLoading,
   }) : variant = ArtButtonVariant.destructive;
 
   const ArtIconButton.outline({
@@ -178,6 +181,7 @@ class ArtIconButton extends StatefulWidget {
     this.onDoubleTapCancel,
     this.longPressDuration,
     this.onFocusChange,
+    this.isLoading,
   }) : variant = ArtButtonVariant.outline;
 
   const ArtIconButton.secondary({
@@ -221,6 +225,7 @@ class ArtIconButton extends StatefulWidget {
     this.onDoubleTapCancel,
     this.longPressDuration,
     this.onFocusChange,
+    this.isLoading,
   }) : variant = ArtButtonVariant.secondary;
 
   const ArtIconButton.ghost({
@@ -264,6 +269,7 @@ class ArtIconButton extends StatefulWidget {
     this.onDoubleTapCancel,
     this.longPressDuration,
     this.onFocusChange,
+    this.isLoading,
   }) : variant = ArtButtonVariant.ghost;
 
   final ArtButtonVariant variant;
@@ -346,6 +352,8 @@ class ArtIconButton extends StatefulWidget {
 
   final ValueChanged<bool>? onFocusChange;
 
+  final bool? isLoading;
+
   @override
   State<ArtIconButton> createState() => _ArtIconButtonState();
 }
@@ -353,15 +361,17 @@ class ArtIconButton extends StatefulWidget {
 class _ArtIconButtonState extends State<ArtIconButton> {
   bool _isLoading = false;
 
+  bool get _effectiveIsLoading => widget.isLoading ?? _isLoading;
+
   Widget _effectiveIcon(BuildContext context, ArtThemeData theme) {
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (_isLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.icon);
+    if (_effectiveIsLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.icon);
     return widget.icon;
   }
 
   FutureOr<void> _effectiveOnPressed() async {
     final isFuture = widget.onPressed is Future Function();
-    if (isFuture) {
+    if (isFuture && widget.isLoading == null) {
       setState(() => _isLoading = true);
       try {
         await widget.onPressed!();
