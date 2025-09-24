@@ -11,7 +11,7 @@ class ArtLoardOnButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
-      children: [Visibility(visible: !visibility, maintainState: true, maintainSize: true, maintainAnimation: true, child: child), if (visibility) SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, strokeCap: StrokeCap.round, color: color))],
+      children: [Visibility(visible: !visibility, maintainState: true, maintainSize: true, maintainAnimation: true, child: child), if (visibility) SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 1.3, strokeCap: StrokeCap.round, color: color))],
     );
   }
 }

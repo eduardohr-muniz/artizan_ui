@@ -12,7 +12,8 @@ enum ArtButtonVariant {
   outline(ShadButtonVariant.outline),
   secondary(ShadButtonVariant.secondary),
   ghost(ShadButtonVariant.ghost),
-  link(ShadButtonVariant.link);
+  link(ShadButtonVariant.link),
+  darken(ShadButtonVariant.primary);
 
   final ShadButtonVariant shadVariant;
 
@@ -396,6 +397,59 @@ class ArtButton extends StatefulWidget {
     this.isLoading,
   }) : variant = ArtButtonVariant.link;
 
+  const ArtButton.darken({
+    super.key,
+    required this.child,
+    this.onPressed,
+    this.size,
+    this.cursor,
+    this.width,
+    this.height,
+    this.padding,
+    this.backgroundColor,
+    this.hoverBackgroundColor,
+    this.foregroundColor,
+    this.hoverForegroundColor,
+    this.autofocus = false,
+    this.focusNode,
+    this.pressedBackgroundColor,
+    this.pressedForegroundColor,
+    this.shadows,
+    this.gradient,
+    this.textDecoration,
+    this.hoverTextDecoration,
+    this.decoration,
+    this.enabled = true,
+    this.onLongPress,
+    this.statesController,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+    this.hoverStrategies,
+    this.onHoverChange,
+    this.onTapDown,
+    this.onTapUp,
+    this.onTapCancel,
+    this.onSecondaryTapDown,
+    this.onSecondaryTapUp,
+    this.onSecondaryTapCancel,
+    this.onLongPressStart,
+    this.onLongPressCancel,
+    this.onLongPressUp,
+    this.onLongPressDown,
+    this.onLongPressEnd,
+    this.onDoubleTap,
+    this.onDoubleTapDown,
+    this.onDoubleTapCancel,
+    this.longPressDuration,
+    this.textDirection,
+    this.gap,
+    this.onFocusChange,
+    this.expands,
+    this.leading,
+    this.trailing,
+    this.isLoading,
+  }) : variant = ArtButtonVariant.darken;
+
   final FutureOr<void> Function()? onPressed;
 
   final VoidCallback? onLongPress;
@@ -508,8 +562,8 @@ class _ArtButtonState extends State<ArtButton> {
   Widget? _effectiveTrailing(BuildContext context, ArtThemeData theme) {
     if (_effectiveIsLoading == false) return widget.trailing;
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (widget.trailing == null) return SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, strokeCap: StrokeCap.round, color: foregroundColor ?? context.artColorScheme.foreground));
-    return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.child!);
+    if (widget.trailing == null) return SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 1, strokeCap: StrokeCap.round, color: foregroundColor ?? context.artColorScheme.foreground));
+    return ArtLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.trailing!);
   }
 
   FutureOr<void> _effectiveOnPressed() async {
@@ -528,6 +582,7 @@ class _ArtButtonState extends State<ArtButton> {
   }
 
   ArtButtonTheme _buttonTheme(ArtThemeData theme) {
+    final isDark = theme.brightness == Brightness.dark;
     return switch (widget.variant) {
       ArtButtonVariant.primary => theme.primaryButtonTheme,
       ArtButtonVariant.destructive => theme.destructiveButtonTheme,
@@ -535,8 +590,27 @@ class _ArtButtonState extends State<ArtButton> {
       ArtButtonVariant.ghost => theme.ghostButtonTheme,
       ArtButtonVariant.outline => theme.outlineButtonTheme,
       ArtButtonVariant.link => theme.linkButtonTheme,
+      ArtButtonVariant.darken => theme.primaryButtonTheme.copyWith(
+        backgroundColor: isDark ? Colors.white : Colors.black,
+        foregroundColor: isDark ? Colors.black : Colors.white,
+        hoverBackgroundColor: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black.withValues(alpha: 0.9),
+        hoverForegroundColor: isDark ? Colors.black : Colors.white,
+        pressedBackgroundColor: isDark ? Colors.white : Colors.black,
+        pressedForegroundColor: isDark ? Colors.black : Colors.white,
+      ),
     };
   }
+
+  Color? _effectiveForegroundColor(BuildContext context, ArtButtonTheme buttonTheme) {
+    if (widget.variant == ArtButtonVariant.outline) return context.artColorScheme.foreground;
+    return buttonTheme.foregroundColor;
+  }
+
+  Color? _effectiveBackgroundColor(ArtButtonTheme buttonTheme) => buttonTheme.backgroundColor;
+  Color? _effectiveHoverBackgroundColor(ArtButtonTheme buttonTheme) => buttonTheme.hoverBackgroundColor;
+  Color? _effectivePressedBackgroundColor(ArtButtonTheme buttonTheme) => buttonTheme.pressedBackgroundColor;
+  Color? _effectiveHoverForegroundColor(ArtButtonTheme buttonTheme) => buttonTheme.hoverForegroundColor;
+  Color? _effectivePressedForegroundColor(ArtButtonTheme buttonTheme) => buttonTheme.pressedForegroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -553,12 +627,12 @@ class _ArtButtonState extends State<ArtButton> {
       width: widget.width,
       height: widget.height,
       padding: widget.padding,
-      backgroundColor: widget.backgroundColor,
-      hoverBackgroundColor: widget.hoverBackgroundColor,
-      foregroundColor: widget.variant == ArtButtonVariant.outline ? theme.colorScheme.foreground : widget.foregroundColor,
-      hoverForegroundColor: widget.hoverForegroundColor,
-      pressedBackgroundColor: widget.pressedBackgroundColor,
-      pressedForegroundColor: widget.pressedForegroundColor,
+      backgroundColor: widget.backgroundColor ?? _effectiveBackgroundColor(_buttonTheme(theme)),
+      hoverBackgroundColor: widget.hoverBackgroundColor ?? _effectiveHoverBackgroundColor(_buttonTheme(theme)),
+      foregroundColor: widget.foregroundColor ?? _effectiveForegroundColor(context, _buttonTheme(theme)),
+      hoverForegroundColor: widget.hoverForegroundColor ?? _effectiveHoverForegroundColor(_buttonTheme(theme)),
+      pressedBackgroundColor: widget.pressedBackgroundColor ?? _effectivePressedBackgroundColor(_buttonTheme(theme)),
+      pressedForegroundColor: widget.pressedForegroundColor ?? _effectivePressedForegroundColor(_buttonTheme(theme)),
       autofocus: widget.autofocus,
       focusNode: widget.focusNode,
       shadows: widget.shadows,

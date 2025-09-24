@@ -271,6 +271,49 @@ class ArtIconButton extends StatefulWidget {
     this.onFocusChange,
     this.isLoading,
   }) : variant = ArtButtonVariant.ghost;
+  const ArtIconButton.darken({
+    super.key,
+    required this.icon,
+    this.iconSize,
+    this.onPressed,
+    this.cursor,
+    this.width,
+    this.height,
+    this.padding,
+    this.backgroundColor,
+    this.hoverBackgroundColor,
+    this.foregroundColor,
+    this.hoverForegroundColor,
+    this.autofocus = false,
+    this.focusNode,
+    this.pressedBackgroundColor,
+    this.pressedForegroundColor,
+    this.shadows,
+    this.gradient,
+    this.decoration,
+    this.enabled = true,
+    this.onLongPress,
+    this.statesController,
+    this.hoverStrategies,
+    this.onHoverChange,
+    this.onTapDown,
+    this.onTapUp,
+    this.onTapCancel,
+    this.onSecondaryTapDown,
+    this.onSecondaryTapUp,
+    this.onSecondaryTapCancel,
+    this.onLongPressStart,
+    this.onLongPressCancel,
+    this.onLongPressUp,
+    this.onLongPressDown,
+    this.onLongPressEnd,
+    this.onDoubleTap,
+    this.onDoubleTapDown,
+    this.onDoubleTapCancel,
+    this.longPressDuration,
+    this.onFocusChange,
+    this.isLoading,
+  }) : variant = ArtButtonVariant.darken;
 
   final ArtButtonVariant variant;
 
@@ -365,7 +408,7 @@ class _ArtIconButtonState extends State<ArtIconButton> {
 
   Widget _effectiveIcon(BuildContext context, ArtThemeData theme) {
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (_effectiveIsLoading) return ArtLoardOnButton(visibility: _isLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.icon);
+    if (_effectiveIsLoading) return ArtLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.icon);
     return widget.icon;
   }
 
@@ -385,6 +428,7 @@ class _ArtIconButtonState extends State<ArtIconButton> {
   }
 
   ArtButtonTheme _buttonTheme(ArtThemeData theme) {
+    final isDark = theme.brightness == Brightness.dark;
     return switch (widget.variant) {
       ArtButtonVariant.primary => theme.primaryButtonTheme,
       ArtButtonVariant.destructive => theme.destructiveButtonTheme,
@@ -392,8 +436,27 @@ class _ArtIconButtonState extends State<ArtIconButton> {
       ArtButtonVariant.ghost => theme.ghostButtonTheme,
       ArtButtonVariant.outline => theme.outlineButtonTheme,
       ArtButtonVariant.link => theme.linkButtonTheme,
+      ArtButtonVariant.darken => theme.primaryButtonTheme.copyWith(
+        backgroundColor: isDark ? Colors.white : Colors.black,
+        foregroundColor: isDark ? Colors.black : Colors.white,
+        hoverBackgroundColor: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.1),
+        hoverForegroundColor: isDark ? Colors.black : Colors.white,
+        pressedBackgroundColor: isDark ? Colors.white.withValues(alpha: 0.2) : Colors.black.withValues(alpha: 0.2),
+        pressedForegroundColor: isDark ? Colors.black : Colors.white,
+      ),
     };
   }
+
+  Color? _effectiveForegroundColor(BuildContext context, ArtButtonTheme buttonTheme) {
+    if (widget.variant == ArtButtonVariant.outline) return context.artColorScheme.foreground;
+    return buttonTheme.foregroundColor;
+  }
+
+  Color? _effectiveBackgroundColor(ArtButtonTheme buttonTheme) => buttonTheme.backgroundColor;
+  Color? _effectiveHoverBackgroundColor(ArtButtonTheme buttonTheme) => buttonTheme.hoverBackgroundColor;
+  Color? _effectivePressedBackgroundColor(ArtButtonTheme buttonTheme) => buttonTheme.pressedBackgroundColor;
+  Color? _effectiveHoverForegroundColor(ArtButtonTheme buttonTheme) => buttonTheme.hoverForegroundColor;
+  Color? _effectivePressedForegroundColor(ArtButtonTheme buttonTheme) => buttonTheme.pressedForegroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -409,14 +472,14 @@ class _ArtIconButtonState extends State<ArtIconButton> {
       width: widget.width,
       height: widget.height,
       padding: widget.padding,
-      backgroundColor: widget.backgroundColor,
-      hoverBackgroundColor: widget.hoverBackgroundColor,
-      foregroundColor: widget.foregroundColor,
-      hoverForegroundColor: widget.hoverForegroundColor,
+      backgroundColor: widget.backgroundColor ?? _effectiveBackgroundColor(theme.primaryButtonTheme),
+      hoverBackgroundColor: widget.hoverBackgroundColor ?? _effectiveHoverBackgroundColor(theme.primaryButtonTheme),
+      foregroundColor: widget.foregroundColor ?? _effectiveForegroundColor(context, theme.primaryButtonTheme),
+      hoverForegroundColor: widget.hoverForegroundColor ?? _effectiveHoverForegroundColor(theme.primaryButtonTheme),
       autofocus: widget.autofocus,
       focusNode: widget.focusNode,
-      pressedBackgroundColor: widget.pressedBackgroundColor,
-      pressedForegroundColor: widget.pressedForegroundColor,
+      pressedBackgroundColor: widget.pressedBackgroundColor ?? _effectivePressedBackgroundColor(theme.primaryButtonTheme),
+      pressedForegroundColor: widget.pressedForegroundColor ?? _effectivePressedForegroundColor(theme.primaryButtonTheme),
       shadows: widget.shadows,
       gradient: widget.gradient,
       decoration: widget.decoration,
