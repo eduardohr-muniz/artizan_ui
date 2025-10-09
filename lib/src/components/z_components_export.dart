@@ -18,3 +18,4 @@ export './menu_bar.dart';
 export './popover.dart';
 export './separator.dart';
 export './tabs.dart';
+export './progress.dart';

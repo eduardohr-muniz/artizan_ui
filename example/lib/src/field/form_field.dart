@@ -1,6 +1,5 @@
 import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/services/text_formatter.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 @UseCase(name: 'FormField', type: ArtTextFormField)
@@ -21,6 +20,8 @@ class CpfCnpjFormController extends FormController {
         if (value.length != 14) return 'CPF/CNPJ inválido';
         return null;
       };
+
+  RegExp get regex => RegExp(r'^[0-9]$');
 }
 
 class FormField extends StatefulWidget {

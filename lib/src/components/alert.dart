@@ -1,43 +1,29 @@
+import 'package:artizan_ui/src/type_defs.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-enum ArtAlertVariant {
-  primary,
-  destructive,
-}
+enum ArtAlertVariant { success, info, warning, destructive, custom }
 
 class ArtAlert extends StatelessWidget {
-  const ArtAlert({
-    super.key,
-    this.icon,
-    this.iconData,
-    this.title,
-    this.description,
-    this.textDirection,
-    this.decoration,
-    this.iconPadding,
-    this.iconColor,
-    this.titleStyle,
-    this.descriptionStyle,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-  }) : variant = ArtAlertVariant.primary;
+  /// Success variant - green
+  const ArtAlert.success({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
+    : variant = ArtAlertVariant.success;
 
-  const ArtAlert.destructive({
-    super.key,
-    this.icon,
-    this.iconData,
-    this.title,
-    this.description,
-    this.textDirection,
-    this.decoration,
-    this.iconPadding,
-    this.iconColor,
-    this.titleStyle,
-    this.descriptionStyle,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-  }) : variant = ArtAlertVariant.destructive;
+  /// Info variant - blue
+  const ArtAlert.info({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
+    : variant = ArtAlertVariant.info;
+
+  /// Warning variant - orange
+  const ArtAlert.warning({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
+    : variant = ArtAlertVariant.warning;
+
+  /// Destructive variant - red
+  const ArtAlert.destructive({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
+    : variant = ArtAlertVariant.destructive;
+
+  /// Raw constructor - all parameters customizable
+  const ArtAlert.raw({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
+    : variant = ArtAlertVariant.custom;
 
   final ArtAlertVariant variant;
 
@@ -65,23 +51,53 @@ class ArtAlert extends StatelessWidget {
 
   final CrossAxisAlignment? crossAxisAlignment;
 
-  ShadAlertVariant get _shadVariant => switch (variant) {
-        ArtAlertVariant.primary => ShadAlertVariant.primary,
-        ArtAlertVariant.destructive => ShadAlertVariant.destructive,
-      };
+  ShadDecoration _getDecoration(BuildContext context) {
+    if (decoration != null) return decoration!;
+
+    return switch (variant) {
+      ArtAlertVariant.success => ShadDecoration(color: Colors.green.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.green.shade300)),
+      ArtAlertVariant.info => ShadDecoration(color: Colors.blue.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.blue.shade300)),
+      ArtAlertVariant.warning => ShadDecoration(color: Colors.orange.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.orange.shade300)),
+      ArtAlertVariant.destructive => ShadDecoration(color: Colors.red.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.red.shade300)),
+      ArtAlertVariant.custom => const ShadDecoration(),
+    };
+  }
+
+  Color? _getIconColor() {
+    if (iconColor != null) return iconColor;
+
+    return switch (variant) {
+      ArtAlertVariant.success => Colors.green,
+      ArtAlertVariant.info => Colors.blue,
+      ArtAlertVariant.warning => Colors.orange,
+      ArtAlertVariant.destructive => Colors.red,
+      ArtAlertVariant.custom => null,
+    };
+  }
+
+  IconData? _getDefaultIconData() {
+    if (iconData != null || icon != null) return iconData;
+
+    return switch (variant) {
+      ArtAlertVariant.success => Icons.check_circle,
+      ArtAlertVariant.info => Icons.info,
+      ArtAlertVariant.warning => Icons.warning,
+      ArtAlertVariant.destructive => Icons.error,
+      ArtAlertVariant.custom => null,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ShadAlert.raw(
-      variant: _shadVariant,
+    return ShadAlert(
       icon: icon,
-      iconData: iconData,
+      iconData: _getDefaultIconData(),
       title: title,
       description: description,
       textDirection: textDirection,
-      decoration: decoration,
+      decoration: _getDecoration(context),
       iconPadding: iconPadding,
-      iconColor: iconColor,
+      iconColor: _getIconColor(),
       titleStyle: titleStyle,
       descriptionStyle: descriptionStyle,
       mainAxisAlignment: mainAxisAlignment,
