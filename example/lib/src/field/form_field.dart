@@ -36,6 +36,16 @@ class _FormFieldState extends State<FormField> {
   final cpfCnpjEC = TextEditingController(
     text: '12973643686',
   );
+  final cpfCnpjFN = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    cpfCnpjFN.addListener(() {
+      print('cpfCnpjFN hasFocus: ${cpfCnpjFN.hasFocus}');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +62,7 @@ class _FormFieldState extends State<FormField> {
                 formController: CpfCnpjFormController(),
                 label: Text('CPF/CNPJ'),
                 controller: cpfCnpjEC,
+                focusNode: cpfCnpjFN,
               ),
               SizedBox(height: 16),
               ArtButton(
