@@ -296,7 +296,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
   @override
   void initState() {
     _validate();
-    _focusNode = widget.formController?.helper.prepareFocusNode(widget.focusNode);
+    _focusNode = widget.formController?.helper.prepareFocusNode(widget.focusNode) ?? widget.focusNode;
     if (widget.controller != null) _handleInitalValueController();
     super.initState();
   }
