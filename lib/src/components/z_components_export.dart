@@ -19,3 +19,4 @@ export './popover.dart';
 export './separator.dart';
 export './tabs.dart';
 export './progress.dart';
+export './slider.dart';
