@@ -13,8 +13,7 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.2
   shadcn_ui:
-    ^0.27.1
-    # git: https://github.com/eduardohr-muniz/flutter-shadcn-ui
+    git: https://github.com/eduardohr-muniz/flutter-shadcn-ui
   boxy: ^2.2.0
   collection: ^1.18.0
   # auto_form_validate: ^1.0.5+2

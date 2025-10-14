@@ -52,8 +52,7 @@ class ArtCheckBox extends StatelessWidget {
 
   final CrossAxisAlignment? crossAxisAlignment;
 
-  final EdgeInsets? checkboxPadding;
-
+  final WidgetOrderPolicy? orderPolicy;
   const ArtCheckBox({
     required this.initialValue,
     super.key,
@@ -80,7 +79,7 @@ class ArtCheckBox extends StatelessWidget {
     this.padding,
     this.direction,
     this.crossAxisAlignment,
-    this.checkboxPadding,
+    this.orderPolicy,
   });
 
   @override
@@ -111,7 +110,7 @@ class ArtCheckBox extends StatelessWidget {
       padding: padding,
       direction: direction,
       crossAxisAlignment: crossAxisAlignment,
-      checkboxPadding: checkboxPadding,
+      orderPolicy: orderPolicy,
     );
   }
 }
