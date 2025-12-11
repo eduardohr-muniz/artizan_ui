@@ -3,6 +3,8 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 typedef ArtSliderController = ShadSliderController;
 
+typedef ArtSliderInteraction = ShadSliderInteraction;
+
 class ArtSlider extends StatelessWidget {
   /// {@macro ShadSlider.initialValue}
   final double? initialValue;
@@ -77,7 +79,7 @@ class ArtSlider extends StatelessWidget {
   final SemanticFormatterCallback? semanticFormatterCallback;
 
   /// {@macro ShadSlider.allowedInteraction}
-  final SliderInteraction? allowedInteraction;
+  final ArtSliderInteraction? allowedInteraction;
 
   /// {@macro ShadSliderController}
   final ArtSliderController? controller;

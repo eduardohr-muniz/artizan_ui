@@ -160,7 +160,7 @@ class ArtCard extends StatelessWidget {
     final effectivePadding = padding ?? theme.cardTheme.padding ?? const EdgeInsets.all(24);
     final effectiveBackgroundColor = backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;
     final effectiveRadius = radius ?? theme.cardTheme.radius ?? theme.radius;
-    final effectiveBorder = border ?? theme.cardTheme.border ?? Border.all(color: theme.colorScheme.border);
+    final effectiveBorder = border ?? BoxBorder.all(color: theme.colorScheme.border);
     final effectiveShadows = shadows ?? theme.cardTheme.shadows;
 
     final effectiveRowMainAxisSize = rowMainAxisSize ?? theme.cardTheme.rowMainAxisSize ?? MainAxisSize.min;

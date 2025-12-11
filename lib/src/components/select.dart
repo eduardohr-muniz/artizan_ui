@@ -1,9 +1,11 @@
 import 'dart:ui';
 
+import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-import 'package:artizan_ui/artizan_ui.dart';
+// /// Typedef para decoração
+// typedef ArtDecoration = ShadDecoration;
 
 /// Typedef para o construtor da opção selecionada
 typedef ArtSelectedOptionBuilder<T> = ShadSelectedOptionBuilder<T>;
@@ -481,18 +483,18 @@ class ArtSelectMultiple<T> extends StatelessWidget {
     return ShadSelectMultipleFormField<T>(
       id: id,
       key: key,
-      onSaved: onSaved,
+      onSaved: onSaved != null ? (value) => onSaved!(value?.toList()) : null,
       label: label,
       description: description,
-      onChanged: onChanged,
-      valueTransformer: valueTransformer,
+      onChanged: onChanged != null ? (value) => onChanged!(value?.toList()) : null,
+      valueTransformer: valueTransformer != null ? (value) => valueTransformer!(value?.toList()) : null,
       onReset: onReset,
       enabled: enabled,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
-      initialValue: initialValue,
+      initialValue: initialValue?.toSet(),
       focusNode: focusNode,
-      validator: validator,
+      validator: validator != null ? (value) => validator!(value?.toList()) : null,
       selectedOptionsBuilder: selectedOptionsBuilder,
       options: options,
       optionsBuilder: optionsBuilder,
@@ -528,13 +530,12 @@ class ArtOption<T> extends StatelessWidget {
   final EdgeInsets? padding;
   final Widget? selectedIcon;
   final BorderRadius? radius;
-  final OrderPolicy<Widget>? orderPolicy;
   final TextDirection? direction;
 
-  const ArtOption({super.key, required this.value, required this.child, this.hoveredBackgroundColor, this.padding, this.selectedIcon, this.radius, this.orderPolicy, this.direction});
+  const ArtOption({super.key, required this.value, required this.child, this.hoveredBackgroundColor, this.padding, this.selectedIcon, this.radius, this.direction});
 
   @override
   Widget build(BuildContext context) {
-    return ShadOption<T>(value: value, hoveredBackgroundColor: hoveredBackgroundColor, padding: padding, selectedIcon: selectedIcon, radius: radius, orderPolicy: orderPolicy, direction: direction, child: child);
+    return ShadOption<T>(value: value, hoveredBackgroundColor: hoveredBackgroundColor, padding: padding, selectedIcon: selectedIcon, radius: radius, direction: direction, child: child);
   }
 }

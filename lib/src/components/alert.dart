@@ -90,8 +90,7 @@ class ArtAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadAlert(
-      icon: icon,
-      iconData: _getDefaultIconData(),
+      icon: icon ?? Icon(_getDefaultIconData()),
       title: title,
       description: description,
       textDirection: textDirection,

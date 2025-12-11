@@ -483,7 +483,7 @@ class _ArtIconButtonState extends State<ArtIconButton> {
     final isDark = theme.brightness == Brightness.dark;
     return ShadIconButton.raw(
       icon: _effectiveIcon(context, theme),
-      iconSize: widget.iconSize,
+      iconSize: widget.iconSize ?? Theme.of(context).iconTheme.size,
       variant: widget.variant.shadVariant,
       onPressed: _effectiveOnPressed,
       onLongPress: widget.onLongPress,

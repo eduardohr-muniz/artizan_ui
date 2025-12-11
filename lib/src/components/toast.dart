@@ -1,3 +1,4 @@
+import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -148,7 +149,7 @@ class ArtToast extends StatelessWidget {
   final EdgeInsets? actionPadding;
 
   /// The border surrounding the toast.
-  final Border? border;
+  final ArtBorder? border;
 
   /// The border radius of the toast's corners.
   final BorderRadius? radius;

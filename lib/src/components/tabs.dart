@@ -5,31 +5,39 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+// typedef ArtTabsController = ShadTabsController;
+
 /// Controller para gerenciar a seleção de abas no [ArtTabs].
-class ArtTabsController<T> extends ChangeNotifier {
-  /// Cria um [ArtTabsController] com um valor inicial selecionado.
-  ArtTabsController({required T value}) : selected = value;
+///
 
-  T selected;
-
-  /// Seleciona o valor fornecido.
-  ///
-  /// Retorna true se o valor foi alterado, false caso contrário.
-  bool select(T value) {
-    if (value == selected) return false;
-    selected = value;
-    notifyListeners();
-    return true;
-  }
-}
+typedef ArtTabsController<T> = ShadTabsController<T>;
 
 /// Widget que exibe uma série horizontal de abas com conteúdo associado.
 ///
 /// Suporta layouts roláveis e não roláveis, estilização personalizada e gerenciamento de estado.
 class ArtTabs<T> extends StatefulWidget implements PreferredSizeWidget {
   /// Cria um [ArtTabs].
-  const ArtTabs({super.key, this.value, required this.tabs, this.controller, this.gap, this.scrollable, this.dragStartBehavior, this.physics, this.padding, this.decoration, this.tabBarConstraints, this.contentConstraints, this.expandContent, this.restorationId, this.onChanged})
-    : assert((value != null) ^ (controller != null), 'Either value or controller must be provided');
+  const ArtTabs({
+    super.key,
+    this.value,
+    required this.tabs,
+    this.controller,
+    this.gap,
+    this.scrollable,
+    this.dragStartBehavior,
+    this.physics,
+    this.padding,
+    this.decoration,
+    this.tabBarConstraints,
+    this.contentConstraints,
+    this.restorationId,
+    this.onChanged,
+    this.tabBarAlignment,
+    this.tabsGap,
+    this.contentAlignment,
+    this.contentGap,
+    this.maintainState,
+  }) : assert((value != null) ^ (controller != null), 'Either value or controller must be provided');
 
   /// A aba atualmente selecionada.
   final T? value;
@@ -64,14 +72,25 @@ class ArtTabs<T> extends StatefulWidget implements PreferredSizeWidget {
   /// As restrições do conteúdo.
   final BoxConstraints? contentConstraints;
 
-  /// Se o conteúdo deve ser expandido.
-  final bool? expandContent;
-
   /// O ID de restauração.
   final String? restorationId;
 
   /// O callback que é chamado quando o valor das abas muda.
   final ValueChanged<T>? onChanged;
+
+  /// O alinhamento da barra de abas.
+  final Alignment? tabBarAlignment;
+
+  /// O espaçamento entre as abas.
+  final double? tabsGap;
+
+  /// O alinhamento do conteúdo.
+  final Alignment? contentAlignment;
+
+  /// O espaçamento entre o conteúdo e as abas.
+  final double? contentGap;
+
+  final bool? maintainState;
 
   @override
   State<ArtTabs<T>> createState() => _ArtTabsState<T>();
@@ -155,7 +174,9 @@ class _ArtTabsState<T> extends State<ArtTabs<T>> {
   @override
   Widget build(BuildContext context) {
     return ShadTabs<T>(
-      value: controller.selected,
+      // Passa apenas value OU controller, não ambos (ShadTabs tem assert para isso)
+      value: widget.controller != null ? null : controller.selected,
+      controller: widget.controller != null ? controller : null,
       tabs:
           widget.tabs
               .map(
@@ -209,6 +230,7 @@ class _ArtTabsState<T> extends State<ArtTabs<T>> {
                   onDoubleTapDown: artTab.onDoubleTapDown,
                   onDoubleTapCancel: artTab.onDoubleTapCancel,
                   longPressDuration: artTab.longPressDuration,
+                  expandContent: artTab.expandContent,
                   child: artTab.child,
                 ),
               )
@@ -221,7 +243,9 @@ class _ArtTabsState<T> extends State<ArtTabs<T>> {
       decoration: widget.decoration,
       tabBarConstraints: widget.tabBarConstraints,
       contentConstraints: widget.contentConstraints,
-      expandContent: widget.expandContent,
+      maintainState: widget.maintainState,
+      tabBarAlignment: widget.tabBarAlignment,
+      tabsGap: widget.tabsGap,
       restorationId: widget.restorationId,
       onChanged: (value) {
         controller.select(value);
@@ -288,6 +312,7 @@ class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
     this.onDoubleTapDown,
     this.onDoubleTapCancel,
     this.longPressDuration,
+    this.expandContent,
   });
 
   /// O valor associado a esta aba, usado para seleção e identificação.
@@ -478,6 +503,9 @@ class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
 
   /// Duração do toque longo.
   final Duration? longPressDuration;
+
+  /// Se o conteúdo da aba deve ser expandido, padrão é `false`.
+  final bool? expandContent;
 
   @override
   Widget build(BuildContext context) {
