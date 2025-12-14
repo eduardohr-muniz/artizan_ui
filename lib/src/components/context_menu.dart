@@ -59,6 +59,7 @@ class ArtContextMenuRegion extends StatefulWidget {
     this.trigger = ArtContextMenuTrigger.rightClick,
     this.hitTestBehavior,
     this.popoverReverseDuration,
+    this.offset,
   });
 
   /// O widget filho que dispara a visibilidade do menu de contexto
@@ -112,6 +113,11 @@ class ArtContextMenuRegion extends StatefulWidget {
   /// Duração da animação reversa do popover
   final Duration? popoverReverseDuration;
 
+  /// Offset adicional para o posicionamento do menu
+  /// Permite ajustar a posição do menu em relação ao ponto de clique
+  /// Útil para evitar que o menu grude nas bordas da tela ou posicionar onde desejar
+  final Offset? offset;
+
   @override
   State<ArtContextMenuRegion> createState() => _ArtContextMenuRegionState();
 }
@@ -161,8 +167,16 @@ class _ArtContextMenuRegionState extends State<ArtContextMenuRegion> {
   Widget build(BuildContext context) {
     final effectiveLongPressEnabled = _enableLongPress && (widget.longPressEnabled ?? (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS));
 
+    // Aplica offset se fornecido
+    final finalOffset =
+        _offset == null
+            ? null
+            : widget.offset != null
+            ? Offset(_offset!.dx + widget.offset!.dx, _offset!.dy + widget.offset!.dy)
+            : _offset;
+
     return ArtContextMenu(
-      anchor: _offset == null ? null : ShadGlobalAnchor(_offset!),
+      anchor: finalOffset == null ? null : ShadGlobalAnchor(finalOffset),
       controller: controller,
       items: widget.items,
       constraints: widget.constraints,
