@@ -15,6 +15,7 @@ dependencies:
   shadcn_ui: ^0.39.12
   boxy: ^2.2.0
   collection: ^1.18.0
+  flutter_breakpoints: ^1.0.1
   # auto_form_validate: ^1.0.5+2
   auto_form_validate: ^2.0.3
   lucide_icons_flutter:
