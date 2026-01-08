@@ -13,6 +13,7 @@ class ArtSegmentedBadge<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
       children: [
         if (label != null) DefaultTextStyle(style: context.artTextTheme.muted.copyWith(color: context.artColorScheme.foreground, fontWeight: FontWeight.w600), child: label!),
