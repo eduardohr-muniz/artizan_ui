@@ -22,3 +22,4 @@ export './progress.dart';
 export './slider.dart';
 export './tooltip.dart';
 export './date_picker.dart';
+export './segmented_badget.dart';
