@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:artizan_ui/artizan_ui.dart';
-import 'package:auto_form_validate/form_controller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +10,7 @@ import 'dart:ui' as ui;
 enum ArtTextFieldVariant { primary, underline }
 
 class ArtTextFormField extends StatefulWidget {
-  final Object? id;
+  final String? id;
   final void Function(String? value)? onSaved;
   final String? Function(String? value)? validator;
   final String? initialValue;

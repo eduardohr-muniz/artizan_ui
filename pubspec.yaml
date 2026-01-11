@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.2
-  shadcn_ui: ^0.39.12
+  shadcn_ui: ^0.43.1
   boxy: ^2.2.0
   collection: ^1.18.0
   flutter_breakpoints: ^1.0.1

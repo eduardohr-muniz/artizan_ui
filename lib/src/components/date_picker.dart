@@ -111,7 +111,8 @@ class ArtDatePicker extends StatefulWidget {
     this.useSameGroupIdForChild = true,
     this.onPressed,
     this.onLongPress,
-    this.icon,
+    this.leading,
+    this.trailing,
     this.buttonChild,
     this.buttonVariant,
     this.size,
@@ -254,7 +255,8 @@ class ArtDatePicker extends StatefulWidget {
     this.useSameGroupIdForChild = true,
     this.onPressed,
     this.onLongPress,
-    this.icon,
+    this.leading,
+    this.trailing,
     this.buttonChild,
     this.buttonVariant,
     this.size,
@@ -400,7 +402,8 @@ class ArtDatePicker extends StatefulWidget {
     this.useSameGroupIdForChild = true,
     this.onPressed,
     this.onLongPress,
-    this.icon,
+    this.leading,
+    this.trailing,
     this.buttonChild,
     this.buttonVariant,
     this.size,
@@ -737,7 +740,10 @@ class ArtDatePicker extends StatefulWidget {
   final VoidCallback? onLongPress;
 
   /// {@macro ShadButton.icon}
-  final Widget? icon;
+  final Widget? leading;
+
+  /// {@macro ShadButton.trailing}
+  final Widget? trailing;
 
   /// The icon of the date picker button, defaults to [LucideIcons.calendar].
   final IconData? iconData;
@@ -999,7 +1005,9 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
       useSameGroupIdForChild: widget.useSameGroupIdForChild,
       onPressed: widget.onPressed,
       onLongPress: widget.onLongPress,
-      icon: widget.icon,
+      leading: widget.leading,
+
+      trailing: widget.trailing,
       buttonChild: widget.buttonChild,
       buttonVariant: _mapButtonVariant(widget.buttonVariant),
       size: _mapSize(widget.size),
