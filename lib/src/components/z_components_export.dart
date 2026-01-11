@@ -5,6 +5,7 @@ export './icon_button.dart';
 export './card.dart';
 export './switch.dart';
 export './badge.dart';
+export './breadcrumb.dart';
 export './divider.dart';
 export './dialog.dart';
 export 'toast.dart';
