@@ -20,10 +20,23 @@ typedef ArtCalendarCaptionLayout = ShadCalendarCaptionLayout;
 /// [ArtTheme] for consistent styling. Use named constructors like
 /// [ArtDatePicker.range] for range selection or [ArtDatePicker.raw] for full
 /// control.
+
 class ArtDatePicker extends StatefulWidget {
   /// Creates a single-date picker widget with a button and popover calendar.
   const ArtDatePicker({
     super.key,
+    this.id,
+    this.label,
+    this.description,
+    this.error,
+    this.forceErrorText,
+    this.autovalidateMode,
+    this.restorationId,
+    this.onReset,
+    this.validator,
+    this.onSaved,
+    this.toValueTransformer,
+    this.fromValueTransformer,
     this.placeholder,
     this.popoverController,
     this.selected,
@@ -163,11 +176,27 @@ class ArtDatePicker extends StatefulWidget {
     this.buttonTextStyle,
   }) : variant = ArtDatePickerVariant.single,
        formatDateRange = null,
-       selectedRange = null;
+       selectedRange = null,
+       rangeValidator = null,
+       onSavedRange = null,
+       toValueTransformerRange = null,
+       fromValueTransformerRange = null;
 
   /// Creates a date range picker widget with a button and popover calendar.
   const ArtDatePicker.range({
     super.key,
+    this.id,
+    this.label,
+    this.description,
+    this.error,
+    this.forceErrorText,
+    this.autovalidateMode,
+    this.restorationId,
+    this.onReset,
+    this.rangeValidator,
+    this.onSavedRange,
+    this.toValueTransformerRange,
+    this.fromValueTransformerRange,
     this.popoverController,
     this.placeholder,
     ArtDateTimeRange? selected,
@@ -308,13 +337,33 @@ class ArtDatePicker extends StatefulWidget {
   }) : variant = ArtDatePickerVariant.range,
        selected = null,
        formatDate = null,
-       selectedRange = selected;
+       selectedRange = selected,
+       validator = null,
+       onSaved = null,
+       toValueTransformer = null,
+       fromValueTransformer = null;
 
   /// Creates a date picker widget with a specified [variant], offering full
   /// customization.
   const ArtDatePicker.raw({
     super.key,
     required this.variant,
+    this.id,
+    this.label,
+    this.description,
+    this.error,
+    this.forceErrorText,
+    this.autovalidateMode,
+    this.restorationId,
+    this.onReset,
+    this.validator,
+    this.rangeValidator,
+    this.onSaved,
+    this.onSavedRange,
+    this.toValueTransformer,
+    this.toValueTransformerRange,
+    this.fromValueTransformer,
+    this.fromValueTransformerRange,
     this.popoverController,
     this.selected,
     this.closeOnSelection,
@@ -483,6 +532,54 @@ class ArtDatePicker extends StatefulWidget {
 
   /// The variant of the date picker.
   final ArtDatePickerVariant variant;
+
+  /// Optional form field id for [ShadForm] integration.
+  final String? id;
+
+  /// Label displayed above the field.
+  final Widget? label;
+
+  /// Description displayed below the field.
+  final Widget? description;
+
+  /// Custom error widget builder; receives error text when validation fails.
+  final Widget Function(String error)? error;
+
+  /// When non-null, this text is shown as the field error (e.g. for required fields).
+  final String? forceErrorText;
+
+  /// When to run validation (e.g. on change, on submit).
+  final AutovalidateMode? autovalidateMode;
+
+  /// Restoration id for state restoration.
+  final String? restorationId;
+
+  /// Called when the form field is reset.
+  final VoidCallback? onReset;
+
+  /// Validator for single-date variant. [DateTime?] → error message or null.
+  final String? Function(DateTime?)? validator;
+
+  /// Validator for range variant. [ArtDateTimeRange?] → error message or null.
+  final String? Function(ArtDateTimeRange?)? rangeValidator;
+
+  /// Called when form is saved (single-date value).
+  final void Function(DateTime?)? onSaved;
+
+  /// Called when form is saved (range value).
+  final void Function(ArtDateTimeRange?)? onSavedRange;
+
+  /// Transforms value before save/processing (single-date).
+  final dynamic Function(DateTime?)? toValueTransformer;
+
+  /// Transforms value before save/processing (range).
+  final dynamic Function(ArtDateTimeRange?)? toValueTransformerRange;
+
+  /// Transforms external value into field value (single-date).
+  final DateTime? Function(dynamic)? fromValueTransformer;
+
+  /// Transforms external value into field value (range).
+  final ArtDateTimeRange? Function(dynamic)? fromValueTransformerRange;
 
   /// The header of the date picker.
   final Widget? header;
@@ -891,13 +988,6 @@ class ArtDatePicker extends StatefulWidget {
 }
 
 class _ArtDatePickerState extends State<ArtDatePicker> {
-  ShadDatePickerVariant _mapVariant(ArtDatePickerVariant variant) {
-    return switch (variant) {
-      ArtDatePickerVariant.single => ShadDatePickerVariant.single,
-      ArtDatePickerVariant.range => ShadDatePickerVariant.range,
-    };
-  }
-
   ShadButtonVariant? _mapButtonVariant(ArtButtonVariant? variant) {
     if (variant == null) return null;
     return variant.shadVariant;
@@ -914,157 +1004,341 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return ShadDatePicker.raw(
-      variant: _mapVariant(widget.variant),
-      placeholder: widget.placeholder,
-      popoverController: widget.popoverController,
-      selected: widget.selected,
-
-      selectedRange: widget.selectedRange,
-      closeOnSelection: widget.closeOnSelection,
-      formatDate: widget.formatDate,
-      formatDateRange: widget.formatDateRange,
-      allowDeselection: widget.allowDeselection,
-      header: widget.header,
-      footer: widget.footer,
-      groupId: widget.groupId,
-      calendarDecoration: widget.calendarDecoration,
-      popoverPadding: widget.popoverPadding,
-      multipleSelected: widget.multipleSelected,
-      onChanged: widget.onChanged,
-      onMultipleChanged: widget.onMultipleChanged,
-      showOutsideDays: widget.showOutsideDays,
-      initialMonth: widget.initialMonth,
-      formatMonthYear: widget.formatMonthYear,
-      formatMonth: widget.formatMonth,
-      formatYear: widget.formatYear,
-      formatWeekday: widget.formatWeekday,
-      showWeekNumbers: widget.showWeekNumbers,
-      weekStartsOn: widget.weekStartsOn,
-      fixedWeeks: widget.fixedWeeks,
-      hideWeekdayNames: widget.hideWeekdayNames,
-      numberOfMonths: widget.numberOfMonths,
-      fromMonth: widget.fromMonth,
-      toMonth: widget.toMonth,
-      onMonthChanged: widget.onMonthChanged,
-      reverseMonths: widget.reverseMonths,
-      min: widget.min,
-      max: widget.max,
-      selectableDayPredicate: widget.selectableDayPredicate,
-      onRangeChanged: widget.onRangeChanged,
-      captionLayout: widget.captionLayout,
-      hideNavigation: widget.hideNavigation,
-      yearSelectorMinWidth: widget.yearSelectorMinWidth,
-      monthSelectorMinWidth: widget.monthSelectorMinWidth,
-      yearSelectorPadding: widget.yearSelectorPadding,
-      monthSelectorPadding: widget.monthSelectorPadding,
-      navigationButtonSize: widget.navigationButtonSize,
-      navigationButtonIconSize: widget.navigationButtonIconSize,
-      backNavigationButtonIconData: widget.backNavigationButtonIconData,
-      forwardNavigationButtonIconData: widget.forwardNavigationButtonIconData,
-      navigationButtonPadding: widget.navigationButtonPadding,
-      navigationButtonDisabledOpacity: widget.navigationButtonDisabledOpacity,
-      decoration: widget.decoration,
-      spacingBetweenMonths: widget.spacingBetweenMonths,
-      runSpacingBetweenMonths: widget.runSpacingBetweenMonths,
-      monthConstraints: widget.monthConstraints,
-      calendarHeaderHeight: widget.calendarHeaderHeight,
-      calendarHeaderPadding: widget.calendarHeaderPadding,
-      captionLayoutGap: widget.captionLayoutGap,
-      calendarHeaderTextStyle: widget.calendarHeaderTextStyle,
-      weekdaysPadding: widget.weekdaysPadding,
-      weekdaysTextStyle: widget.weekdaysTextStyle,
-      weekdaysTextAlign: widget.weekdaysTextAlign,
-      weekNumbersHeaderText: widget.weekNumbersHeaderText,
-      weekNumbersHeaderTextStyle: widget.weekNumbersHeaderTextStyle,
-      weekNumbersTextStyle: widget.weekNumbersTextStyle,
-      weekNumbersTextAlign: widget.weekNumbersTextAlign,
-      dayButtonSize: widget.dayButtonSize,
-      dayButtonOutsideMonthOpacity: widget.dayButtonOutsideMonthOpacity,
-      dayButtonPadding: widget.dayButtonPadding,
-      dayButtonDecoration: widget.dayButtonDecoration,
-      selectedDayButtonTextStyle: widget.selectedDayButtonTextStyle,
-      insideRangeDayButtonTextStyle: widget.insideRangeDayButtonTextStyle,
-      dayButtonTextStyle: widget.dayButtonTextStyle,
-      dayButtonVariant: _mapButtonVariant(widget.dayButtonVariant),
-      selectedDayButtonVariant: _mapButtonVariant(
-        widget.selectedDayButtonVariant,
-      ),
-      insideRangeDayButtonVariant: _mapButtonVariant(
-        widget.insideRangeDayButtonVariant,
-      ),
-      todayButtonVariant: _mapButtonVariant(widget.todayButtonVariant),
-      gridMainAxisSpacing: widget.gridMainAxisSpacing,
-      gridCrossAxisSpacing: widget.gridCrossAxisSpacing,
-      dayButtonOutsideMonthTextStyle: widget.dayButtonOutsideMonthTextStyle,
-      dayButtonOutsideMonthVariant: _mapButtonVariant(
-        widget.dayButtonOutsideMonthVariant,
-      ),
-      selectedDayButtonOusideMonthVariant: _mapButtonVariant(
-        widget.selectedDayButtonOusideMonthVariant,
-      ),
-      closeOnTapOutside: widget.closeOnTapOutside,
-      focusNode: widget.focusNode,
-      anchor: widget.anchor,
-      effects: widget.effects,
-      shadows: widget.shadows,
-      popoverDecoration: widget.popoverDecoration,
-      filter: widget.filter,
-      areaGroupId: widget.areaGroupId,
-      useSameGroupIdForChild: widget.useSameGroupIdForChild,
-      onPressed: widget.onPressed,
-      onLongPress: widget.onLongPress,
-      leading: widget.leading,
-
-      trailing: widget.trailing,
-      buttonChild: widget.buttonChild,
-      buttonVariant: _mapButtonVariant(widget.buttonVariant),
-      size: _mapSize(widget.size),
-      cursor: widget.cursor,
-      width: widget.width,
-      height: widget.height,
-      buttonPadding: widget.buttonPadding,
-      backgroundColor: widget.backgroundColor,
-      hoverBackgroundColor: widget.hoverBackgroundColor,
-      foregroundColor: widget.foregroundColor,
-      hoverForegroundColor: widget.hoverForegroundColor,
-      autofocus: widget.autofocus,
-      buttonFocusNode: widget.buttonFocusNode,
-      pressedBackgroundColor: widget.pressedBackgroundColor,
-      pressedForegroundColor: widget.pressedForegroundColor,
-      buttonShadows: widget.buttonShadows,
-      gradient: widget.gradient,
-      textDecoration: widget.textDecoration,
-      hoverTextDecoration: widget.hoverTextDecoration,
-      buttonDecoration: widget.buttonDecoration,
-      enabled: widget.enabled,
-      statesController: widget.statesController,
-      gap: widget.gap,
-      mainAxisAlignment: widget.mainAxisAlignment,
-      crossAxisAlignment: widget.crossAxisAlignment,
-      hoverStrategies: widget.hoverStrategies,
-      onHoverChange: widget.onHoverChange,
-      onTapDown: widget.onTapDown,
-      onTapUp: widget.onTapUp,
-      onTapCancel: widget.onTapCancel,
-      onSecondaryTapDown: widget.onSecondaryTapDown,
-      onSecondaryTapUp: widget.onSecondaryTapUp,
-      onSecondaryTapCancel: widget.onSecondaryTapCancel,
-      onLongPressStart: widget.onLongPressStart,
-      onLongPressCancel: widget.onLongPressCancel,
-      onLongPressUp: widget.onLongPressUp,
-      onLongPressDown: widget.onLongPressDown,
-      onLongPressEnd: widget.onLongPressEnd,
-      onDoubleTap: widget.onDoubleTap,
-      onDoubleTapDown: widget.onDoubleTapDown,
-      onDoubleTapCancel: widget.onDoubleTapCancel,
-      longPressDuration: widget.longPressDuration,
-      textDirection: widget.textDirection,
-      onFocusChange: widget.onFocusChange,
-      iconData: widget.iconData,
-      expands: widget.expands,
-      popoverReverseDuration: widget.popoverReverseDuration,
-      buttonTextStyle: widget.buttonTextStyle,
-    );
+    switch (widget.variant) {
+      case ArtDatePickerVariant.single:
+        return ShadDatePickerFormField(
+          key: widget.key,
+          id: widget.id,
+          label: widget.label,
+          description: widget.description,
+          error: widget.error,
+          forceErrorText: widget.forceErrorText,
+          autovalidateMode: widget.autovalidateMode,
+          restorationId: widget.restorationId,
+          onReset: widget.onReset,
+          validator: widget.validator,
+          onSaved: widget.onSaved,
+          toValueTransformer: widget.toValueTransformer,
+          fromValueTransformer: widget.fromValueTransformer,
+          initialValue: widget.selected,
+          onChanged: widget.onChanged,
+          enabled: widget.enabled,
+          focusNode: widget.focusNode,
+          placeholder: widget.placeholder,
+          popoverController: widget.popoverController,
+          closeOnSelection: widget.closeOnSelection,
+          formatDate: widget.formatDate,
+          allowDeselection: widget.allowDeselection,
+          header: widget.header,
+          footer: widget.footer,
+          groupId: widget.groupId,
+          calendarDecoration: widget.calendarDecoration,
+          popoverPadding:
+              widget.popoverPadding is EdgeInsets
+                  ? widget.popoverPadding! as EdgeInsets
+                  : null,
+          multipleSelected: widget.multipleSelected,
+          onMultipleChanged: widget.onMultipleChanged,
+          showOutsideDays: widget.showOutsideDays,
+          initialMonth: widget.initialMonth,
+          formatMonthYear: widget.formatMonthYear,
+          formatMonth: widget.formatMonth,
+          formatYear: widget.formatYear,
+          formatWeekday: widget.formatWeekday,
+          showWeekNumbers: widget.showWeekNumbers,
+          weekStartsOn: widget.weekStartsOn,
+          fixedWeeks: widget.fixedWeeks,
+          hideWeekdayNames: widget.hideWeekdayNames,
+          numberOfMonths: widget.numberOfMonths,
+          fromMonth: widget.fromMonth,
+          toMonth: widget.toMonth,
+          onMonthChanged: widget.onMonthChanged,
+          reverseMonths: widget.reverseMonths,
+          min: widget.min,
+          max: widget.max,
+          selectableDayPredicate: widget.selectableDayPredicate,
+          captionLayout: widget.captionLayout,
+          hideNavigation: widget.hideNavigation,
+          yearSelectorMinWidth: widget.yearSelectorMinWidth,
+          monthSelectorMinWidth: widget.monthSelectorMinWidth,
+          yearSelectorPadding: widget.yearSelectorPadding,
+          monthSelectorPadding: widget.monthSelectorPadding,
+          navigationButtonSize: widget.navigationButtonSize,
+          navigationButtonIconSize: widget.navigationButtonIconSize,
+          backNavigationButtonIconData: widget.backNavigationButtonIconData,
+          forwardNavigationButtonIconData:
+              widget.forwardNavigationButtonIconData,
+          navigationButtonPadding: widget.navigationButtonPadding,
+          navigationButtonDisabledOpacity:
+              widget.navigationButtonDisabledOpacity,
+          spacingBetweenMonths: widget.spacingBetweenMonths,
+          runSpacingBetweenMonths: widget.runSpacingBetweenMonths,
+          monthConstraints: widget.monthConstraints,
+          calendarHeaderHeight: widget.calendarHeaderHeight,
+          calendarHeaderPadding:
+              widget.calendarHeaderPadding is EdgeInsets
+                  ? widget.calendarHeaderPadding! as EdgeInsets
+                  : null,
+          captionLayoutGap: widget.captionLayoutGap,
+          calendarHeaderTextStyle: widget.calendarHeaderTextStyle,
+          weekdaysPadding:
+              widget.weekdaysPadding is EdgeInsets
+                  ? widget.weekdaysPadding! as EdgeInsets
+                  : null,
+          weekdaysTextStyle: widget.weekdaysTextStyle,
+          weekdaysTextAlign: widget.weekdaysTextAlign,
+          weekNumbersHeaderText: widget.weekNumbersHeaderText,
+          weekNumbersHeaderTextStyle: widget.weekNumbersHeaderTextStyle,
+          weekNumbersTextStyle: widget.weekNumbersTextStyle,
+          weekNumbersTextAlign: widget.weekNumbersTextAlign,
+          dayButtonSize: widget.dayButtonSize,
+          dayButtonOutsideMonthOpacity: widget.dayButtonOutsideMonthOpacity,
+          dayButtonPadding: widget.dayButtonPadding,
+          dayButtonDecoration: widget.dayButtonDecoration,
+          selectedDayButtonTextStyle: widget.selectedDayButtonTextStyle,
+          dayButtonTextStyle: widget.dayButtonTextStyle,
+          dayButtonVariant: _mapButtonVariant(widget.dayButtonVariant),
+          selectedDayButtonVariant: _mapButtonVariant(
+            widget.selectedDayButtonVariant,
+          ),
+          todayButtonVariant: _mapButtonVariant(widget.todayButtonVariant),
+          gridMainAxisSpacing: widget.gridMainAxisSpacing,
+          gridCrossAxisSpacing: widget.gridCrossAxisSpacing,
+          dayButtonOutsideMonthTextStyle: widget.dayButtonOutsideMonthTextStyle,
+          dayButtonOutsideMonthVariant: _mapButtonVariant(
+            widget.dayButtonOutsideMonthVariant,
+          ),
+          selectedDayButtonOusideMonthVariant: _mapButtonVariant(
+            widget.selectedDayButtonOusideMonthVariant,
+          ),
+          closeOnTapOutside: widget.closeOnTapOutside,
+          anchor: widget.anchor,
+          effects: widget.effects,
+          shadows: widget.shadows,
+          popoverDecoration: widget.popoverDecoration,
+          filter: widget.filter,
+          areaGroupId: widget.areaGroupId,
+          useSameGroupIdForChild: widget.useSameGroupIdForChild,
+          onPressed: widget.onPressed,
+          onLongPress: widget.onLongPress,
+          leading: widget.leading,
+          trailing: widget.trailing,
+          iconData: widget.iconData,
+          buttonChild: widget.buttonChild,
+          buttonVariant: _mapButtonVariant(widget.buttonVariant),
+          size: _mapSize(widget.size),
+          cursor: widget.cursor,
+          width: widget.width,
+          height: widget.height,
+          buttonPadding: widget.buttonPadding,
+          backgroundColor: widget.backgroundColor,
+          hoverBackgroundColor: widget.hoverBackgroundColor,
+          foregroundColor: widget.foregroundColor,
+          hoverForegroundColor: widget.hoverForegroundColor,
+          autofocus: widget.autofocus,
+          buttonFocusNode: widget.buttonFocusNode,
+          pressedBackgroundColor: widget.pressedBackgroundColor,
+          pressedForegroundColor: widget.pressedForegroundColor,
+          buttonShadows: widget.buttonShadows,
+          gradient: widget.gradient,
+          textDecoration: widget.textDecoration,
+          hoverTextDecoration: widget.hoverTextDecoration,
+          buttonDecoration: widget.buttonDecoration,
+          statesController: widget.statesController,
+          gap: widget.gap,
+          mainAxisAlignment: widget.mainAxisAlignment,
+          crossAxisAlignment: widget.crossAxisAlignment,
+          hoverStrategies: widget.hoverStrategies,
+          onHoverChange: widget.onHoverChange,
+          onTapDown: widget.onTapDown,
+          onTapUp: widget.onTapUp,
+          onTapCancel: widget.onTapCancel,
+          onSecondaryTapDown: widget.onSecondaryTapDown,
+          onSecondaryTapUp: widget.onSecondaryTapUp,
+          onSecondaryTapCancel: widget.onSecondaryTapCancel,
+          onLongPressStart: widget.onLongPressStart,
+          onLongPressCancel: widget.onLongPressCancel,
+          onLongPressUp: widget.onLongPressUp,
+          onLongPressDown: widget.onLongPressDown,
+          onLongPressEnd: widget.onLongPressEnd,
+          onDoubleTap: widget.onDoubleTap,
+          onDoubleTapDown: widget.onDoubleTapDown,
+          onDoubleTapCancel: widget.onDoubleTapCancel,
+          longPressDuration: widget.longPressDuration,
+          textDirection: widget.textDirection,
+          onFocusChange: widget.onFocusChange,
+          expands: widget.expands,
+          buttonTextStyle: widget.buttonTextStyle,
+        );
+      case ArtDatePickerVariant.range:
+        return ShadDateRangePickerFormField(
+          key: widget.key,
+          id: widget.id,
+          label: widget.label,
+          description: widget.description,
+          error: widget.error,
+          forceErrorText: widget.forceErrorText,
+          autovalidateMode: widget.autovalidateMode,
+          restorationId: widget.restorationId,
+          onReset: widget.onReset,
+          validator: widget.rangeValidator,
+          onSaved: widget.onSavedRange,
+          toValueTransformer: widget.toValueTransformerRange,
+          fromValueTransformer: widget.fromValueTransformerRange,
+          initialValue: widget.selectedRange,
+          onChanged: widget.onRangeChanged,
+          enabled: widget.enabled,
+          focusNode: widget.focusNode,
+          placeholder: widget.placeholder,
+          popoverController: widget.popoverController,
+          closeOnSelection: widget.closeOnSelection,
+          formatDateRange: widget.formatDateRange,
+          allowDeselection: widget.allowDeselection,
+          header: widget.header,
+          footer: widget.footer,
+          groupId: widget.groupId,
+          calendarDecoration: widget.calendarDecoration,
+          popoverPadding:
+              widget.popoverPadding is EdgeInsets
+                  ? widget.popoverPadding! as EdgeInsets
+                  : null,
+          multipleSelected: widget.multipleSelected,
+          onMultipleChanged: widget.onMultipleChanged,
+          showOutsideDays: widget.showOutsideDays,
+          initialMonth: widget.initialMonth,
+          formatMonthYear: widget.formatMonthYear,
+          formatMonth: widget.formatMonth,
+          formatYear: widget.formatYear,
+          formatWeekday: widget.formatWeekday,
+          showWeekNumbers: widget.showWeekNumbers,
+          weekStartsOn: widget.weekStartsOn,
+          fixedWeeks: widget.fixedWeeks,
+          hideWeekdayNames: widget.hideWeekdayNames,
+          numberOfMonths: widget.numberOfMonths,
+          fromMonth: widget.fromMonth,
+          toMonth: widget.toMonth,
+          onMonthChanged: widget.onMonthChanged,
+          reverseMonths: widget.reverseMonths,
+          min: widget.min,
+          max: widget.max,
+          selectableDayPredicate: widget.selectableDayPredicate,
+          captionLayout: widget.captionLayout,
+          hideNavigation: widget.hideNavigation,
+          yearSelectorMinWidth: widget.yearSelectorMinWidth,
+          monthSelectorMinWidth: widget.monthSelectorMinWidth,
+          yearSelectorPadding: widget.yearSelectorPadding,
+          monthSelectorPadding: widget.monthSelectorPadding,
+          navigationButtonSize: widget.navigationButtonSize,
+          navigationButtonIconSize: widget.navigationButtonIconSize,
+          backNavigationButtonIconData: widget.backNavigationButtonIconData,
+          forwardNavigationButtonIconData:
+              widget.forwardNavigationButtonIconData,
+          navigationButtonPadding: widget.navigationButtonPadding,
+          navigationButtonDisabledOpacity:
+              widget.navigationButtonDisabledOpacity,
+          spacingBetweenMonths: widget.spacingBetweenMonths,
+          runSpacingBetweenMonths: widget.runSpacingBetweenMonths,
+          monthConstraints: widget.monthConstraints,
+          calendarHeaderHeight: widget.calendarHeaderHeight,
+          calendarHeaderPadding:
+              widget.calendarHeaderPadding is EdgeInsets
+                  ? widget.calendarHeaderPadding! as EdgeInsets
+                  : null,
+          captionLayoutGap: widget.captionLayoutGap,
+          calendarHeaderTextStyle: widget.calendarHeaderTextStyle,
+          weekdaysPadding:
+              widget.weekdaysPadding is EdgeInsets
+                  ? widget.weekdaysPadding! as EdgeInsets
+                  : null,
+          weekdaysTextStyle: widget.weekdaysTextStyle,
+          weekdaysTextAlign: widget.weekdaysTextAlign,
+          weekNumbersHeaderText: widget.weekNumbersHeaderText,
+          weekNumbersHeaderTextStyle: widget.weekNumbersHeaderTextStyle,
+          weekNumbersTextStyle: widget.weekNumbersTextStyle,
+          weekNumbersTextAlign: widget.weekNumbersTextAlign,
+          dayButtonSize: widget.dayButtonSize,
+          dayButtonOutsideMonthOpacity: widget.dayButtonOutsideMonthOpacity,
+          dayButtonPadding: widget.dayButtonPadding,
+          dayButtonDecoration: widget.dayButtonDecoration,
+          selectedDayButtonTextStyle: widget.selectedDayButtonTextStyle,
+          insideRangeDayButtonTextStyle: widget.insideRangeDayButtonTextStyle,
+          dayButtonTextStyle: widget.dayButtonTextStyle,
+          dayButtonVariant: _mapButtonVariant(widget.dayButtonVariant),
+          selectedDayButtonVariant: _mapButtonVariant(
+            widget.selectedDayButtonVariant,
+          ),
+          insideRangeDayButtonVariant: _mapButtonVariant(
+            widget.insideRangeDayButtonVariant,
+          ),
+          todayButtonVariant: _mapButtonVariant(widget.todayButtonVariant),
+          gridMainAxisSpacing: widget.gridMainAxisSpacing,
+          gridCrossAxisSpacing: widget.gridCrossAxisSpacing,
+          dayButtonOutsideMonthTextStyle: widget.dayButtonOutsideMonthTextStyle,
+          dayButtonOutsideMonthVariant: _mapButtonVariant(
+            widget.dayButtonOutsideMonthVariant,
+          ),
+          selectedDayButtonOusideMonthVariant: _mapButtonVariant(
+            widget.selectedDayButtonOusideMonthVariant,
+          ),
+          closeOnTapOutside: widget.closeOnTapOutside,
+          anchor: widget.anchor,
+          effects: widget.effects,
+          shadows: widget.shadows,
+          popoverDecoration: widget.popoverDecoration,
+          filter: widget.filter,
+          areaGroupId: widget.areaGroupId,
+          useSameGroupIdForChild: widget.useSameGroupIdForChild,
+          onPressed: widget.onPressed,
+          onLongPress: widget.onLongPress,
+          leading: widget.leading,
+          trailing: widget.trailing,
+          iconData: widget.iconData,
+          buttonChild: widget.buttonChild,
+          buttonVariant: _mapButtonVariant(widget.buttonVariant),
+          size: _mapSize(widget.size),
+          cursor: widget.cursor,
+          width: widget.width,
+          height: widget.height,
+          buttonPadding: widget.buttonPadding,
+          backgroundColor: widget.backgroundColor,
+          hoverBackgroundColor: widget.hoverBackgroundColor,
+          foregroundColor: widget.foregroundColor,
+          hoverForegroundColor: widget.hoverForegroundColor,
+          autofocus: widget.autofocus,
+          buttonFocusNode: widget.buttonFocusNode,
+          pressedBackgroundColor: widget.pressedBackgroundColor,
+          pressedForegroundColor: widget.pressedForegroundColor,
+          buttonShadows: widget.buttonShadows,
+          gradient: widget.gradient,
+          textDecoration: widget.textDecoration,
+          hoverTextDecoration: widget.hoverTextDecoration,
+          buttonDecoration: widget.buttonDecoration,
+          statesController: widget.statesController,
+          gap: widget.gap,
+          mainAxisAlignment: widget.mainAxisAlignment,
+          crossAxisAlignment: widget.crossAxisAlignment,
+          hoverStrategies: widget.hoverStrategies,
+          onHoverChange: widget.onHoverChange,
+          onTapDown: widget.onTapDown,
+          onTapUp: widget.onTapUp,
+          onTapCancel: widget.onTapCancel,
+          onSecondaryTapDown: widget.onSecondaryTapDown,
+          onSecondaryTapUp: widget.onSecondaryTapUp,
+          onSecondaryTapCancel: widget.onSecondaryTapCancel,
+          onLongPressStart: widget.onLongPressStart,
+          onLongPressCancel: widget.onLongPressCancel,
+          onLongPressUp: widget.onLongPressUp,
+          onLongPressDown: widget.onLongPressDown,
+          onLongPressEnd: widget.onLongPressEnd,
+          onDoubleTap: widget.onDoubleTap,
+          onDoubleTapDown: widget.onDoubleTapDown,
+          onDoubleTapCancel: widget.onDoubleTapCancel,
+          longPressDuration: widget.longPressDuration,
+          textDirection: widget.textDirection,
+          onFocusChange: widget.onFocusChange,
+          expands: widget.expands,
+          buttonTextStyle: widget.buttonTextStyle,
+        );
+    }
   }
 }
