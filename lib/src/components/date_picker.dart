@@ -919,6 +919,7 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
       placeholder: widget.placeholder,
       popoverController: widget.popoverController,
       selected: widget.selected,
+
       selectedRange: widget.selectedRange,
       closeOnSelection: widget.closeOnSelection,
       formatDate: widget.formatDate,
@@ -986,14 +987,22 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
       insideRangeDayButtonTextStyle: widget.insideRangeDayButtonTextStyle,
       dayButtonTextStyle: widget.dayButtonTextStyle,
       dayButtonVariant: _mapButtonVariant(widget.dayButtonVariant),
-      selectedDayButtonVariant: _mapButtonVariant(widget.selectedDayButtonVariant),
-      insideRangeDayButtonVariant: _mapButtonVariant(widget.insideRangeDayButtonVariant),
+      selectedDayButtonVariant: _mapButtonVariant(
+        widget.selectedDayButtonVariant,
+      ),
+      insideRangeDayButtonVariant: _mapButtonVariant(
+        widget.insideRangeDayButtonVariant,
+      ),
       todayButtonVariant: _mapButtonVariant(widget.todayButtonVariant),
       gridMainAxisSpacing: widget.gridMainAxisSpacing,
       gridCrossAxisSpacing: widget.gridCrossAxisSpacing,
       dayButtonOutsideMonthTextStyle: widget.dayButtonOutsideMonthTextStyle,
-      dayButtonOutsideMonthVariant: _mapButtonVariant(widget.dayButtonOutsideMonthVariant),
-      selectedDayButtonOusideMonthVariant: _mapButtonVariant(widget.selectedDayButtonOusideMonthVariant),
+      dayButtonOutsideMonthVariant: _mapButtonVariant(
+        widget.dayButtonOutsideMonthVariant,
+      ),
+      selectedDayButtonOusideMonthVariant: _mapButtonVariant(
+        widget.selectedDayButtonOusideMonthVariant,
+      ),
       closeOnTapOutside: widget.closeOnTapOutside,
       focusNode: widget.focusNode,
       anchor: widget.anchor,

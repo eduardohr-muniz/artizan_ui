@@ -78,7 +78,7 @@ class ArtInputOtp extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
 
   /// Transformador de valor
-  final ValueTransformer<String?>? valueTransformer;
+  final dynamic Function(String?)? valueTransformer;
 
   /// Callback para reset
   final VoidCallback? onReset;
@@ -103,7 +103,7 @@ class ArtInputOtp extends StatelessWidget {
       label: label,
       description: description,
       onChanged: onChanged,
-      valueTransformer: valueTransformer,
+      toValueTransformer: valueTransformer,
       onReset: onReset,
       readOnly: readOnly,
       maxLength: maxLength,
@@ -118,19 +118,14 @@ class ArtInputOtp extends StatelessWidget {
 
 /// Widget para agrupar slots do Input OTP
 class ArtInputOtpGroup extends StatelessWidget {
-  const ArtInputOtpGroup({
-    super.key,
-    required this.children,
-  });
+  const ArtInputOtpGroup({super.key, required this.children});
 
   /// Lista de widgets filhos (slots do OTP)
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
-    return ShadInputOTPGroup(
-      children: children,
-    );
+    return ShadInputOTPGroup(children: children);
   }
 }
 

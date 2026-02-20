@@ -180,7 +180,7 @@ class ArtSelect<T> extends StatelessWidget {
   final VoidCallback? onReset;
 
   /// Transformador de valor
-  final ValueTransformer<T?>? valueTransformer;
+  final dynamic Function(T?)? valueTransformer;
 
   /// Modo de auto validação
   final AutovalidateMode? autovalidateMode;
@@ -197,7 +197,7 @@ class ArtSelect<T> extends StatelessWidget {
       label: label,
       description: description,
       onChanged: onChanged,
-      valueTransformer: valueTransformer,
+      toValueTransformer: valueTransformer,
       onReset: onReset,
       enabled: enabled,
       autovalidateMode: autovalidateMode,
@@ -332,7 +332,7 @@ class ArtSelectWithSearch<T> extends StatelessWidget {
   final String? id;
   final FormFieldSetter<T>? onSaved;
   final VoidCallback? onReset;
-  final ValueTransformer<T?>? valueTransformer;
+  final dynamic Function(T?)? valueTransformer;
   final AutovalidateMode? autovalidateMode;
   final String? restorationId;
 
@@ -345,7 +345,7 @@ class ArtSelectWithSearch<T> extends StatelessWidget {
       label: label,
       description: description,
       onChanged: onChanged,
-      valueTransformer: valueTransformer,
+      toValueTransformer: valueTransformer,
       onReset: onReset,
       enabled: enabled,
       autovalidateMode: autovalidateMode,
@@ -474,7 +474,7 @@ class ArtSelectMultiple<T> extends StatelessWidget {
   final String? id;
   final FormFieldSetter<List<T>>? onSaved;
   final VoidCallback? onReset;
-  final ValueTransformer<List<T>?>? valueTransformer;
+  final dynamic Function(Set<T>?)? valueTransformer;
   final AutovalidateMode? autovalidateMode;
   final String? restorationId;
 
@@ -486,15 +486,20 @@ class ArtSelectMultiple<T> extends StatelessWidget {
       onSaved: onSaved != null ? (value) => onSaved!(value?.toList()) : null,
       label: label,
       description: description,
-      onChanged: onChanged != null ? (value) => onChanged!(value?.toList()) : null,
-      valueTransformer: valueTransformer != null ? (value) => valueTransformer!(value?.toList()) : null,
+      onChanged:
+          onChanged != null ? (value) => onChanged!(value?.toList()) : null,
+      toValueTransformer:
+          valueTransformer != null
+              ? (value) => valueTransformer!(value?.toSet())
+              : null,
       onReset: onReset,
       enabled: enabled,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
       initialValue: initialValue?.toSet(),
       focusNode: focusNode,
-      validator: validator != null ? (value) => validator!(value?.toList()) : null,
+      validator:
+          validator != null ? (value) => validator!(value?.toList()) : null,
       selectedOptionsBuilder: selectedOptionsBuilder,
       options: options,
       optionsBuilder: optionsBuilder,
@@ -532,10 +537,27 @@ class ArtOption<T> extends StatelessWidget {
   final BorderRadius? radius;
   final TextDirection? direction;
 
-  const ArtOption({super.key, required this.value, required this.child, this.hoveredBackgroundColor, this.padding, this.selectedIcon, this.radius, this.direction});
+  const ArtOption({
+    super.key,
+    required this.value,
+    required this.child,
+    this.hoveredBackgroundColor,
+    this.padding,
+    this.selectedIcon,
+    this.radius,
+    this.direction,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ShadOption<T>(value: value, hoveredBackgroundColor: hoveredBackgroundColor, padding: padding, selectedIcon: selectedIcon, radius: radius, direction: direction, child: child);
+    return ShadOption<T>(
+      value: value,
+      hoveredBackgroundColor: hoveredBackgroundColor,
+      padding: padding,
+      selectedIcon: selectedIcon,
+      radius: radius,
+      direction: direction,
+      child: child,
+    );
   }
 }

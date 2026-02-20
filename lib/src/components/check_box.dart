@@ -16,7 +16,7 @@ class ArtCheckBox extends StatelessWidget {
 
   final ValueChanged<bool>? onChanged;
 
-  final ValueTransformer<bool?>? valueTransformer;
+  final dynamic Function(bool?)? valueTransformer;
 
   final VoidCallback? onReset;
 
@@ -95,7 +95,7 @@ class ArtCheckBox extends StatelessWidget {
       error: error,
       description: description,
       onChanged: onChanged,
-      valueTransformer: valueTransformer,
+      toValueTransformer: valueTransformer,
       onReset: onReset,
       enabled: enabled,
       autovalidateMode: autovalidateMode,
