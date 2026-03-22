@@ -12,13 +12,45 @@ class ArtEmptyState extends StatefulWidget {
   final ArtEmptyStateVariant variant;
   final TextAlign? textAlignment;
 
-  const ArtEmptyState.intable({required this.icon, super.key, this.title, this.subtitle, this.action, this.color}) : variant = ArtEmptyStateVariant.inTable, textAlignment = null;
+  const ArtEmptyState.intable({
+    required this.icon,
+    super.key,
+    this.title,
+    this.subtitle,
+    this.action,
+    this.color,
+  }) : variant = ArtEmptyStateVariant.inTable,
+       textAlignment = null;
 
-  const ArtEmptyState.nonTable({required this.icon, super.key, this.title, this.subtitle, this.action, this.color}) : variant = ArtEmptyStateVariant.nonTable, textAlignment = null;
+  const ArtEmptyState.nonTable({
+    required this.icon,
+    super.key,
+    this.title,
+    this.subtitle,
+    this.action,
+    this.color,
+  }) : variant = ArtEmptyStateVariant.nonTable,
+       textAlignment = null;
 
-  const ArtEmptyState.small({required this.icon, super.key, this.title, this.subtitle, this.action, this.color, this.textAlignment}) : variant = ArtEmptyStateVariant.small;
+  const ArtEmptyState.small({
+    required this.icon,
+    super.key,
+    this.title,
+    this.subtitle,
+    this.action,
+    this.color,
+    this.textAlignment,
+  }) : variant = ArtEmptyStateVariant.small;
 
-  const ArtEmptyState.minimal({required this.icon, super.key, this.title, this.subtitle, this.color, this.textAlignment}) : variant = ArtEmptyStateVariant.minimal, action = null;
+  const ArtEmptyState.minimal({
+    required this.icon,
+    super.key,
+    this.title,
+    this.subtitle,
+    this.color,
+    this.textAlignment,
+  }) : variant = ArtEmptyStateVariant.minimal,
+       action = null;
 
   @override
   State<ArtEmptyState> createState() => _ArtEmptyStateState();
@@ -27,12 +59,32 @@ class ArtEmptyState extends StatefulWidget {
 class _ArtEmptyStateState extends State<ArtEmptyState> {
   ArtThemeData get theme => ArtTheme.of(context);
 
-  Widget _title() => DefaultTextStyle(style: theme.textTheme.small, child: Flexible(child: Text(widget.title!, textAlign: widget.textAlignment)));
+  Widget _title() => DefaultTextStyle(
+    style: theme.textTheme.small,
+    child: Flexible(
+      child: Text(widget.title!, textAlign: widget.textAlignment),
+    ),
+  );
 
-  Widget _subtitle() => DefaultTextStyle(style: theme.textTheme.muted, child: Flexible(child: Text(widget.subtitle!, textAlign: widget.textAlignment)));
+  Widget _subtitle() => DefaultTextStyle(
+    style: theme.textTheme.muted,
+    child: Flexible(
+      child: Text(widget.subtitle!, textAlign: widget.textAlignment),
+    ),
+  );
 
   Widget _icon() {
-    return CircleAvatar(backgroundColor: (widget.color ?? theme.colorScheme.primary).withValues(alpha: .2), child: IconTheme(data: IconThemeData(color: widget.color ?? theme.colorScheme.foreground), child: widget.icon));
+    return CircleAvatar(
+      backgroundColor: (widget.color ?? theme.colorScheme.primary).withValues(
+        alpha: .2,
+      ),
+      child: IconTheme(
+        data: IconThemeData(
+          color: widget.color ?? theme.colorScheme.foreground,
+        ),
+        child: widget.icon,
+      ),
+    );
   }
 
   Widget _inTableWidget() {
@@ -49,8 +101,14 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.title != null) _title(),
-              if (widget.subtitle != null) ...[const SizedBox(height: 4), _subtitle()],
-              if (widget.action != null) ...[SizedBox(height: 16), widget.action!],
+              if (widget.subtitle != null) ...[
+                const SizedBox(height: 4),
+                _subtitle(),
+              ],
+              if (widget.action != null) ...[
+                SizedBox(height: 16),
+                widget.action!,
+              ],
             ],
           ),
         ),
@@ -67,7 +125,10 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _minimalWidget(),
-        if (widget.action != null) ...[const SizedBox(height: 8), widget.action!],
+        if (widget.action != null) ...[
+          const SizedBox(height: 8),
+          widget.action!,
+        ],
       ],
     );
   }
@@ -78,7 +139,10 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
       children: [
         _icon(),
         if (widget.title != null) ...[const SizedBox(height: 16), _title()],
-        if (widget.subtitle != null) ...[const SizedBox(height: 4), _subtitle()],
+        if (widget.subtitle != null) ...[
+          const SizedBox(height: 4),
+          _subtitle(),
+        ],
       ],
     );
   }

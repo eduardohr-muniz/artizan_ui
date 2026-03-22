@@ -18,8 +18,7 @@ dependencies:
   flutter_breakpoints: ^1.0.1
   # auto_form_validate: ^1.0.5+2
   auto_form_validate: ^2.0.3
-  lucide_icons_flutter:
-    ^3.0.9
+  lucide_icons_flutter: ^3.1.10
     # git: https://github.com/eduardohr-muniz/auto_form_validate
 
 dev_dependencies:
