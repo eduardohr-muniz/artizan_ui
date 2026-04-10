@@ -9,8 +9,23 @@ class ArtEmptyState extends StatefulWidget {
   final String? subtitle;
   final Widget? action;
   final Color? color;
+  final Color? backgroundColor;
+  final bool showAvatar;
   final ArtEmptyStateVariant variant;
   final TextAlign? textAlignment;
+
+  const ArtEmptyState({
+    required this.icon,
+    super.key,
+    this.title,
+    this.subtitle,
+    this.action,
+    this.color,
+    this.backgroundColor,
+    this.showAvatar = true,
+    this.variant = ArtEmptyStateVariant.minimal,
+    this.textAlignment,
+  });
 
   const ArtEmptyState.intable({
     required this.icon,
@@ -19,6 +34,8 @@ class ArtEmptyState extends StatefulWidget {
     this.subtitle,
     this.action,
     this.color,
+    this.backgroundColor,
+    this.showAvatar = true,
   }) : variant = ArtEmptyStateVariant.inTable,
        textAlignment = null;
 
@@ -29,6 +46,8 @@ class ArtEmptyState extends StatefulWidget {
     this.subtitle,
     this.action,
     this.color,
+    this.backgroundColor,
+    this.showAvatar = true,
   }) : variant = ArtEmptyStateVariant.nonTable,
        textAlignment = null;
 
@@ -39,6 +58,8 @@ class ArtEmptyState extends StatefulWidget {
     this.subtitle,
     this.action,
     this.color,
+    this.backgroundColor,
+    this.showAvatar = true,
     this.textAlignment,
   }) : variant = ArtEmptyStateVariant.small;
 
@@ -48,6 +69,8 @@ class ArtEmptyState extends StatefulWidget {
     this.title,
     this.subtitle,
     this.color,
+    this.backgroundColor,
+    this.showAvatar = true,
     this.textAlignment,
   }) : variant = ArtEmptyStateVariant.minimal,
        action = null;
@@ -57,33 +80,18 @@ class ArtEmptyState extends StatefulWidget {
 }
 
 class _ArtEmptyStateState extends State<ArtEmptyState> {
-  ArtThemeData get theme => ArtTheme.of(context);
+  Widget _title(BuildContext context) => Text(widget.title!, style: context.artTextTheme.small, textAlign: widget.textAlignment);
 
-  Widget _title() => DefaultTextStyle(
-    style: theme.textTheme.small,
-    child: Flexible(
-      child: Text(widget.title!, textAlign: widget.textAlignment),
-    ),
-  );
+  Widget _subtitle(BuildContext context) => Text(widget.subtitle!, style: context.artTextTheme.muted, textAlign: widget.textAlignment);
 
-  Widget _subtitle() => DefaultTextStyle(
-    style: theme.textTheme.muted,
-    child: Flexible(
-      child: Text(widget.subtitle!, textAlign: widget.textAlignment),
-    ),
-  );
+  Widget _icon(BuildContext context) {
+    final iconWidget = IconTheme(data: IconThemeData(color: widget.color ?? context.artColorScheme.foreground), child: widget.icon);
 
-  Widget _icon() {
+    if (!widget.showAvatar) return iconWidget;
+
     return CircleAvatar(
-      backgroundColor: (widget.color ?? theme.colorScheme.primary).withValues(
-        alpha: .2,
-      ),
-      child: IconTheme(
-        data: IconThemeData(
-          color: widget.color ?? theme.colorScheme.foreground,
-        ),
-        child: widget.icon,
-      ),
+      backgroundColor: widget.backgroundColor ?? (widget.color ?? context.artColorScheme.primary).withValues(alpha: .2),
+      child: iconWidget,
     );
   }
 
@@ -93,22 +101,17 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _icon(),
-        SizedBox(width: 16),
+        _icon(context),
+        const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (widget.title != null) _title(),
-              if (widget.subtitle != null) ...[
-                const SizedBox(height: 4),
-                _subtitle(),
-              ],
-              if (widget.action != null) ...[
-                SizedBox(height: 16),
-                widget.action!,
-              ],
+              if (widget.title != null) _title(context),
+              if (widget.title != null && widget.subtitle != null) const SizedBox(height: 4),
+              if (widget.subtitle != null) _subtitle(context),
+              if (widget.action != null) ...[const SizedBox(height: 16), widget.action!],
             ],
           ),
         ),
@@ -120,29 +123,26 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
     return _inTableWidget();
   }
 
-  Widget _smallWidget() {
+  Widget _smallWidget(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _minimalWidget(),
-        if (widget.action != null) ...[
-          const SizedBox(height: 8),
-          widget.action!,
-        ],
+        _minimalWidget(context),
+        if (widget.action != null) ...[const SizedBox(height: 8), widget.action!],
       ],
     );
   }
 
-  Widget _minimalWidget() {
+  Widget _minimalWidget(BuildContext context) {
+    final hasText = widget.title != null || widget.subtitle != null;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _icon(),
-        if (widget.title != null) ...[const SizedBox(height: 16), _title()],
-        if (widget.subtitle != null) ...[
-          const SizedBox(height: 4),
-          _subtitle(),
-        ],
+        _icon(context),
+        if (hasText) SizedBox(height: widget.showAvatar ? 16 : 12),
+        if (widget.title != null) _title(context),
+        if (widget.title != null && widget.subtitle != null) const SizedBox(height: 4),
+        if (widget.subtitle != null) _subtitle(context),
       ],
     );
   }
@@ -155,9 +155,9 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
       case ArtEmptyStateVariant.nonTable:
         return _nonTableWidget();
       case ArtEmptyStateVariant.small:
-        return _smallWidget();
+        return _smallWidget(context);
       case ArtEmptyStateVariant.minimal:
-        return _minimalWidget();
+        return _minimalWidget(context);
     }
   }
 }

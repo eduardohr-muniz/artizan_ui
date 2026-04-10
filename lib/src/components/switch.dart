@@ -1,3 +1,4 @@
+import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -57,13 +58,15 @@ class ArtSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveUncheckedTrackColor = context.isDarkTheme ? context.artColorScheme.mutedForeground : null;
+
     return ShadSwitchFormField(
       initialValue: initialValue,
       decoration: decoration,
       focusNode: focusNode,
       validator: validator,
       thumbColor: thumbColor,
-      uncheckedTrackColor: uncheckedTrackColor,
+      uncheckedTrackColor: effectiveUncheckedTrackColor,
       checkedTrackColor: checkedTrackColor,
       width: width,
       margin: margin,
