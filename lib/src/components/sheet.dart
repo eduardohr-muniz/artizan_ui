@@ -77,7 +77,7 @@ class ArtSheet extends StatelessWidget {
     this.onDragStart,
     this.onDragEnd,
     this.animationController,
-    this.isScrollControlled = false,
+    this.isScrollControlled = true,
     this.minFlingVelocity,
     this.closeProgressThreshold,
     this.enterDuration = const Duration(milliseconds: 250),
