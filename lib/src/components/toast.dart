@@ -6,13 +6,13 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 /// The default duration for toasts to remain visible.
 const kDefaultToastDuration = Duration(seconds: 4);
 
-/// Variants available for the [ArtToast] widget.
-enum ArtToastVariant { primary, destructive }
+/// Variants available for the [DSToast] widget.
+enum DSToastVariant { primary, destructive }
 
 /// A customizable toast notification widget that wraps [ShadToast].
-class ArtToast extends StatelessWidget {
+class DSToast extends StatelessWidget {
   /// Creates a primary variant toast widget.
-  const ArtToast({
+  const DSToast({
     super.key,
     this.id,
     this.title,
@@ -38,10 +38,10 @@ class ArtToast extends StatelessWidget {
     this.padding,
     this.closeIconPosition,
     this.constraints,
-  }) : variant = ArtToastVariant.primary;
+  }) : variant = DSToastVariant.primary;
 
   /// Creates a destructive variant toast widget.
-  const ArtToast.destructive({
+  const DSToast.destructive({
     super.key,
     this.id,
     this.title,
@@ -67,8 +67,8 @@ class ArtToast extends StatelessWidget {
     this.padding,
     this.closeIconPosition,
     this.constraints,
-  }) : variant = ArtToastVariant.destructive;
-  const ArtToast.raw({
+  }) : variant = DSToastVariant.destructive;
+  const DSToast.raw({
     super.key,
     this.id,
     this.title,
@@ -149,7 +149,7 @@ class ArtToast extends StatelessWidget {
   final EdgeInsets? actionPadding;
 
   /// The border surrounding the toast.
-  final ArtBorder? border;
+  final DSBorder? border;
 
   /// The border radius of the toast's corners.
   final BorderRadius? radius;
@@ -167,15 +167,15 @@ class ArtToast extends StatelessWidget {
   final ShadPosition? closeIconPosition;
 
   /// The variant of the toast.
-  final ArtToastVariant variant;
+  final DSToastVariant variant;
 
   /// Constraints applied to the toast's layout.
   final BoxConstraints? constraints;
 
-  /// Maps [ArtToastVariant] to [ShadToastVariant].
+  /// Maps [DSToastVariant] to [ShadToastVariant].
   ShadToastVariant get _shadVariant => switch (variant) {
-    ArtToastVariant.primary => ShadToastVariant.primary,
-    ArtToastVariant.destructive => ShadToastVariant.destructive,
+    DSToastVariant.primary => ShadToastVariant.primary,
+    DSToastVariant.destructive => ShadToastVariant.destructive,
   };
 
   @override
@@ -244,9 +244,9 @@ class ArtToast extends StatelessWidget {
 }
 
 /// A widget that manages and displays toasts within the widget tree.
-class ArtToaster extends StatelessWidget {
+class DSToaster extends StatelessWidget {
   /// Creates a toaster widget that wraps the provided child.
-  const ArtToaster({super.key, required this.child});
+  const DSToaster({super.key, required this.child});
 
   /// The widget below the toaster in the tree.
   final Widget child;
@@ -256,8 +256,8 @@ class ArtToaster extends StatelessWidget {
     return ShadToaster(child: child);
   }
 
-  /// Shows a toast using the nearest [ArtToaster] ancestor.
-  static void show(BuildContext context, ArtToast toast) {
+  /// Shows a toast using the nearest [DSToaster] ancestor.
+  static void show(BuildContext context, DSToast toast) {
     toast.show(context);
   }
 
@@ -267,20 +267,20 @@ class ArtToaster extends StatelessWidget {
   }
 }
 
-class ArtSonner extends StatelessWidget {
+class DSSonner extends StatelessWidget {
   /// Creates a toaster widget that wraps the provided child.
-  const ArtSonner({super.key, required this.child});
+  const DSSonner({super.key, required this.child});
 
   /// The widget below the toaster in the tree.
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return ArtSonner(child: child);
+    return DSSonner(child: child);
   }
 
-  /// Shows a toast using the nearest [ArtToaster] ancestor.
-  static void show(BuildContext context, ArtToast toast, {bool append = true}) {
+  /// Shows a toast using the nearest [DSToaster] ancestor.
+  static void show(BuildContext context, DSToast toast, {bool append = true}) {
     ShadSonner.of(context).show(
       ShadToast.raw(
         id: toast.id,

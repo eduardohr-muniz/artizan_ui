@@ -1,9 +1,9 @@
 import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 
-enum ArtEmptyStateVariant { inTable, nonTable, small, minimal }
+enum DSEmptyStateVariant { inTable, nonTable, small, minimal }
 
-class ArtEmptyState extends StatefulWidget {
+class DSEmptyState extends StatefulWidget {
   final Widget icon;
   final String? title;
   final String? subtitle;
@@ -11,10 +11,10 @@ class ArtEmptyState extends StatefulWidget {
   final Color? color;
   final Color? backgroundColor;
   final bool showAvatar;
-  final ArtEmptyStateVariant variant;
+  final DSEmptyStateVariant variant;
   final TextAlign? textAlignment;
 
-  const ArtEmptyState({
+  const DSEmptyState({
     required this.icon,
     super.key,
     this.title,
@@ -23,11 +23,11 @@ class ArtEmptyState extends StatefulWidget {
     this.color,
     this.backgroundColor,
     this.showAvatar = true,
-    this.variant = ArtEmptyStateVariant.minimal,
+    this.variant = DSEmptyStateVariant.minimal,
     this.textAlignment,
   });
 
-  const ArtEmptyState.intable({
+  const DSEmptyState.intable({
     required this.icon,
     super.key,
     this.title,
@@ -36,10 +36,10 @@ class ArtEmptyState extends StatefulWidget {
     this.color,
     this.backgroundColor,
     this.showAvatar = true,
-  }) : variant = ArtEmptyStateVariant.inTable,
+  }) : variant = DSEmptyStateVariant.inTable,
        textAlignment = null;
 
-  const ArtEmptyState.nonTable({
+  const DSEmptyState.nonTable({
     required this.icon,
     super.key,
     this.title,
@@ -48,10 +48,10 @@ class ArtEmptyState extends StatefulWidget {
     this.color,
     this.backgroundColor,
     this.showAvatar = true,
-  }) : variant = ArtEmptyStateVariant.nonTable,
+  }) : variant = DSEmptyStateVariant.nonTable,
        textAlignment = null;
 
-  const ArtEmptyState.small({
+  const DSEmptyState.small({
     required this.icon,
     super.key,
     this.title,
@@ -61,9 +61,9 @@ class ArtEmptyState extends StatefulWidget {
     this.backgroundColor,
     this.showAvatar = true,
     this.textAlignment,
-  }) : variant = ArtEmptyStateVariant.small;
+  }) : variant = DSEmptyStateVariant.small;
 
-  const ArtEmptyState.minimal({
+  const DSEmptyState.minimal({
     required this.icon,
     super.key,
     this.title,
@@ -72,14 +72,14 @@ class ArtEmptyState extends StatefulWidget {
     this.backgroundColor,
     this.showAvatar = true,
     this.textAlignment,
-  }) : variant = ArtEmptyStateVariant.minimal,
+  }) : variant = DSEmptyStateVariant.minimal,
        action = null;
 
   @override
-  State<ArtEmptyState> createState() => _ArtEmptyStateState();
+  State<DSEmptyState> createState() => _DSEmptyStateState();
 }
 
-class _ArtEmptyStateState extends State<ArtEmptyState> {
+class _DSEmptyStateState extends State<DSEmptyState> {
   Widget _title(BuildContext context) => Text(widget.title!, style: context.artTextTheme.small, textAlign: widget.textAlignment);
 
   Widget _subtitle(BuildContext context) => Text(widget.subtitle!, style: context.artTextTheme.muted, textAlign: widget.textAlignment);
@@ -150,13 +150,13 @@ class _ArtEmptyStateState extends State<ArtEmptyState> {
   @override
   Widget build(BuildContext context) {
     switch (widget.variant) {
-      case ArtEmptyStateVariant.inTable:
+      case DSEmptyStateVariant.inTable:
         return _inTableWidget();
-      case ArtEmptyStateVariant.nonTable:
+      case DSEmptyStateVariant.nonTable:
         return _nonTableWidget();
-      case ArtEmptyStateVariant.small:
+      case DSEmptyStateVariant.small:
         return _smallWidget(context);
-      case ArtEmptyStateVariant.minimal:
+      case DSEmptyStateVariant.minimal:
         return _minimalWidget(context);
     }
   }

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-/// Widget principal do ArtInputOtp
-class ArtInputOtp extends StatelessWidget {
-  const ArtInputOtp({
+/// Widget principal do DSInputOtp
+class DSInputOtp extends StatelessWidget {
+  const DSInputOtp({
     super.key,
     required this.maxLength,
     required this.children,
@@ -117,8 +117,8 @@ class ArtInputOtp extends StatelessWidget {
 }
 
 /// Widget para agrupar slots do Input OTP
-class ArtInputOtpGroup extends StatelessWidget {
-  const ArtInputOtpGroup({super.key, required this.children});
+class DSInputOtpGroup extends StatelessWidget {
+  const DSInputOtpGroup({super.key, required this.children});
 
   /// Lista de widgets filhos (slots do OTP)
   final List<Widget> children;
@@ -130,8 +130,8 @@ class ArtInputOtpGroup extends StatelessWidget {
 }
 
 /// Widget para um slot individual do Input OTP
-class ArtInputOtpSlot extends StatelessWidget {
-  const ArtInputOtpSlot({
+class DSInputOtpSlot extends StatelessWidget {
+  const DSInputOtpSlot({
     super.key,
     this.focusNode,
     this.controller,
@@ -175,7 +175,7 @@ class ArtInputOtpSlot extends StatelessWidget {
   final EdgeInsets? padding;
 
   /// Decoração do slot
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
 
   /// Raio aplicado ao primeiro slot de cada grupo
   final BorderRadius? firstRadius;

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef ArtSheetSide = ShadSheetSide;
+typedef DSSheetSide = ShadSheetSide;
 
-/// Shows a [ArtSheet], which is a modal bottom sheet implementation.
+/// Shows a [DSSheet], which is a modal bottom sheet implementation.
 ///
 /// Returns a [Future] that resolves to the value (if any) that the sheet is
 /// closed with.
-Future<T?> showArtSheet<T>({
+Future<T?> showDSSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
-  ArtSheetSide? side,
+  DSSheetSide? side,
   Color? backgroundColor,
   String barrierLabel = '',
   ShapeBorder? shape,
@@ -40,8 +40,8 @@ Future<T?> showArtSheet<T>({
   );
 }
 
-class ArtSheet extends StatelessWidget {
-  const ArtSheet({
+class DSSheet extends StatelessWidget {
+  const DSSheet({
     super.key,
     this.title,
     this.description,

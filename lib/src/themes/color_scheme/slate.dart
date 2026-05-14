@@ -1,3 +1,3 @@
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef ArtSlateColorScheme = ShadSlateColorScheme;
+typedef DSSlateColorScheme = ShadSlateColorScheme;

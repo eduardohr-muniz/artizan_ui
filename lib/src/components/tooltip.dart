@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef ArtTooltipController = ShadTooltipController;
+typedef DSTooltipController = ShadTooltipController;
 
-typedef ArtHoverStrategies = ShadHoverStrategies;
+typedef DSHoverStrategies = ShadHoverStrategies;
 
-class ArtTooltip extends StatelessWidget {
-  const ArtTooltip({
+class DSTooltip extends StatelessWidget {
+  const DSTooltip({
     super.key,
     required this.child,
     required this.builder,
@@ -33,10 +33,10 @@ class ArtTooltip extends StatelessWidget {
   final Duration? showDuration;
   final List<Effect<dynamic>>? effects;
   final EdgeInsetsGeometry? padding;
-  final ArtDecoration? decoration;
-  final ArtAnchorBase? anchor;
-  final ArtHoverStrategies? hoverStrategies;
-  final ArtTooltipController? controller;
+  final DSDecoration? decoration;
+  final DSAnchorBase? anchor;
+  final DSHoverStrategies? hoverStrategies;
+  final DSTooltipController? controller;
   final Duration? longPressDuration;
   final Duration? duration;
   final Duration? reverseDuration;

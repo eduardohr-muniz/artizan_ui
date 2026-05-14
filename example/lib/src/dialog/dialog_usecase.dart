@@ -13,11 +13,11 @@ class DialogUseCase extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ArtButton(onPressed: () => _showPrimaryDialog(context), child: const Text('Show Primary Dialog')),
+            DSButton(onPressed: () => _showPrimaryDialog(context), child: const Text('Show Primary Dialog')),
             const SizedBox(height: 16),
-            ArtButton(onPressed: () => _showAlertDialog(context), child: const Text('Show Alert Dialog')),
+            DSButton(onPressed: () => _showAlertDialog(context), child: const Text('Show Alert Dialog')),
             const SizedBox(height: 16),
-            ArtButton(onPressed: () => _showCustomDialog(context), child: const Text('Show Custom Dialog')),
+            DSButton(onPressed: () => _showCustomDialog(context), child: const Text('Show Custom Dialog')),
           ],
         ),
       ),
@@ -25,41 +25,47 @@ class DialogUseCase extends StatelessWidget {
   }
 
   void _showPrimaryDialog(BuildContext context) {
-    showArtDialog(
+    showDSDialog(
       context: context,
-      builder:
-          (context) => ArtDialog(
-            title: const Text('Primary Dialog'),
-            description: const Text('This is a primary dialog example.'),
-            actions: [ArtButton.secondary(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')), ArtButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Confirm'))],
-          ),
+      builder: (context) => DSDialog(
+        title: const Text('Primary Dialog'),
+        description: const Text('This is a primary dialog example.'),
+        actions: [
+          DSButton.secondary(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
+          DSButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Confirm'))
+        ],
+      ),
     );
   }
 
   void _showAlertDialog(BuildContext context) {
-    showArtDialogAlert(
+    showDSDialogAlert(
       context: context,
-      builder:
-          (context) => ArtDialog.alert(
-            title: const Text('Alert Dialog'),
-            description: const Text('This is an alert dialog example.'),
-            actions: [ArtButton.secondary(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')), ArtButton.destructive(onPressed: () => Navigator.of(context).pop(), child: const Text('Delete'))],
-          ),
+      builder: (context) => DSDialog.alert(
+        title: const Text('Alert Dialog'),
+        description: const Text('This is an alert dialog example.'),
+        actions: [
+          DSButton.secondary(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
+          DSButton.destructive(onPressed: () => Navigator.of(context).pop(), child: const Text('Delete'))
+        ],
+      ),
     );
   }
 
   void _showCustomDialog(BuildContext context) {
-    showArtDialog(
+    showDSDialog(
       context: context,
-      builder:
-          (context) => ArtDialog(
-            title: const Text('Custom Dialog'),
-            description: const Text('This dialog has custom styling.'),
-            actions: [ArtButton.ghost(onPressed: () => Navigator.of(context).pop(), child: const Text('Close'))],
-            radius: BorderRadius.circular(16),
-            backgroundColor: Colors.white,
-            child: Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.grey[100], borderRadius: BorderRadius.circular(8)), child: const Text('Custom content goes here')),
-          ),
+      builder: (context) => DSDialog(
+        title: const Text('Custom Dialog'),
+        description: const Text('This dialog has custom styling.'),
+        actions: [DSButton.ghost(onPressed: () => Navigator.of(context).pop(), child: const Text('Close'))],
+        radius: BorderRadius.circular(16),
+        backgroundColor: Colors.white,
+        child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(color: Colors.grey[100], borderRadius: BorderRadius.circular(8)),
+            child: const Text('Custom content goes here')),
+      ),
     );
   }
 }

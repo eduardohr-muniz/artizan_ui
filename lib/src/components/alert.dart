@@ -2,30 +2,95 @@ import 'package:artizan_ui/src/type_defs.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-enum ArtAlertVariant { success, info, warning, destructive, custom }
+enum DSAlertVariant { success, info, warning, destructive, custom }
 
-class ArtAlert extends StatelessWidget {
+class DSAlert extends StatelessWidget {
   /// Success variant - green
-  const ArtAlert.success({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
-    : variant = ArtAlertVariant.success;
+  const DSAlert.success({
+    super.key,
+    this.icon,
+    this.iconData,
+    this.title,
+    this.description,
+    this.textDirection,
+    this.decoration,
+    this.iconPadding,
+    this.iconColor,
+    this.titleStyle,
+    this.descriptionStyle,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  }) : variant = DSAlertVariant.success;
 
   /// Info variant - blue
-  const ArtAlert.info({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
-    : variant = ArtAlertVariant.info;
+  const DSAlert.info({
+    super.key,
+    this.icon,
+    this.iconData,
+    this.title,
+    this.description,
+    this.textDirection,
+    this.decoration,
+    this.iconPadding,
+    this.iconColor,
+    this.titleStyle,
+    this.descriptionStyle,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  }) : variant = DSAlertVariant.info;
 
   /// Warning variant - orange
-  const ArtAlert.warning({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
-    : variant = ArtAlertVariant.warning;
+  const DSAlert.warning({
+    super.key,
+    this.icon,
+    this.iconData,
+    this.title,
+    this.description,
+    this.textDirection,
+    this.decoration,
+    this.iconPadding,
+    this.iconColor,
+    this.titleStyle,
+    this.descriptionStyle,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  }) : variant = DSAlertVariant.warning;
 
   /// Destructive variant - red
-  const ArtAlert.destructive({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
-    : variant = ArtAlertVariant.destructive;
+  const DSAlert.destructive({
+    super.key,
+    this.icon,
+    this.iconData,
+    this.title,
+    this.description,
+    this.textDirection,
+    this.decoration,
+    this.iconPadding,
+    this.iconColor,
+    this.titleStyle,
+    this.descriptionStyle,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  }) : variant = DSAlertVariant.destructive;
 
   /// Raw constructor - all parameters customizable
-  const ArtAlert.raw({super.key, this.icon, this.iconData, this.title, this.description, this.textDirection, this.decoration, this.iconPadding, this.iconColor, this.titleStyle, this.descriptionStyle, this.mainAxisAlignment, this.crossAxisAlignment})
-    : variant = ArtAlertVariant.custom;
+  const DSAlert.raw({
+    super.key,
+    this.icon,
+    this.iconData,
+    this.title,
+    this.description,
+    this.textDirection,
+    this.decoration,
+    this.iconPadding,
+    this.iconColor,
+    this.titleStyle,
+    this.descriptionStyle,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  }) : variant = DSAlertVariant.custom;
 
-  final ArtAlertVariant variant;
+  final DSAlertVariant variant;
 
   final Widget? icon;
 
@@ -55,11 +120,11 @@ class ArtAlert extends StatelessWidget {
     if (decoration != null) return decoration!;
 
     return switch (variant) {
-      ArtAlertVariant.success => ShadDecoration(color: Colors.green.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.green.shade300)),
-      ArtAlertVariant.info => ShadDecoration(color: Colors.blue.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.blue.shade300)),
-      ArtAlertVariant.warning => ShadDecoration(color: Colors.orange.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.orange.shade300)),
-      ArtAlertVariant.destructive => ShadDecoration(color: Colors.red.withValues(alpha: 0.1), border: ArtBorder.all(color: Colors.red.shade300)),
-      ArtAlertVariant.custom => const ShadDecoration(),
+      DSAlertVariant.success => ShadDecoration(color: Colors.green.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.green.shade300)),
+      DSAlertVariant.info => ShadDecoration(color: Colors.blue.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.blue.shade300)),
+      DSAlertVariant.warning => ShadDecoration(color: Colors.orange.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.orange.shade300)),
+      DSAlertVariant.destructive => ShadDecoration(color: Colors.red.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.red.shade300)),
+      DSAlertVariant.custom => const ShadDecoration(),
     };
   }
 
@@ -67,11 +132,11 @@ class ArtAlert extends StatelessWidget {
     if (iconColor != null) return iconColor;
 
     return switch (variant) {
-      ArtAlertVariant.success => Colors.green,
-      ArtAlertVariant.info => Colors.blue,
-      ArtAlertVariant.warning => Colors.orange,
-      ArtAlertVariant.destructive => Colors.red,
-      ArtAlertVariant.custom => null,
+      DSAlertVariant.success => Colors.green,
+      DSAlertVariant.info => Colors.blue,
+      DSAlertVariant.warning => Colors.orange,
+      DSAlertVariant.destructive => Colors.red,
+      DSAlertVariant.custom => null,
     };
   }
 
@@ -79,11 +144,11 @@ class ArtAlert extends StatelessWidget {
     if (iconData != null || icon != null) return iconData;
 
     return switch (variant) {
-      ArtAlertVariant.success => Icons.check_circle,
-      ArtAlertVariant.info => Icons.info,
-      ArtAlertVariant.warning => Icons.warning,
-      ArtAlertVariant.destructive => Icons.error,
-      ArtAlertVariant.custom => null,
+      DSAlertVariant.success => Icons.check_circle,
+      DSAlertVariant.info => Icons.info,
+      DSAlertVariant.warning => Icons.warning,
+      DSAlertVariant.destructive => Icons.error,
+      DSAlertVariant.custom => null,
     };
   }
 

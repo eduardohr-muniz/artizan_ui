@@ -5,19 +5,19 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-// typedef ArtTabsController = ShadTabsController;
+// typedef DSTabsController = ShadTabsController;
 
-/// Controller para gerenciar a seleção de abas no [ArtTabs].
+/// Controller para gerenciar a seleção de abas no [DSTabs].
 ///
 
-typedef ArtTabsController<T> = ShadTabsController<T>;
+typedef DSTabsController<T> = ShadTabsController<T>;
 
 /// Widget que exibe uma série horizontal de abas com conteúdo associado.
 ///
 /// Suporta layouts roláveis e não roláveis, estilização personalizada e gerenciamento de estado.
-class ArtTabs<T> extends StatefulWidget implements PreferredSizeWidget {
-  /// Cria um [ArtTabs].
-  const ArtTabs({
+class DSTabs<T> extends StatefulWidget implements PreferredSizeWidget {
+  /// Cria um [DSTabs].
+  const DSTabs({
     super.key,
     this.value,
     required this.tabs,
@@ -43,10 +43,10 @@ class ArtTabs<T> extends StatefulWidget implements PreferredSizeWidget {
   final T? value;
 
   /// As abas para exibir.
-  final List<ArtTab<T>> tabs;
+  final List<DSTab<T>> tabs;
 
   /// O controlador das abas.
-  final ArtTabsController<T>? controller;
+  final DSTabsController<T>? controller;
 
   /// O espaçamento entre a barra de abas e o conteúdo.
   final double? gap;
@@ -93,7 +93,7 @@ class ArtTabs<T> extends StatefulWidget implements PreferredSizeWidget {
   final bool? maintainState;
 
   @override
-  State<ArtTabs<T>> createState() => _ArtTabsState<T>();
+  State<DSTabs<T>> createState() => _DSTabsState<T>();
 
   @override
   Size get preferredSize {
@@ -106,12 +106,12 @@ class ArtTabs<T> extends StatefulWidget implements PreferredSizeWidget {
   }
 }
 
-class _ArtTabsState<T> extends State<ArtTabs<T>> {
+class _DSTabsState<T> extends State<DSTabs<T>> {
   late List<GlobalKey> _tabKeys;
   late List<T> orderedValues;
-  ArtTabsController<T>? _internalController;
+  DSTabsController<T>? _internalController;
 
-  ArtTabsController<T> get controller => widget.controller ?? _internalController!;
+  DSTabsController<T> get controller => widget.controller ?? _internalController!;
 
   late final scrollController = ScrollController();
 
@@ -122,17 +122,17 @@ class _ArtTabsState<T> extends State<ArtTabs<T>> {
     super.initState();
     _tabKeys = widget.tabs.map((_) => GlobalKey()).toList();
     if (widget.controller == null) {
-      _internalController = ArtTabsController<T>(value: widget.value as T);
+      _internalController = DSTabsController<T>(value: widget.value as T);
     }
     orderedValues = widget.tabs.map((e) => e.value).toList();
   }
 
   @override
-  void didUpdateWidget(covariant ArtTabs<T> oldWidget) {
+  void didUpdateWidget(covariant DSTabs<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (widget.controller == null && oldWidget.controller != null) {
-      _internalController = ArtTabsController<T>(value: oldWidget.controller!.selected);
+      _internalController = DSTabsController<T>(value: oldWidget.controller!.selected);
     } else if (widget.controller != null && oldWidget.controller == null) {
       _internalController?.dispose();
       _internalController = null;
@@ -162,12 +162,12 @@ class _ArtTabsState<T> extends State<ArtTabs<T>> {
     super.dispose();
   }
 
-  ShadButtonSize? _mapSize(ArtButtonSize? size) {
+  ShadButtonSize? _mapSize(DSButtonSize? size) {
     if (size == null) return null;
     return switch (size) {
-      ArtButtonSize.regular => ShadButtonSize.regular,
-      ArtButtonSize.sm => ShadButtonSize.sm,
-      ArtButtonSize.lg => ShadButtonSize.lg,
+      DSButtonSize.regular => ShadButtonSize.regular,
+      DSButtonSize.sm => ShadButtonSize.sm,
+      DSButtonSize.lg => ShadButtonSize.lg,
     };
   }
 
@@ -255,12 +255,12 @@ class _ArtTabsState<T> extends State<ArtTabs<T>> {
   }
 }
 
-/// Representa um único item de aba dentro de um widget [ArtTabs].
+/// Representa um único item de aba dentro de um widget [DSTabs].
 ///
 /// Inclui propriedades para estilização, conteúdo e manipulação de interação.
-class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
-  /// Cria um [ArtTab].
-  const ArtTab({
+class DSTab<T> extends StatelessWidget implements PreferredSizeWidget {
+  /// Cria um [DSTab].
+  const DSTab({
     super.key,
     required this.value,
     required this.child,
@@ -337,9 +337,9 @@ class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
   /// Padrão é true.
   final bool enabled;
 
-  /// Fator flex para a aba quando faz parte de um [Row] em um [ArtTabs] não rolável.
+  /// Fator flex para a aba quando faz parte de um [Row] em um [DSTabs] não rolável.
   ///
-  /// Ignorado quando [ArtTabs] é rolável. Padrão é 1.
+  /// Ignorado quando [DSTabs] é rolável. Padrão é 1.
   final int flex;
 
   /// Altura da aba.
@@ -349,7 +349,7 @@ class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
 
   /// Largura da aba.
   ///
-  /// Em [ArtTabs] não rolável, padrão é `double.infinity`. Em [ArtTabs] rolável,
+  /// Em [DSTabs] não rolável, padrão é `double.infinity`. Em [DSTabs] rolável,
   /// padrão é null, permitindo que a aba se ajuste ao seu conteúdo.
   final double? width;
 
@@ -381,12 +381,12 @@ class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
   /// Decoração para a aba quando não selecionada.
   ///
   /// Usa [ShadDecoration].
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
 
   /// Decoração para a aba quando selecionada.
   ///
   /// Padrão é [decoration]. Usa [ShadDecoration].
-  final ArtDecoration? selectedDecoration;
+  final DSDecoration? selectedDecoration;
 
   /// Cor do primeiro plano (cor do texto/ícone) quando não selecionada.
   ///
@@ -425,7 +425,7 @@ class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onLongPress;
 
   /// Configuração de tamanho para a aba, usa [ShadButtonSize].
-  final ArtButtonSize? size;
+  final DSButtonSize? size;
 
   /// Cursor do mouse ao passar o mouse sobre a aba.
   final MouseCursor? cursor;
@@ -510,7 +510,7 @@ class ArtTab<T> extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     // Este widget é apenas uma definição de dados
-    // A renderização real é feita pelo ArtTabs
+    // A renderização real é feita pelo DSTabs
     return const SizedBox.shrink();
   }
 

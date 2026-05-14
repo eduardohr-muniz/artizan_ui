@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class ArtZincCustomColorScheme extends ShadColorScheme {
-  const ArtZincCustomColorScheme({
+class DSZincCustomColorScheme extends ShadColorScheme {
+  const DSZincCustomColorScheme({
     required super.background,
     required super.foreground,
     required super.card,
@@ -26,7 +26,7 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
     super.custom,
   });
 
-  const ArtZincCustomColorScheme.light({
+  const DSZincCustomColorScheme.light({
     super.background = const Color(0xFFFFFFFF),
     super.foreground = const Color(0xff09090b),
     super.card = const Color(0xffffffff),
@@ -50,7 +50,7 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
     super.custom,
   });
 
-  const ArtZincCustomColorScheme.dark({
+  const DSZincCustomColorScheme.dark({
     super.background = const Color(0xff09090b),
     super.foreground = const Color(0xfffafafa),
     super.card = const Color(0xff09090b),
@@ -75,7 +75,7 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
   });
 
   @override
-  ArtZincCustomColorScheme copyWith({
+  DSZincCustomColorScheme copyWith({
     Color? background,
     Color? foreground,
     Color? card,
@@ -98,7 +98,7 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
     Color? selection,
     Map<String, Color>? custom,
   }) {
-    return ArtZincCustomColorScheme(
+    return DSZincCustomColorScheme(
       background: background ?? this.background,
       foreground: foreground ?? this.foreground,
       card: card ?? this.card,

@@ -2,7 +2,7 @@ import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
-@UseCase(name: 'FormField', type: ArtTextFormField)
+@UseCase(name: 'FormField', type: DSTextFormField)
 Widget emptyStateInTable(BuildContext context) {
   return FormField();
 }
@@ -58,14 +58,14 @@ class _FormFieldState extends State<FormField> {
           key: _formKey,
           child: Column(
             children: [
-              ArtTextFormField(
+              DSTextFormField(
                 formController: CpfCnpjFormController(),
                 label: Text('CPF/CNPJ'),
                 controller: cpfCnpjEC,
                 focusNode: cpfCnpjFN,
               ),
               SizedBox(height: 16),
-              ArtButton(
+              DSButton(
                   child: Text('Salvar'),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {

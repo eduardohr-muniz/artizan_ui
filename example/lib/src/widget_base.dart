@@ -59,7 +59,7 @@ class _BaseWidgetFormState extends State<BaseWidgetForm> {
               Row(
                 children: [
                   Expanded(
-                    child: ArtButton.outline(
+                    child: DSButton.outline(
                       // expands: true,
                       onPressed: () {
                         formKey.currentState!.reset();
@@ -68,7 +68,7 @@ class _BaseWidgetFormState extends State<BaseWidgetForm> {
                     ),
                   ),
                   Expanded(
-                    child: ArtButton(
+                    child: DSButton(
                       // expands: true,
                       onPressed: () {
                         if (formKey.currentState!.validate()) {}

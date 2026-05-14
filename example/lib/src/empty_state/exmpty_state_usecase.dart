@@ -3,30 +3,30 @@ import 'package:flutter/material.dart';
 
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
-@UseCase(name: 'InTable', type: ArtEmptyState)
+@UseCase(name: 'InTable', type: DSEmptyState)
 Widget emptyStateInTable(BuildContext context) {
   return _base(
-    child: ArtEmptyState.intable(
+    child: DSEmptyState.intable(
         icon: const Icon(Icons.search),
         color: Colors.grey,
         title: 'No tracked events for this Source',
         subtitle: 'Events appear when the Source starts sending data to Segment about your users and their activity.',
-        action: ArtButton.link(
+        action: DSButton.link(
           child: const Text('Learn more'),
           onPressed: () {},
         )),
   );
 }
 
-@UseCase(name: 'Non Table', type: ArtEmptyState)
+@UseCase(name: 'Non Table', type: DSEmptyState)
 Widget emptyStateInList(BuildContext context) {
   return _base(
-    child: ArtEmptyState.nonTable(
+    child: DSEmptyState.nonTable(
       icon: const Icon(Icons.lock),
       color: Colors.orange,
       subtitle: 'You need permission for these sources',
       title: 'To see these sources, request access.',
-      action: ArtButton(
+      action: DSButton(
         onPressed: () {},
         child: const Text('List Action'),
       ),
@@ -34,15 +34,15 @@ Widget emptyStateInList(BuildContext context) {
   );
 }
 
-@UseCase(name: 'Small', type: ArtEmptyState)
+@UseCase(name: 'Small', type: DSEmptyState)
 Widget emptyStateInCard(BuildContext context) {
   return _base(
-    child: ArtEmptyState.small(
+    child: DSEmptyState.small(
       icon: const Icon(Icons.lock),
       color: Colors.orange,
       subtitle: 'You need permission for these sources',
       title: 'To see these sources, request access.',
-      action: ArtButton(
+      action: DSButton(
         onPressed: () {},
         child: const Text('Request Access'),
       ),
@@ -50,10 +50,10 @@ Widget emptyStateInCard(BuildContext context) {
   );
 }
 
-@UseCase(name: 'Minimal', type: ArtEmptyState)
+@UseCase(name: 'Minimal', type: DSEmptyState)
 Widget emptyStateMinimal(BuildContext context) {
   return _base(
-    child: const ArtEmptyState.minimal(
+    child: const DSEmptyState.minimal(
       icon: Icon(Icons.touch_app_rounded),
       color: Colors.grey,
       title: 'No event selected',

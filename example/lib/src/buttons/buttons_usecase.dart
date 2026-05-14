@@ -22,16 +22,16 @@ onTap(String type) async {
   }
 }
 
-@UseCase(name: 'Button', type: ArtButton)
+@UseCase(name: 'Button', type: DSButton)
 Widget primaryButton(BuildContext context) {
   final type = context.knobs.list(label: 'Pressed type', options: typePressed);
-  final variant = context.knobs.list(label: 'Variant', options: ArtButtonVariant.values);
+  final variant = context.knobs.list(label: 'Variant', options: DSButtonVariant.values);
   final forceLoading = context.knobs.boolean(label: 'Force Loading', initialValue: false);
   return _base(
     child: ValueListenableBuilder(
         valueListenable: loading,
         builder: (context, value, child) {
-          return ArtButton.raw(
+          return DSButton.raw(
             variant: variant,
             trailing: context.knobs.boolean(label: 'SuffixIcon', initialValue: true) ? const Icon(Icons.ac_unit) : null,
             leading: context.knobs.boolean(label: 'Icon', initialValue: true) ? const Icon(Icons.ac_unit) : null,
@@ -50,13 +50,13 @@ Widget primaryButton(BuildContext context) {
   );
 }
 
-@UseCase(name: 'IconButton', type: ArtButton)
+@UseCase(name: 'IconButton', type: DSButton)
 Widget iconButton(BuildContext context) {
   final type = context.knobs.list(label: 'Pressed type', options: typePressed);
-  final variant = context.knobs.list(label: 'Variant', options: ArtButtonVariant.values.where((e) => e != ArtButtonVariant.link).toList());
+  final variant = context.knobs.list(label: 'Variant', options: DSButtonVariant.values.where((e) => e != DSButtonVariant.link).toList());
   final forceLoading = context.knobs.boolean(label: 'Force Loading', initialValue: false);
   return BaseWidget(
-    child: ArtIconButton.raw(
+    child: DSIconButton.raw(
       variant: variant,
       onPressed: () async {
         await onTap(type);

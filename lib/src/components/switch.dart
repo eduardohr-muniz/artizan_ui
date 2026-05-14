@@ -2,7 +2,7 @@ import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class ArtSwitch extends StatelessWidget {
+class DSSwitch extends StatelessWidget {
   final void Function(bool?)? onSaved;
   final Widget? label;
   final Widget Function(String)? error;
@@ -28,7 +28,7 @@ class ArtSwitch extends StatelessWidget {
   final EdgeInsets? padding;
   final TextDirection? direction;
 
-  const ArtSwitch({
+  const DSSwitch({
     super.key,
     this.onSaved,
     this.label,

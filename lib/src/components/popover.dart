@@ -6,8 +6,8 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 /// Widget que encapsula o ShadPopover
 
-class ArtPopover extends StatelessWidget {
-  const ArtPopover({
+class DSPopover extends StatelessWidget {
+  const DSPopover({
     super.key,
     required this.child,
     required this.popover,
@@ -24,10 +24,7 @@ class ArtPopover extends StatelessWidget {
     this.groupId,
     this.areaGroupId,
     this.useSameGroupIdForChild = true,
-  }) : assert(
-          (controller != null) ^ (visible != null),
-          'Either controller or visible must be provided',
-        );
+  }) : assert((controller != null) ^ (visible != null), 'Either controller or visible must be provided');
 
   /// O widget filho
   final Widget child;
@@ -36,7 +33,7 @@ class ArtPopover extends StatelessWidget {
   final WidgetBuilder popover;
 
   /// O controlador que controla a visibilidade do popover
-  final ArtPopoverController? controller;
+  final DSPopoverController? controller;
 
   /// Indica se o popover deve estar visível
   final bool? visible;
@@ -48,7 +45,7 @@ class ArtPopover extends StatelessWidget {
   final FocusNode? focusNode;
 
   /// A posição do popover no sistema de coordenadas global
-  final ArtAnchorBase? anchor;
+  final DSAnchorBase? anchor;
 
   /// Os efeitos de animação aplicados ao popover
   final List<Effect<dynamic>>? effects;
@@ -60,7 +57,7 @@ class ArtPopover extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
 
   /// A decoração do popover
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
 
   /// O filtro do popover
   final ImageFilter? filter;

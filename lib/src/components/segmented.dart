@@ -2,15 +2,15 @@ import 'package:artizan_ui/artizan_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class ArtSegmented<T> extends StatelessWidget {
+class DSSegmented<T> extends StatelessWidget {
   final bool multiSelectionEnabled;
   final bool emptySelectionAllowed;
   final List<T> segments;
   final Set<T> selected;
   final Function(Set<T>)? onSelectionChanged;
-  final ArtSegmentedItem<T> Function(T value) segmentBuilder;
+  final DSSegmentedItem<T> Function(T value) segmentBuilder;
 
-  const ArtSegmented({
+  const DSSegmented({
     super.key,
     required this.selected,
     required this.segments,
@@ -23,7 +23,7 @@ class ArtSegmented<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-    final colorScheme = ArtTheme.of(context).colorScheme;
+    final colorScheme = DSTheme.of(context).colorScheme;
     return SegmentedButton<T>(
       multiSelectionEnabled: multiSelectionEnabled,
       emptySelectionAllowed: emptySelectionAllowed,
@@ -44,6 +44,6 @@ class ArtSegmented<T> extends StatelessWidget {
   }
 }
 
-class ArtSegmentedItem<T> extends ButtonSegment<T> {
-  const ArtSegmentedItem({required super.value, super.icon, super.label, super.tooltip, super.enabled});
+class DSSegmentedItem<T> extends ButtonSegment<T> {
+  const DSSegmentedItem({required super.value, super.icon, super.label, super.tooltip, super.enabled});
 }

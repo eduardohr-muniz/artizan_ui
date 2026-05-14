@@ -9,10 +9,10 @@ class IconButtonWithMenuUseCase extends StatefulWidget {
 }
 
 class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
-  final ArtContextMenuController _menuController = ArtContextMenuController();
-  final ArtContextMenuController _menuController2 = ArtContextMenuController();
-  final ArtContextMenuController _menuController3 = ArtContextMenuController();
-  final ArtContextMenuController _menuController4 = ArtContextMenuController();
+  final DSContextMenuController _menuController = DSContextMenuController();
+  final DSContextMenuController _menuController2 = DSContextMenuController();
+  final DSContextMenuController _menuController3 = DSContextMenuController();
+  final DSContextMenuController _menuController4 = DSContextMenuController();
 
   @override
   void dispose() {
@@ -41,10 +41,10 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
             const SizedBox(height: 20),
 
             // IconButton com menu de contexto
-            ArtContextMenu(
+            DSContextMenu(
               controller: _menuController,
               items: [
-                ArtContextMenuItem(
+                DSContextMenuItem(
                   leading: const Icon(Icons.edit, size: 16),
                   onPressed: () {
                     _menuController.hide();
@@ -54,7 +54,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                   },
                   child: const Text('Editar'),
                 ),
-                ArtContextMenuItem(
+                DSContextMenuItem(
                   leading: const Icon(Icons.delete, size: 16, color: Colors.red),
                   onPressed: () {
                     _menuController.hide();
@@ -68,7 +68,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                   child: const Text('Deletar', style: TextStyle(color: Colors.red)),
                 ),
               ],
-              child: ArtIconButton(
+              child: DSIconButton(
                 icon: const Icon(Icons.more_vert),
                 onPressed: () {
                   _menuController.show();
@@ -85,10 +85,10 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
             ),
             const SizedBox(height: 20),
 
-            ArtContextMenu(
+            DSContextMenu(
               controller: _menuController2,
               items: [
-                ArtContextMenuItem(
+                DSContextMenuItem(
                   leading: const Icon(Icons.edit, size: 16),
                   onPressed: () {
                     _menuController2.hide();
@@ -98,7 +98,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                   },
                   child: const Text('Editar'),
                 ),
-                ArtContextMenuItem(
+                DSContextMenuItem(
                   leading: const Icon(Icons.copy, size: 16),
                   onPressed: () {
                     _menuController2.hide();
@@ -108,11 +108,11 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                   },
                   child: const Text('Copiar'),
                 ),
-                ArtContextMenuItem(
+                DSContextMenuItem(
                   leading: const Icon(Icons.more_horiz, size: 16),
                   trailing: const Icon(Icons.chevron_right, size: 16),
                   items: [
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.delete, size: 16, color: Colors.red),
                       onPressed: () {
                         _menuController2.hide();
@@ -125,7 +125,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                       },
                       child: const Text('Deletar', style: TextStyle(color: Colors.red)),
                     ),
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.archive, size: 16),
                       onPressed: () {
                         _menuController2.hide();
@@ -139,7 +139,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                   child: const Text('Mais opções'),
                 ),
               ],
-              child: ArtIconButton(
+              child: DSIconButton(
                 icon: const Icon(Icons.more_vert),
                 onPressed: () {
                   _menuController2.show();
@@ -160,10 +160,10 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // IconButton primário
-                ArtContextMenu(
+                DSContextMenu(
                   controller: _menuController3,
                   items: [
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.edit, size: 16),
                       onPressed: () {
                         _menuController3.hide();
@@ -173,7 +173,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                       },
                       child: const Text('Editar'),
                     ),
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.delete, size: 16, color: Colors.red),
                       onPressed: () {
                         _menuController3.hide();
@@ -187,7 +187,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                       child: const Text('Deletar', style: TextStyle(color: Colors.red)),
                     ),
                   ],
-                  child: ArtIconButton(
+                  child: DSIconButton(
                     icon: const Icon(Icons.more_vert),
                     onPressed: () {
                       _menuController3.show();
@@ -198,10 +198,10 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                 const SizedBox(width: 16),
 
                 // IconButton outline
-                ArtContextMenu(
+                DSContextMenu(
                   controller: _menuController4,
                   items: [
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.edit, size: 16),
                       onPressed: () {
                         _menuController4.hide();
@@ -211,7 +211,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                       },
                       child: const Text('Editar'),
                     ),
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.delete, size: 16, color: Colors.red),
                       onPressed: () {
                         _menuController4.hide();
@@ -225,7 +225,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                       child: const Text('Deletar', style: TextStyle(color: Colors.red)),
                     ),
                   ],
-                  child: ArtIconButton(
+                  child: DSIconButton(
                     icon: const Icon(Icons.more_vert),
                     onPressed: () {
                       _menuController4.show();
@@ -236,9 +236,9 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                 const SizedBox(width: 16),
 
                 // IconButton ghost
-                ArtContextMenuRegion(
+                DSContextMenuRegion(
                   items: [
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.edit, size: 16),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -247,7 +247,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                       },
                       child: const Text('Editar'),
                     ),
-                    ArtContextMenuItem(
+                    DSContextMenuItem(
                       leading: const Icon(Icons.delete, size: 16, color: Colors.red),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -260,7 +260,7 @@ class _IconButtonWithMenuUseCaseState extends State<IconButtonWithMenuUseCase> {
                       child: const Text('Deletar', style: TextStyle(color: Colors.red)),
                     ),
                   ],
-                  child: ArtIconButton(
+                  child: DSIconButton(
                     icon: const Icon(Icons.more_vert),
                     onPressed: () {},
                   ),

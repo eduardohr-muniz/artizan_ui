@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 @immutable
-class ArtPaipColorScheme extends ArtColorScheme {
-  const ArtPaipColorScheme({
+class DSPaipColorScheme extends DSColorScheme {
+  const DSPaipColorScheme({
     required super.background,
     required super.foreground,
     required super.card,
@@ -27,7 +27,7 @@ class ArtPaipColorScheme extends ArtColorScheme {
     required super.selection,
   });
 
-  const ArtPaipColorScheme.light({
+  const DSPaipColorScheme.light({
     super.background = const Color(0xFFFFFFFF),
     super.foreground = const Color(0xff09090b),
     super.card = const Color(0xffffffff),
@@ -52,7 +52,7 @@ class ArtPaipColorScheme extends ArtColorScheme {
     super.selection = const Color(0xFFB4D7FF),
   });
 
-  const ArtPaipColorScheme.dark({
+  const DSPaipColorScheme.dark({
     super.background = const Color(0xff09090b),
     super.foreground = const Color(0xfffafafa),
     super.card = const Color(0xff09090b),

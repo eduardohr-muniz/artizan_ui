@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 /// content, and optional footer, styled with a background, border, and shadows.
 /// It integrates with [ShadTheme] for consistent styling and supports leading
 /// and trailing widgets for additional layout flexibility.
-class ArtCard extends StatelessWidget {
+class DSCard extends StatelessWidget {
   /// Creates a card widget with optional content and styling.
-  const ArtCard({
+  const DSCard({
     super.key,
     this.title,
     this.description,
@@ -155,7 +155,7 @@ class ArtCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ArtTheme.of(context);
+    final theme = DSTheme.of(context);
 
     final effectivePadding = padding ?? theme.cardTheme.padding ?? const EdgeInsets.all(24);
     final effectiveBackgroundColor = backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;

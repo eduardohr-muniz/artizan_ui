@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-enum ArtButtonVariant {
+enum DSButtonVariant {
   primary(ShadButtonVariant.primary),
   destructive(ShadButtonVariant.destructive),
   outline(ShadButtonVariant.outline),
@@ -17,15 +17,15 @@ enum ArtButtonVariant {
 
   final ShadButtonVariant shadVariant;
 
-  const ArtButtonVariant(this.shadVariant);
+  const DSButtonVariant(this.shadVariant);
 }
 
-enum ArtButtonSize { regular, sm, lg }
+enum DSButtonSize { regular, sm, lg }
 
-typedef ArtButtonTheme = ShadButtonTheme;
+typedef DSButtonTheme = ShadButtonTheme;
 
-class ArtButton extends StatefulWidget {
-  const ArtButton({
+class DSButton extends StatefulWidget {
+  const DSButton({
     super.key,
     this.child,
     this.leading,
@@ -76,9 +76,9 @@ class ArtButton extends StatefulWidget {
     this.onFocusChange,
     this.expands,
     this.isLoading,
-  }) : variant = ArtButtonVariant.primary;
+  }) : variant = DSButtonVariant.primary;
 
-  const ArtButton.raw({
+  const DSButton.raw({
     super.key,
     required this.variant,
     this.size,
@@ -132,7 +132,7 @@ class ArtButton extends StatefulWidget {
     this.isLoading,
   });
 
-  const ArtButton.destructive({
+  const DSButton.destructive({
     super.key,
     this.child,
     this.leading,
@@ -183,9 +183,9 @@ class ArtButton extends StatefulWidget {
     this.onFocusChange,
     this.expands,
     this.isLoading,
-  }) : variant = ArtButtonVariant.destructive;
+  }) : variant = DSButtonVariant.destructive;
 
-  const ArtButton.outline({
+  const DSButton.outline({
     super.key,
     this.child,
     this.leading,
@@ -236,9 +236,9 @@ class ArtButton extends StatefulWidget {
     this.onFocusChange,
     this.expands,
     this.isLoading,
-  }) : variant = ArtButtonVariant.outline;
+  }) : variant = DSButtonVariant.outline;
 
-  const ArtButton.secondary({
+  const DSButton.secondary({
     super.key,
     this.child,
     this.leading,
@@ -289,9 +289,9 @@ class ArtButton extends StatefulWidget {
     this.onFocusChange,
     this.expands,
     this.isLoading,
-  }) : variant = ArtButtonVariant.secondary;
+  }) : variant = DSButtonVariant.secondary;
 
-  const ArtButton.ghost({
+  const DSButton.ghost({
     super.key,
     this.child,
     this.leading,
@@ -342,9 +342,9 @@ class ArtButton extends StatefulWidget {
     this.onFocusChange,
     this.expands,
     this.isLoading,
-  }) : variant = ArtButtonVariant.ghost;
+  }) : variant = DSButtonVariant.ghost;
 
-  const ArtButton.link({
+  const DSButton.link({
     super.key,
     required this.child,
     this.onPressed,
@@ -395,9 +395,9 @@ class ArtButton extends StatefulWidget {
     this.leading,
     this.trailing,
     this.isLoading,
-  }) : variant = ArtButtonVariant.link;
+  }) : variant = DSButtonVariant.link;
 
-  const ArtButton.darken({
+  const DSButton.darken({
     super.key,
     required this.child,
     this.onPressed,
@@ -448,7 +448,7 @@ class ArtButton extends StatefulWidget {
     this.leading,
     this.trailing,
     this.isLoading,
-  }) : variant = ArtButtonVariant.darken;
+  }) : variant = DSButtonVariant.darken;
 
   final FutureOr<void> Function()? onPressed;
 
@@ -460,9 +460,9 @@ class ArtButton extends StatefulWidget {
 
   final Widget? trailing;
 
-  final ArtButtonVariant variant;
+  final DSButtonVariant variant;
 
-  final ArtButtonSize? size;
+  final DSButtonSize? size;
 
   final MouseCursor? cursor;
 
@@ -551,19 +551,24 @@ class ArtButton extends StatefulWidget {
   final bool? isLoading;
 
   @override
-  State<ArtButton> createState() => _ArtButtonState();
+  State<DSButton> createState() => _DSButtonState();
 }
 
-class _ArtButtonState extends State<ArtButton> {
+class _DSButtonState extends State<DSButton> {
   bool _isLoading = false;
 
   bool get _effectiveIsLoading => widget.isLoading ?? _isLoading;
 
-  Widget? _effectiveTrailing(BuildContext context, ArtThemeData theme) {
+  Widget? _effectiveTrailing(BuildContext context, DSThemeData theme) {
     if (_effectiveIsLoading == false) return widget.trailing;
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (widget.trailing == null) return SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 1, strokeCap: StrokeCap.round, color: foregroundColor ?? context.artColorScheme.foreground));
-    return ArtLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.trailing!);
+    if (widget.trailing == null)
+      return SizedBox(
+        width: 14,
+        height: 14,
+        child: CircularProgressIndicator(strokeWidth: 1, strokeCap: StrokeCap.round, color: foregroundColor ?? context.artColorScheme.foreground),
+      );
+    return DSLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.trailing!);
   }
 
   FutureOr<void> _effectiveOnPressed() async {
@@ -581,16 +586,16 @@ class _ArtButtonState extends State<ArtButton> {
     widget.onPressed?.call();
   }
 
-  ArtButtonTheme _buttonTheme(ArtThemeData theme) {
+  DSButtonTheme _buttonTheme(DSThemeData theme) {
     final isDark = theme.brightness == Brightness.dark;
     return switch (widget.variant) {
-      ArtButtonVariant.primary => theme.primaryButtonTheme,
-      ArtButtonVariant.destructive => theme.destructiveButtonTheme,
-      ArtButtonVariant.secondary => theme.secondaryButtonTheme,
-      ArtButtonVariant.ghost => theme.ghostButtonTheme,
-      ArtButtonVariant.outline => theme.outlineButtonTheme,
-      ArtButtonVariant.link => theme.linkButtonTheme,
-      ArtButtonVariant.darken => theme.primaryButtonTheme.copyWith(
+      DSButtonVariant.primary => theme.primaryButtonTheme,
+      DSButtonVariant.destructive => theme.destructiveButtonTheme,
+      DSButtonVariant.secondary => theme.secondaryButtonTheme,
+      DSButtonVariant.ghost => theme.ghostButtonTheme,
+      DSButtonVariant.outline => theme.outlineButtonTheme,
+      DSButtonVariant.link => theme.linkButtonTheme,
+      DSButtonVariant.darken => theme.primaryButtonTheme.copyWith(
         backgroundColor: isDark ? Colors.white : Colors.black,
         foregroundColor: isDark ? Colors.black : Colors.white,
         hoverBackgroundColor: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black.withValues(alpha: 0.9),
@@ -601,39 +606,39 @@ class _ArtButtonState extends State<ArtButton> {
     };
   }
 
-  Color? _effectiveBackgroundColor({required bool isDark, required ArtButtonVariant variant}) {
-    if (variant == ArtButtonVariant.darken) return isDark ? Colors.white : Colors.black;
+  Color? _effectiveBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
+    if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
 
-  Color? _effectiveForegroundColor({required bool isDark, required ArtButtonVariant variant}) {
-    if (variant == ArtButtonVariant.darken) return isDark ? Colors.black : Colors.white;
+  Color? _effectiveForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+    if (variant == DSButtonVariant.darken) return isDark ? Colors.black : Colors.white;
     return null;
   }
 
-  Color? _effectiveHoverBackgroundColor({required bool isDark, required ArtButtonVariant variant}) {
-    if (variant == ArtButtonVariant.darken) return isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.1);
+  Color? _effectiveHoverBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
+    if (variant == DSButtonVariant.darken) return isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.1);
     return null;
   }
 
-  Color? _effectivePressedBackgroundColor({required bool isDark, required ArtButtonVariant variant}) {
-    if (variant == ArtButtonVariant.darken) return isDark ? Colors.white : Colors.black;
+  Color? _effectivePressedBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
+    if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
 
-  Color? _effectiveHoverForegroundColor({required bool isDark, required ArtButtonVariant variant}) {
-    if (variant == ArtButtonVariant.darken) return isDark ? Colors.black : Colors.white;
+  Color? _effectiveHoverForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+    if (variant == DSButtonVariant.darken) return isDark ? Colors.black : Colors.white;
     return null;
   }
 
-  Color? _effectivePressedForegroundColor({required bool isDark, required ArtButtonVariant variant}) {
-    if (variant == ArtButtonVariant.darken) return isDark ? Colors.white : Colors.black;
+  Color? _effectivePressedForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+    if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = ArtTheme.of(context);
+    final theme = DSTheme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     return ShadButton.raw(
       variant: widget.variant.shadVariant,
@@ -690,11 +695,11 @@ class _ArtButtonState extends State<ArtButton> {
 
   ShadButtonSize? _mapSize() {
     switch (widget.size) {
-      case ArtButtonSize.sm:
+      case DSButtonSize.sm:
         return ShadButtonSize.sm;
-      case ArtButtonSize.lg:
+      case DSButtonSize.lg:
         return ShadButtonSize.lg;
-      case ArtButtonSize.regular:
+      case DSButtonSize.regular:
       default:
         return null;
     }

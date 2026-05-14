@@ -20,7 +20,7 @@ final directories = <_i1.WidgetbookNode>[
     name: 'components',
     children: [
       _i1.WidgetbookComponent(
-        name: 'ArtButton',
+        name: 'DSButton',
         useCases: [
           _i1.WidgetbookUseCase(
             name: 'Button',
@@ -33,7 +33,7 @@ final directories = <_i1.WidgetbookNode>[
         ],
       ),
       _i1.WidgetbookComponent(
-        name: 'ArtEmptyState',
+        name: 'DSEmptyState',
         useCases: [
           _i1.WidgetbookUseCase(
             name: 'InTable',
@@ -54,7 +54,7 @@ final directories = <_i1.WidgetbookNode>[
         ],
       ),
       _i1.WidgetbookLeafComponent(
-        name: 'ArtTextFormField',
+        name: 'DSTextFormField',
         useCase: _i1.WidgetbookUseCase(
           name: 'FormField',
           builder: _i4.emptyStateInTable,

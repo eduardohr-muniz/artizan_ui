@@ -3,7 +3,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 import 'package:artizan_ui/artizan_ui.dart';
 
-class ArtCheckBox extends StatelessWidget {
+class DSCheckBox extends StatelessWidget {
   final String? id;
 
   final FormFieldSetter<bool>? onSaved;
@@ -30,7 +30,7 @@ class ArtCheckBox extends StatelessWidget {
 
   final FocusNode? focusNode;
 
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
 
   final String? Function(bool)? validator;
 
@@ -55,7 +55,7 @@ class ArtCheckBox extends StatelessWidget {
   final EdgeInsets? checkboxPadding;
 
   final String? forceErrorText;
-  const ArtCheckBox({
+  const DSCheckBox({
     required this.initialValue,
     super.key,
     this.id,

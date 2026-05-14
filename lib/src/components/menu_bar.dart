@@ -6,7 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 /// Variantes do botão do menu bar
-enum ArtMenuBarButtonVariant {
+enum DSMenuBarButtonVariant {
   primary(ShadButtonVariant.primary),
   destructive(ShadButtonVariant.destructive),
   outline(ShadButtonVariant.outline),
@@ -16,26 +16,26 @@ enum ArtMenuBarButtonVariant {
 
   final ShadButtonVariant shadVariant;
 
-  const ArtMenuBarButtonVariant(this.shadVariant);
+  const DSMenuBarButtonVariant(this.shadVariant);
 }
 
 /// Tamanhos do botão do menu bar
-enum ArtMenuBarButtonSize {
+enum DSMenuBarButtonSize {
   regular(ShadButtonSize.regular),
   sm(ShadButtonSize.sm),
   lg(ShadButtonSize.lg);
 
   final ShadButtonSize shadSize;
 
-  const ArtMenuBarButtonSize(this.shadSize);
+  const DSMenuBarButtonSize(this.shadSize);
 }
 
 /// Controlador do menu bar
-typedef ArtMenuBarController = ShadMenubarController;
+typedef DSMenuBarController = ShadMenubarController;
 
 /// Widget que encapsula o ShadMenubar
-class ArtMenuBar extends StatelessWidget {
-  const ArtMenuBar({
+class DSMenuBar extends StatelessWidget {
+  const DSMenuBar({
     super.key,
     required this.items,
     this.radius,
@@ -53,7 +53,7 @@ class ArtMenuBar extends StatelessWidget {
   final BorderRadiusGeometry? radius;
 
   /// O controlador do menu bar
-  final ArtMenuBarController? controller;
+  final DSMenuBarController? controller;
 
   /// O padding do menu bar
   final EdgeInsetsGeometry? padding;
@@ -82,8 +82,8 @@ class ArtMenuBar extends StatelessWidget {
 }
 
 /// Widget que encapsula o ShadMenubarItem
-class ArtMenuBarItem extends StatelessWidget {
-  const ArtMenuBarItem({
+class DSMenuBarItem extends StatelessWidget {
+  const DSMenuBarItem({
     super.key,
     required this.child,
     required this.items,
@@ -193,10 +193,10 @@ class ArtMenuBarItem extends StatelessWidget {
   final Widget? trailing;
 
   /// Variante do botão
-  final ArtMenuBarButtonVariant? variant;
+  final DSMenuBarButtonVariant? variant;
 
   /// Tamanho do botão
-  final ArtMenuBarButtonSize? size;
+  final DSMenuBarButtonSize? size;
 
   /// Cursor do mouse
   final MouseCursor? cursor;
