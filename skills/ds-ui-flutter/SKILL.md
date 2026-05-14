@@ -16,6 +16,7 @@ Use `DSThemeData` within `DSApp` to define your light and dark themes.
 ### Detailed Guides
 - [Theming](guides/theming.md)
 - [Typography](guides/typography.md)
+- [Form Validation](guides/form-validation.md)
 - [Material & Cupertino Interop](guides/interop.md)
 - [Responsive](guides/responsive.md)
 - [Decorator](guides/decorator.md)

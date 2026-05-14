@@ -1,65 +1,142 @@
-In *shadcn_ui* the responsiveness is an important part of the library.
+# Responsive
 
-The `DSTheme` supports a customizable set of breakpoints.
+Responsiveness in `artizan_ui` uses the [`flutter_breakpoints`](https://pub.dev/packages/flutter_breakpoints) package, which is re-exported by the library — no separate import needed.
 
-## Default
+## Setup
+
+Wrap your app's `builder` with `FlutterBreakpointProvider.builder`. This must be done once, high in the tree.
 
 ```dart
-DSThemeData(
-  breakpoints: DSBreakpoints(
-    tn: 0, // tiny
-    sm: 640, // small
-    md: 768, // medium
-    lg: 1024, // large
-    xl: 1280, // extra large
-    xxl: 1536, // extra extra large
+DSApp(
+  builder: (context, child) => FlutterBreakpointProvider.builder(
+    context: context,
+    child: child,
   ),
-);
+  home: const MyPage(),
+)
 ```
 
-## Current breakpoint
-
-To get the current breakpoint you can use `DSResponsiveBuilder` or `context.breakpoint`, eg:
-
-```dart
-
-DSResponsiveBuilder(
-  builder: (context, breakpoint) {
-    final sm = breakpoint >= DSTheme.of(context).breakpoints.sm;
-    ...
-  },
-),
-```
-
-which is equivalent to:
-
-```dart
-final sm = context.breakpoint >= DSTheme.of(context).breakpoints.sm;
+## Built-in breakpoints
 
 ```
+Breakpoints.mobile       minWidth: 0
+Breakpoints.tablet       minWidth: 600
+Breakpoints.desktop      minWidth: 1024
+Breakpoints.largeDesktop minWidth: 1440
+```
 
-In Tailwind CSS, it's common to say that *sm* is not for small screens, but will target also the largest sizes if you don't provide a larger breakpoint.
+## Checking the current breakpoint
 
-That's why I'm using the `>=` operator.
-
-If you just want to check if you're in a specific breakpoint, use the `==` operator.
-
-## Sealed class
-
-The breakpoint returned is a sealed class so you can switch any size.
+Use `.isBreakpoint(context)` on any `FlutterBreakpoint` to check if it is the **active** breakpoint (exact match — the largest threshold that fits the current width):
 
 ```dart
+final isMobile  = Breakpoints.mobile.isBreakpoint(context);
+final isTablet  = Breakpoints.tablet.isBreakpoint(context);
+final isDesktop = Breakpoints.desktop.isBreakpoint(context);
+```
 
-DSResponsiveBuilder(
-  builder: (context, breakpoint) {
-    return switch (breakpoint) {
-      DSBreakpointTN() => const Text('Tiny'),
-      DSBreakpointSM() => const Text('Small'),
-      DSBreakpointMD() => const Text('Medium'),
-      DSBreakpointLG() => const Text('Large'),
-      DSBreakpointXL() => const Text('Extra Large'),
-      DSBreakpointXXL() => const Text('Extra Extra Large'),
-    };
-  },
-),
+Or access the current breakpoint directly via the context extension:
+
+```dart
+final bp = context.responsive.breakpoint; // FlutterBreakpoint
+```
+
+## Adaptive layouts
+
+```dart
+Widget build(BuildContext context) {
+  final isMobile  = Breakpoints.mobile.isBreakpoint(context);
+  final isTablet  = Breakpoints.tablet.isBreakpoint(context);
+  final isDesktop = Breakpoints.desktop.isBreakpoint(context) ||
+                    Breakpoints.largeDesktop.isBreakpoint(context);
+
+  if (isMobile)  return const MobileLayout();
+  if (isTablet)  return const TabletLayout();
+  if (isDesktop) return const DesktopLayout();
+  return const SizedBox.shrink();
+}
+```
+
+## Custom breakpoints
+
+Define your own breakpoints and pass them to the provider:
+
+```dart
+class AppBreakpoints {
+  static const FlutterBreakpoint compact  = FlutterBreakpoint(name: 'compact',  minWidth: 0);
+  static const FlutterBreakpoint medium   = FlutterBreakpoint(name: 'medium',   minWidth: 480);
+  static const FlutterBreakpoint expanded = FlutterBreakpoint(name: 'expanded', minWidth: 840);
+
+  static List<FlutterBreakpoint> get all => [compact, medium, expanded];
+}
+
+// In DSApp builder:
+FlutterBreakpointProvider.builder(
+  context: context,
+  child: child,
+  breakpoints: AppBreakpoints.all,
+)
+```
+
+Then check them the same way:
+
+```dart
+final isExpanded = AppBreakpoints.expanded.isBreakpoint(context);
+```
+
+## Full example
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:artizan_ui/artizan_ui.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DSApp(
+      theme: DSThemeData(
+        brightness: Brightness.light,
+        colorScheme: const DSZincColorScheme.light(),
+      ),
+      builder: (context, child) => FlutterBreakpointProvider.builder(
+        context: context,
+        child: child,
+      ),
+      home: const ResponsivePage(),
+    );
+  }
+}
+
+class ResponsivePage extends StatelessWidget {
+  const ResponsivePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile  = Breakpoints.mobile.isBreakpoint(context);
+    final isTablet  = Breakpoints.tablet.isBreakpoint(context);
+
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: isMobile
+            ? const Column(children: [PrimaryPanel(), SecondaryPanel()])
+            : isTablet
+                ? const Row(children: [
+                    Expanded(child: PrimaryPanel()),
+                    SizedBox(width: 16),
+                    SizedBox(width: 300, child: SecondaryPanel()),
+                  ])
+                : const Row(children: [
+                    Expanded(child: PrimaryPanel()),
+                    SizedBox(width: 16),
+                    Expanded(child: SecondaryPanel()),
+                  ]),
+      ),
+    );
+  }
+}
 ```
