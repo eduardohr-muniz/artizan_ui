@@ -17,13 +17,10 @@ class DSSegmentedBadge<T> extends StatelessWidget {
       spacing: 8,
       children: [
         if (label != null)
-          DefaultTextStyle(
-            style: context.artTextTheme.muted.copyWith(color: context.artColorScheme.foreground, fontWeight: FontWeight.w600),
-            child: label!,
-          ),
+          DefaultTextStyle(style: context.dsTextTheme.muted.copyWith(color: context.dsColors.foreground, fontWeight: FontWeight.w600), child: label!),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: context.artColorScheme.muted, borderRadius: BorderRadius.circular(21)),
+          decoration: BoxDecoration(color: context.dsColors.muted, borderRadius: BorderRadius.circular(21)),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             spacing: 4,
@@ -36,9 +33,9 @@ class DSSegmentedBadge<T> extends StatelessWidget {
                           constraints: BoxConstraints(minWidth: 45),
                           child: DSBadge.raw(
                             variant: value == e ? DSBadgeVariant.primary : DSBadgeVariant.secondary,
-                            backgroundColor: value == e ? null : context.artColorScheme.background,
-                            foregroundColor: value == e ? null : context.artColorScheme.foreground,
-                            hoverBackgroundColor: context.artColorScheme.ring.withValues(alpha: .1),
+                            backgroundColor: value == e ? null : context.dsColors.background,
+                            foregroundColor: value == e ? null : context.dsColors.foreground,
+                            hoverBackgroundColor: context.dsColors.ring.withValues(alpha: .1),
                             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                             child: childBuilder(e),
                             onPressed: () => onChanged(e),

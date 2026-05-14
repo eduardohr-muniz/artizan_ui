@@ -58,7 +58,7 @@ class DSSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveUncheckedTrackColor = context.isDarkTheme ? context.artColorScheme.mutedForeground : null;
+    final effectiveUncheckedTrackColor = context.isDarkTheme ? context.dsColors.mutedForeground : null;
 
     return ShadSwitchFormField(
       initialValue: initialValue,

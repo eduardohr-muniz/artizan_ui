@@ -384,7 +384,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
   @override
   Widget build(BuildContext context) {
     DSTextTheme textTheme = DSTheme.of(context).textTheme;
-    DSColorScheme colors = DSTheme.of(context).colorScheme;
+    final colors = DSTheme.of(context).colorScheme;
     switch (widget.variant) {
       case DSTextFieldVariant.primary:
         return ShadInputFormField(

@@ -1,5 +1,4 @@
 import 'package:artizan_ui/src/themes/color_scheme/base.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 @immutable
@@ -25,6 +24,13 @@ class DSPaipColorScheme extends DSColorScheme {
     required super.input,
     required super.ring,
     required super.selection,
+    super.custom,
+    super.success,
+    super.successForeground,
+    super.warning,
+    super.warningForeground,
+    super.info,
+    super.infoForeground,
   });
 
   const DSPaipColorScheme.light({

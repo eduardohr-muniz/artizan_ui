@@ -1,7 +1,7 @@
+import 'package:artizan_ui/src/themes/color_scheme/base.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shadcn_ui/shadcn_ui.dart';
 
-class DSZincCustomColorScheme extends ShadColorScheme {
+class DSZincCustomColorScheme extends DSColorScheme {
   const DSZincCustomColorScheme({
     required super.background,
     required super.foreground,
@@ -24,6 +24,12 @@ class DSZincCustomColorScheme extends ShadColorScheme {
     required super.ring,
     required super.selection,
     super.custom,
+    super.success,
+    super.successForeground,
+    super.warning,
+    super.warningForeground,
+    super.info,
+    super.infoForeground,
   });
 
   const DSZincCustomColorScheme.light({
@@ -97,6 +103,12 @@ class DSZincCustomColorScheme extends ShadColorScheme {
     Color? ring,
     Color? selection,
     Map<String, Color>? custom,
+    Color? success,
+    Color? successForeground,
+    Color? warning,
+    Color? warningForeground,
+    Color? info,
+    Color? infoForeground,
   }) {
     return DSZincCustomColorScheme(
       background: background ?? this.background,
@@ -120,6 +132,12 @@ class DSZincCustomColorScheme extends ShadColorScheme {
       ring: ring ?? this.ring,
       selection: selection ?? this.selection,
       custom: custom ?? this.custom,
+      success: success ?? this.success,
+      successForeground: successForeground ?? this.successForeground,
+      warning: warning ?? this.warning,
+      warningForeground: warningForeground ?? this.warningForeground,
+      info: info ?? this.info,
+      infoForeground: infoForeground ?? this.infoForeground,
     );
   }
 }

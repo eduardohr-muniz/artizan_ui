@@ -80,17 +80,17 @@ class DSEmptyState extends StatefulWidget {
 }
 
 class _DSEmptyStateState extends State<DSEmptyState> {
-  Widget _title(BuildContext context) => Text(widget.title!, style: context.artTextTheme.small, textAlign: widget.textAlignment);
+  Widget _title(BuildContext context) => Text(widget.title!, style: context.dsTextTheme.small, textAlign: widget.textAlignment);
 
-  Widget _subtitle(BuildContext context) => Text(widget.subtitle!, style: context.artTextTheme.muted, textAlign: widget.textAlignment);
+  Widget _subtitle(BuildContext context) => Text(widget.subtitle!, style: context.dsTextTheme.muted, textAlign: widget.textAlignment);
 
   Widget _icon(BuildContext context) {
-    final iconWidget = IconTheme(data: IconThemeData(color: widget.color ?? context.artColorScheme.foreground), child: widget.icon);
+    final iconWidget = IconTheme(data: IconThemeData(color: widget.color ?? context.dsColors.foreground), child: widget.icon);
 
     if (!widget.showAvatar) return iconWidget;
 
     return CircleAvatar(
-      backgroundColor: widget.backgroundColor ?? (widget.color ?? context.artColorScheme.primary).withValues(alpha: .2),
+      backgroundColor: widget.backgroundColor ?? (widget.color ?? context.dsColors.primary).withValues(alpha: .2),
       child: iconWidget,
     );
   }

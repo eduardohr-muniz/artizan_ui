@@ -562,13 +562,15 @@ class _DSButtonState extends State<DSButton> {
   Widget? _effectiveTrailing(BuildContext context, DSThemeData theme) {
     if (_effectiveIsLoading == false) return widget.trailing;
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (widget.trailing == null)
+    if (widget.trailing == null) {
       return SizedBox(
         width: 14,
         height: 14,
-        child: CircularProgressIndicator(strokeWidth: 1, strokeCap: StrokeCap.round, color: foregroundColor ?? context.artColorScheme.foreground),
+        child: CircularProgressIndicator(strokeWidth: 1, strokeCap: StrokeCap.round, color: foregroundColor ?? context.dsColors.foreground),
       );
-    return DSLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.trailing!);
+    }
+
+    return DSLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.dsColors.foreground, child: widget.trailing!);
   }
 
   FutureOr<void> _effectiveOnPressed() async {

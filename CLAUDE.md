@@ -84,14 +84,41 @@ Available built-in color schemes (all have `.light()` and `.dark()` constructors
 
 For a fully custom palette, extend `DSZincCustomColorScheme` (see `lib/src/themes/color_scheme/zinc_custom.dart`).
 
+### Semantic color tokens (`lib/src/themes/color_scheme/base.dart`)
+
+`DSColorScheme` is an abstract class (not a typedef) that extends `ShadColorScheme` and adds typed fields for status colors. All built-in color schemes extend it:
+
+| Field | Default |
+|---|---|
+| `success` / `successForeground` | `#22c55e` / `#fafafa` |
+| `warning` / `warningForeground` | `#f59e0b` / `#fafafa` |
+| `info` / `infoForeground` | `#3b82f6` / `#fafafa` |
+
+Access via `context.dsColors.success`, `context.dsColors.warning`, etc.
+
+To create a custom color scheme with different semantic token values, extend `DSColorScheme` and pass the token overrides to `super()`:
+
+```dart
+class MyColorScheme extends DSColorScheme {
+  const MyColorScheme.light({
+    super.primary = const Color(0xff6366f1),
+    // ... other Shad tokens
+    super.success = const Color(0xff10b981), // override default
+  });
+}
+```
+
 ### Context extensions (`lib/src/utils/context_extension.dart`)
 
 ```dart
-context.artTextTheme    // DSTextTheme  — typography styles
-context.artColorScheme  // DSColorScheme — semantic colors
+context.dsTextTheme    // DSTextTheme      — typography styles
+context.dsColors  // ShadColorScheme  — base Shad tokens (primary, muted, border…)
+context.dsColors        // DSColorScheme    — base tokens + DS semantic tokens (typed cast)
 context.isDarkTheme     // bool
 context.isLightTheme    // bool
 ```
+
+Use `context.dsColors` when you need the DS-specific semantic tokens. It will throw at runtime if the app is using a plain `ShadColorScheme` instead of a `DSColorScheme`.
 
 ### Adding a new component
 

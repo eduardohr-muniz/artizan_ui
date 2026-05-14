@@ -408,8 +408,9 @@ class _DSIconButtonState extends State<DSIconButton> {
 
   Widget _effectiveIcon(BuildContext context, DSThemeData theme) {
     final foregroundColor = _buttonTheme(theme).foregroundColor;
-    if (_effectiveIsLoading)
-      return DSLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.artColorScheme.foreground, child: widget.icon);
+    if (_effectiveIsLoading) {
+      return DSLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.dsColors.foreground, child: widget.icon);
+    }
     return widget.icon;
   }
 
