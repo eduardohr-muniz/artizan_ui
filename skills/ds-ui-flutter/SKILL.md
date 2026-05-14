@@ -35,8 +35,11 @@ Use `DSThemeData` within `DSApp` to define your light and dark themes.
 | Context Menu | Displays a menu to the user — such as a set of actions or functions — triggered by a mouse right-click. | [context-menu.md](components/context-menu.md) |
 | Date Picker | A date picker component with range and presets. | [date-picker.md](components/date-picker.md) |
 | Dialog | A modal dialog that interrupts the user. | [dialog.md](components/dialog.md) |
+| Divider | A horizontal or vertical line that visually separates content. | [divider.md](components/divider.md) |
+| EmptyState | Placeholder UI for empty lists, zero-result searches, or missing content. | [empty-state.md](components/empty-state.md) |
 | Form | Builds a form with validation and easy access to form fields values. | [form.md](components/form.md) |
 | IconButton | Displays an icon button or a component that looks like a button with an icon. | [icon-button.md](components/icon-button.md) |
+| LoaderOnButton | Swaps a button's child with a spinner during async operations. | [loader-on-button.md](components/loader-on-button.md) |
 | Input | Displays a form input field or a component that looks like an input field. | [input.md](components/input.md) |
 | InputOTP | Accessible one-time password component with copy paste functionality. | [input-otp.md](components/input-otp.md) |
 | Menubar | A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands. | [menubar.md](components/menubar.md) |
@@ -44,6 +47,8 @@ Use `DSThemeData` within `DSApp` to define your light and dark themes.
 | Progress | Displays an indicator showing the completion progress of a task, typically displayed as a progress bar. | [progress.md](components/progress.md) |
 | RadioGroup | A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time. | [radio-group.md](components/radio-group.md) |
 | Resizable | Resizable panel groups and layouts. | [resizable.md](components/resizable.md) |
+| Segmented | A themed row of toggle buttons for single or multi-selection. | [segmented.md](components/segmented.md) |
+| SegmentedBadge | A pill-shaped inline toggle control built from badge items. | [segmented-badge.md](components/segmented-badge.md) |
 | Select | Displays a list of options for the user to pick from—triggered by a button. | [select.md](components/select.md) |
 | Separator | Visually or semantically separates content. | [separator.md](components/separator.md) |
 | Sheet | Extends the Dialog component to display content that complements the main content of the screen. | [sheet.md](components/sheet.md) |
