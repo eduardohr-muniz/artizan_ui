@@ -1,4 +1,4 @@
-import 'package:artizan_ui/src/themes/z_themes_export.dart';
+import 'package:ds_ui/src/themes/z_themes_export.dart';
 import 'package:flutter/material.dart';
 
 // A customizable card widget for displaying structured content.

@@ -1,4 +1,4 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 
 enum DSEmptyStateVariant { inTable, nonTable, small, minimal }

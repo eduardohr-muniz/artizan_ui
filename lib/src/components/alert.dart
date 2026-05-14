@@ -1,4 +1,4 @@
-import 'package:artizan_ui/src/type_defs.dart';
+import 'package:ds_ui/src/type_defs.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 

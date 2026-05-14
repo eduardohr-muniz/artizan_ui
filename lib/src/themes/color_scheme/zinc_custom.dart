@@ -1,4 +1,4 @@
-import 'package:artizan_ui/src/themes/color_scheme/base.dart';
+import 'package:ds_ui/src/themes/color_scheme/base.dart';
 import 'package:flutter/widgets.dart';
 
 class DSZincCustomColorScheme extends DSColorScheme {

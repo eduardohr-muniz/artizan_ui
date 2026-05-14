@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:artizan_ui/artizan_ui.dart';
-import 'package:artizan_ui/src/components/loader_on_button.dart';
+import 'package:ds_ui/ds_ui.dart';
+import 'package:ds_ui/src/components/loader_on_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';

@@ -177,7 +177,7 @@ Pass your own `FocusNode` only if you need external control over focus (e.g. `Fo
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 
 // Controllers
 class NameController extends FormController {

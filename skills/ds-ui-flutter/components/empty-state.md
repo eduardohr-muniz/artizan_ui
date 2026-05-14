@@ -65,7 +65,7 @@ DSEmptyState.intable(
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 
 class EmptyStatePage extends StatelessWidget {
   const EmptyStatePage({super.key});

@@ -1,4 +1,4 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';

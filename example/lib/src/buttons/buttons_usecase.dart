@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:example/src/widget_base.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';

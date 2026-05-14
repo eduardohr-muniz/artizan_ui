@@ -26,7 +26,7 @@ DSLoardOnButton(
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 
 class LoaderOnButtonDemo extends StatefulWidget {
   const LoaderOnButtonDemo({super.key});

@@ -56,7 +56,7 @@ DSSegmentedBadge<ViewMode>(
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 
 class SegmentedBadgePage extends StatefulWidget {
   const SegmentedBadgePage({super.key});

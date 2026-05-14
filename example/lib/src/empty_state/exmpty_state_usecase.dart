@@ -1,4 +1,4 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
