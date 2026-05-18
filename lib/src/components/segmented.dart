@@ -1,8 +1,7 @@
 import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class DSSegmented<T> extends StatelessWidget {
+class DSSegmented<T> extends StatefulWidget {
   final bool multiSelectionEnabled;
   final bool emptySelectionAllowed;
   final List<T> segments;
@@ -21,13 +20,35 @@ class DSSegmented<T> extends StatelessWidget {
   });
 
   @override
+  State<DSSegmented<T>> createState() => _DSSegmentedState<T>();
+}
+
+class _DSSegmentedState<T> extends State<DSSegmented<T>> {
+  late Set<T> _selected;
+
+  @override
+  void initState() {
+    super.initState();
+    _selected = Set.of(widget.selected);
+  }
+
+  @override
+  void didUpdateWidget(DSSegmented<T> old) {
+    super.didUpdateWidget(old);
+    if (old.selected != widget.selected) {
+      _selected = Set.of(widget.selected);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     final colorScheme = DSTheme.of(context).colorScheme;
+
     return SegmentedButton<T>(
-      multiSelectionEnabled: multiSelectionEnabled,
-      emptySelectionAllowed: emptySelectionAllowed,
-      selectedIcon: Icon(LucideIcons.check, size: 12),
+      multiSelectionEnabled: widget.multiSelectionEnabled,
+      emptySelectionAllowed: widget.emptySelectionAllowed,
+      selectedIcon: const Icon(LucideIcons.check, size: 12),
       style: SegmentedButton.styleFrom(
         side: BorderSide(color: isDarkTheme ? colorScheme.mutedForeground : colorScheme.border),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -37,9 +58,12 @@ class DSSegmented<T> extends StatelessWidget {
         foregroundColor: colorScheme.mutedForeground,
         overlayColor: Colors.transparent,
       ),
-      segments: segments.map((e) => segmentBuilder(e)).toList(),
-      selected: selected,
-      onSelectionChanged: onSelectionChanged,
+      segments: widget.segments.map((e) => widget.segmentBuilder(e)).toList(),
+      selected: _selected,
+      onSelectionChanged: (value) {
+        setState(() => _selected = value);
+        widget.onSelectionChanged?.call(value);
+      },
     );
   }
 }

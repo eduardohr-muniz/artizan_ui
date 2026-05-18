@@ -36,14 +36,18 @@ DSEmptyState.small(
 
 Horizontal layout — icon on the left, text on the right. Designed to be placed inside a table cell or a content area that already provides its own padding. `nonTable` is identical in structure.
 
+> **Note:** `intable` does not center itself — wrap it in `Center` when used outside an actual table.
+
 ```dart
-DSEmptyState.intable(
-  icon: const Icon(LucideIcons.fileX),
-  title: 'No records found',
-  subtitle: 'Add a record to get started.',
-  action: DSButton.outline(
-    onPressed: () {},
-    child: const Text('Add record'),
+Center(
+  child: DSEmptyState.intable(
+    icon: const Icon(LucideIcons.fileX),
+    title: 'No records found',
+    subtitle: 'Add a record to get started.',
+    action: DSButton.outline(
+      onPressed: () {},
+      child: const Text('Add record'),
+    ),
   ),
 )
 ```

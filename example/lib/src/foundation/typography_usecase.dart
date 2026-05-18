@@ -2,6 +2,8 @@ import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
+import '../../widgets/scaffold_base.dart';
+
 // ─── Marker class ─────────────────────────────────────────────────────────────
 
 /// Marker class used by @widgetbook.UseCase — not rendered directly.
@@ -122,27 +124,6 @@ class _TypeRow extends StatelessWidget {
       };
 }
 
-class _ScaffoldWrapper extends StatelessWidget {
-  const _ScaffoldWrapper({required this.children});
-
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = DSTheme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: cs.background,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
-        ),
-      ),
-    );
-  }
-}
-
 // ─── Use cases ─────────────────────────────────────────────────────────────────
 
 @widgetbook.UseCase(name: 'All Tokens', type: DsTypeScale)
@@ -183,8 +164,11 @@ Widget typeScaleAll(BuildContext context) {
     ),
   ];
 
-  return _ScaffoldWrapper(
-    children: [
+  return ScaffoldBase(
+    scrollable: true,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
       for (final group in groups) ...[
         _GroupHeader(group.$1),
         for (var i = 0; i < group.$2.length; i++)
@@ -197,6 +181,7 @@ Widget typeScaleAll(BuildContext context) {
         const SizedBox(height: 16),
       ],
     ],
+    ),
   );
 }
 
@@ -207,8 +192,11 @@ Widget typeScaleDisplay(BuildContext context) {
     ('displayLarge', t.displayLarge, 'Display Large'),
     ('displaySmall', t.displaySmall, 'Display Small'),
   ];
-  return _ScaffoldWrapper(
-    children: [
+  return ScaffoldBase(
+    scrollable: true,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
       const _GroupHeader('Display'),
       for (var i = 0; i < rows.length; i++)
         _TypeRow(
@@ -218,6 +206,7 @@ Widget typeScaleDisplay(BuildContext context) {
           isLast: i == rows.length - 1,
         ),
     ],
+    ),
   );
 }
 
@@ -229,8 +218,11 @@ Widget typeScaleTitle(BuildContext context) {
     ('titleMedium', t.titleMedium, 'Panel Heading'),
     ('titleSmall', t.titleSmall, 'Section Heading'),
   ];
-  return _ScaffoldWrapper(
-    children: [
+  return ScaffoldBase(
+    scrollable: true,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
       const _GroupHeader('Title'),
       for (var i = 0; i < rows.length; i++)
         _TypeRow(
@@ -240,6 +232,7 @@ Widget typeScaleTitle(BuildContext context) {
           isLast: i == rows.length - 1,
         ),
     ],
+    ),
   );
 }
 
@@ -251,8 +244,11 @@ Widget typeScaleBody(BuildContext context) {
     ('bodyMedium', t.bodyMedium, _sampleLong),
     ('bodySmall', t.bodySmall, _sampleParagraph),
   ];
-  return _ScaffoldWrapper(
-    children: [
+  return ScaffoldBase(
+    scrollable: true,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
       const _GroupHeader('Body'),
       for (var i = 0; i < rows.length; i++)
         _TypeRow(
@@ -262,6 +258,7 @@ Widget typeScaleBody(BuildContext context) {
           isLast: i == rows.length - 1,
         ),
     ],
+    ),
   );
 }
 
@@ -273,8 +270,11 @@ Widget typeScaleLabel(BuildContext context) {
     ('labelMedium', t.labelMedium, 'Chip · Badge'),
     ('labelSmall', t.labelSmall, 'STATUS TAG'),
   ];
-  return _ScaffoldWrapper(
-    children: [
+  return ScaffoldBase(
+    scrollable: true,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
       const _GroupHeader('Label'),
       for (var i = 0; i < rows.length; i++)
         _TypeRow(
@@ -284,5 +284,6 @@ Widget typeScaleLabel(BuildContext context) {
           isLast: i == rows.length - 1,
         ),
     ],
+    ),
   );
 }

@@ -276,7 +276,7 @@ class DSSonner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DSSonner(child: child);
+    return ShadSonner(child: child);
   }
 
   /// Shows a toast using the nearest [DSToaster] ancestor.

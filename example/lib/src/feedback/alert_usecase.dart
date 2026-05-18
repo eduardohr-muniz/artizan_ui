@@ -3,99 +3,146 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
+import '../../widgets/scaffold_base.dart';
+
 class DsAlert extends StatelessWidget {
   const DsAlert({super.key});
   @override
   Widget build(BuildContext context) => const SizedBox.shrink();
 }
 
-Widget _page(BuildContext context, Widget child) {
-  final cs = context.dsColors;
-  return Scaffold(
-    backgroundColor: cs.background,
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: child,
-    ),
-  );
-}
-
 @widgetbook.UseCase(name: 'All Variants', type: DsAlert)
 Widget alertAllVariants(BuildContext context) {
   final title = context.knobs.string(label: 'Title', initialValue: 'Heads up!');
   final desc = context.knobs.string(label: 'Description', initialValue: 'You can add components to your app using the CLI.');
-  final showIcon = context.knobs.boolean(label: 'Show icon', initialValue: true);
+  final showTitle = context.knobs.boolean(label: 'Show title', initialValue: true);
 
-  Widget alert(String name, Widget w) => Column(
+  Widget row(String name, Widget w) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(name,
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600,
-                  letterSpacing: 0.4, color: context.dsColors.mutedForeground)),
+              style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.4,
+                  color: context.dsColors.mutedForeground)),
           const SizedBox(height: 6),
           w,
           const SizedBox(height: 16),
         ],
       );
 
-  return _page(
-    context,
-    Column(
+  return ScaffoldBase(
+    scrollable: true,
+    code: '''
+DSAlert.info(title: Text('Heads up!'), description: Text('...'))
+DSAlert.success(title: Text('Changes saved'), description: Text('...'))
+DSAlert.warning(title: Text('Action required'), description: Text('...'))
+DSAlert.destructive(title: Text('Something went wrong'), description: Text('...'))
+DSAlert.muted(description: Text('An email will be sent to the address above.'))''',
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        alert('Default', DSAlert.info(
-          title: Text(title),
-          description: Text(desc),
-          icon: showIcon ? const Icon(LucideIcons.info) : null,
-        )),
-        alert('Success', DSAlert.success(
-          title: Text(title),
-          description: Text(desc),
-          icon: showIcon ? const Icon(LucideIcons.circleCheck) : null,
-        )),
-        alert('Warning', DSAlert.warning(
-          title: Text(title),
-          description: Text(desc),
-          icon: showIcon ? const Icon(LucideIcons.triangleAlert) : null,
-        )),
-        alert('Destructive', DSAlert.destructive(
-          title: Text(title),
-          description: Text(desc),
-          icon: showIcon ? const Icon(LucideIcons.circleX) : null,
-        )),
-        alert('Info', DSAlert.info(
-          title: Text(title),
-          description: Text(desc),
-          icon: showIcon ? const Icon(LucideIcons.info) : null,
-        )),
+        row('Info', DSAlert.info(title: showTitle ? Text(title) : null, description: Text(desc))),
+        row('Success', DSAlert.success(title: showTitle ? Text(title) : null, description: Text(desc))),
+        row('Warning', DSAlert.warning(title: showTitle ? Text(title) : null, description: Text(desc))),
+        row('Destructive', DSAlert.destructive(title: showTitle ? Text(title) : null, description: Text(desc))),
+        row('Muted', DSAlert.muted(title: showTitle ? Text(title) : null, description: Text(desc))),
       ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Info', type: DsAlert)
+Widget alertInfo(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Heads up!');
+  final desc = context.knobs.string(label: 'Description', initialValue: 'You can add components to your app using the CLI.');
+  final showTitle = context.knobs.boolean(label: 'Show title', initialValue: true);
+
+  return ScaffoldBase(
+    code: '''
+DSAlert.info(
+  title: Text('Heads up!'),
+  description: Text('You can add components using the CLI.'),
+)''',
+    child: DSAlert.info(
+      title: showTitle ? Text(title) : null,
+      description: Text(desc),
     ),
   );
 }
 
 @widgetbook.UseCase(name: 'Success', type: DsAlert)
 Widget alertSuccess(BuildContext context) {
-  return _page(context, DSAlert.success(
-    title: const Text('Changes saved'),
-    description: const Text('Your settings have been updated successfully.'),
-    icon: const Icon(LucideIcons.circleCheck),
-  ));
+  final title = context.knobs.string(label: 'Title', initialValue: 'Changes saved');
+  final desc = context.knobs.string(label: 'Description', initialValue: 'Your settings have been updated successfully.');
+  final showTitle = context.knobs.boolean(label: 'Show title', initialValue: true);
+
+  return ScaffoldBase(
+    code: '''
+DSAlert.success(
+  title: Text('Changes saved'),
+  description: Text('Your settings have been updated successfully.'),
+)''',
+    child: DSAlert.success(
+      title: showTitle ? Text(title) : null,
+      description: Text(desc),
+    ),
+  );
 }
 
 @widgetbook.UseCase(name: 'Warning', type: DsAlert)
 Widget alertWarning(BuildContext context) {
-  return _page(context, DSAlert.warning(
-    title: const Text('Action required'),
-    description: const Text('Your session will expire in 5 minutes.'),
-    icon: const Icon(LucideIcons.triangleAlert),
-  ));
+  final title = context.knobs.string(label: 'Title', initialValue: 'Action required');
+  final desc = context.knobs.string(label: 'Description', initialValue: 'Your session will expire in 5 minutes.');
+  final showTitle = context.knobs.boolean(label: 'Show title', initialValue: true);
+
+  return ScaffoldBase(
+    code: '''
+DSAlert.warning(
+  title: Text('Action required'),
+  description: Text('Your session will expire in 5 minutes.'),
+)''',
+    child: DSAlert.warning(
+      title: showTitle ? Text(title) : null,
+      description: Text(desc),
+    ),
+  );
 }
 
 @widgetbook.UseCase(name: 'Destructive', type: DsAlert)
 Widget alertDestructive(BuildContext context) {
-  return _page(context, DSAlert.destructive(
-    title: const Text('Something went wrong'),
-    description: const Text('Unable to process your request. Please try again.'),
-    icon: const Icon(LucideIcons.circleX),
-  ));
+  final title = context.knobs.string(label: 'Title', initialValue: 'Something went wrong');
+  final desc = context.knobs.string(label: 'Description', initialValue: 'Unable to process your request. Please try again.');
+  final showTitle = context.knobs.boolean(label: 'Show title', initialValue: true);
+
+  return ScaffoldBase(
+    code: '''
+DSAlert.destructive(
+  title: Text('Something went wrong'),
+  description: Text('Unable to process your request. Please try again.'),
+)''',
+    child: DSAlert.destructive(
+      title: showTitle ? Text(title) : null,
+      description: Text(desc),
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Muted', type: DsAlert)
+Widget alertMuted(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Note');
+  final desc = context.knobs.string(label: 'Description', initialValue: 'An email with a join link will be sent to the address above.');
+  final showTitle = context.knobs.boolean(label: 'Show title', initialValue: false);
+
+  return ScaffoldBase(
+    code: '''
+DSAlert.muted(
+  description: Text('An email with a join link will be sent to the address above.'),
+)''',
+    child: DSAlert.muted(
+      title: showTitle ? Text(title) : null,
+      description: Text(desc),
+    ),
+  );
 }

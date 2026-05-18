@@ -3,31 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
+import '../../widgets/scaffold_base.dart';
+
 class DsButton extends StatelessWidget {
   const DsButton({super.key});
   @override
   Widget build(BuildContext context) => const SizedBox.shrink();
-}
-
-// ─── Shared scaffold ──────────────────────────────────────────────────────────
-
-class _Scaffold extends StatelessWidget {
-  const _Scaffold({required this.child});
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = context.dsColors;
-    return Scaffold(
-      backgroundColor: cs.background,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: child,
-        ),
-      ),
-    );
-  }
 }
 
 // ─── Use cases ────────────────────────────────────────────────────────────────
@@ -44,9 +25,18 @@ Widget buttonAllVariants(BuildContext context) {
     ('Ghost', DSButton.ghost(onPressed: enabled ? () async {} : null, child: Text(label))),
     ('Destructive', DSButton.destructive(onPressed: enabled ? () async {} : null, child: Text(label))),
     ('Link', DSButton.link(onPressed: enabled ? () async {} : null, child: Text(label))),
+    ('Darken', DSButton.darken(onPressed: enabled ? () async {} : null, child: Text(label))),
   ];
 
-  return _Scaffold(
+  return ScaffoldBase(
+    code: '''
+DSButton(onPressed: () async {}, child: Text('Button'))
+DSButton.secondary(onPressed: () async {}, child: Text('Button'))
+DSButton.outline(onPressed: () async {}, child: Text('Button'))
+DSButton.ghost(onPressed: () async {}, child: Text('Button'))
+DSButton.destructive(onPressed: () async {}, child: Text('Button'))
+DSButton.link(onPressed: () async {}, child: Text('Button'))
+DSButton.darken(onPressed: () async {}, child: Text('Button'))''',
     child: Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,8 +46,7 @@ Widget buttonAllVariants(BuildContext context) {
             children: [
               SizedBox(
                 width: 100,
-                child: Text(v.$1,
-                    style: TextStyle(fontSize: 12, color: context.dsColors.mutedForeground)),
+                child: Text(v.$1, style: TextStyle(fontSize: 12, color: context.dsColors.mutedForeground)),
               ),
               v.$2,
             ],
@@ -76,7 +65,13 @@ Widget buttonPrimary(BuildContext context) {
   final hasLeading = context.knobs.boolean(label: 'Leading icon', initialValue: false);
   final hasTrailing = context.knobs.boolean(label: 'Trailing icon', initialValue: false);
 
-  return _Scaffold(
+  return ScaffoldBase(
+    code: '''
+DSButton(
+  onPressed: () async {},
+  leading: Icon(LucideIcons.arrowRight, size: 16),
+  child: Text('Continue'),
+)''',
     child: DSButton(
       onPressed: enabled ? () async {} : null,
       leading: hasLeading ? const Icon(LucideIcons.arrowRight, size: 16) : null,
@@ -91,7 +86,13 @@ Widget buttonLoading(BuildContext context) {
   final label = context.knobs.string(label: 'Label', initialValue: 'Saving...');
   final isLoading = context.knobs.boolean(label: 'Loading', initialValue: true);
 
-  return _Scaffold(
+  return ScaffoldBase(
+    code: '''
+DSButton(
+  isLoading: true,
+  onPressed: () async {},
+  child: Text('Saving...'),
+)''',
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -117,9 +118,38 @@ Widget buttonLoading(BuildContext context) {
   );
 }
 
+@widgetbook.UseCase(name: 'Darken', type: DsButton)
+Widget buttonDarken(BuildContext context) {
+  final label = context.knobs.string(label: 'Label', initialValue: 'Continue');
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final hasLeading = context.knobs.boolean(label: 'Leading icon', initialValue: false);
+  final hasTrailing = context.knobs.boolean(label: 'Trailing icon', initialValue: false);
+
+  return ScaffoldBase(
+    code: '''
+DSButton.darken(
+  onPressed: () async {},
+  child: Text('Continue'),
+)''',
+    child: DSButton.darken(
+      onPressed: enabled ? () async {} : null,
+      leading: hasLeading ? const Icon(LucideIcons.arrowRight, size: 16) : null,
+      trailing: hasTrailing ? const Icon(LucideIcons.arrowRight, size: 16) : null,
+      child: Text(label),
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Async', type: DsButton)
 Widget buttonAsync(BuildContext context) {
-  return _Scaffold(
+  return ScaffoldBase(
+    code: '''
+DSButton(
+  onPressed: () async {
+    await Future.delayed(Duration(seconds: 2));
+  },
+  child: Text('Submit'),
+)''',
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [

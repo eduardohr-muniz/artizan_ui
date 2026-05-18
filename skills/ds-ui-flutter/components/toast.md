@@ -2,6 +2,16 @@
 
 A succinct message that is displayed temporarily.
 
+> **Widgetbook:** `DSToaster`/`DSSonner` fills the entire screen (stack overlay). Place `Center` **inside** the `DSToaster` child, not outside it:
+>
+> ```dart
+> DSToaster(
+>   child: Builder(builder: (ctx) => Center(
+>     child: Column(mainAxisSize: MainAxisSize.min, children: [...]),
+>   )),
+> )
+> ```
+
 
 
 ```dart

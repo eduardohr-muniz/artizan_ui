@@ -48,6 +48,10 @@ final directories = <_i1.WidgetbookNode>[
             builder: _i2.buttonAsync,
           ),
           _i1.WidgetbookUseCase(
+            name: 'Darken',
+            builder: _i2.buttonDarken,
+          ),
+          _i1.WidgetbookUseCase(
             name: 'Loading',
             builder: _i2.buttonLoading,
           ),
@@ -129,6 +133,13 @@ final directories = <_i1.WidgetbookNode>[
             builder: _i6.progressIndeterminate,
           ),
         ],
+      ),
+      _i1.WidgetbookLeafComponent(
+        name: 'DsSonner',
+        useCase: _i1.WidgetbookUseCase(
+          name: 'Default',
+          builder: _i7.sonnerDefault,
+        ),
       ),
       _i1.WidgetbookLeafComponent(
         name: 'DsToast',
@@ -346,12 +357,18 @@ final directories = <_i1.WidgetbookNode>[
           builder: _i20.popoverDefault,
         ),
       ),
-      _i1.WidgetbookLeafComponent(
+      _i1.WidgetbookComponent(
         name: 'DsSheet',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'Default',
-          builder: _i21.sheetDefault,
-        ),
+        useCases: [
+          _i1.WidgetbookUseCase(
+            name: 'Edit Profile',
+            builder: _i21.sheetEditProfile,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Invite Member',
+            builder: _i21.sheetInviteMember,
+          ),
+        ],
       ),
       _i1.WidgetbookLeafComponent(
         name: 'DsTooltip',

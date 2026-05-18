@@ -80,6 +80,19 @@ DSButton.link(
 
 
 
+## Darken
+
+High-contrast variant: black background in light mode, white background in dark mode. Ideal for prominent CTAs.
+
+```dart
+DSButton.darken(
+  child: const Text('Darken'),
+  onPressed: () {},
+)
+```
+
+
+
 ## Text and Icon
 
 
@@ -212,6 +225,12 @@ class _ButtonPageState extends State<ButtonPage> {
             size: size,
             enabled: enabled,
             child: const Text('Link'),
+          ),
+          DSButton.darken(
+            size: size,
+            enabled: enabled,
+            child: const Text('Darken'),
+            onPressed: () => print('Darken'),
           ),
           DSButton(
             size: size,

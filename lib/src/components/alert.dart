@@ -1,171 +1,61 @@
-import 'package:ds_ui/src/type_defs.dart';
+import 'package:ds_ui/src/utils/context_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-enum DSAlertVariant { success, info, warning, destructive, custom }
+enum DSAlertVariant { success, info, warning, destructive, muted }
 
 class DSAlert extends StatelessWidget {
-  /// Success variant - green
-  const DSAlert.success({
-    super.key,
-    this.icon,
-    this.iconData,
-    this.title,
-    this.description,
-    this.textDirection,
-    this.decoration,
-    this.iconPadding,
-    this.iconColor,
-    this.titleStyle,
-    this.descriptionStyle,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-  }) : variant = DSAlertVariant.success;
+  const DSAlert.success({super.key, this.iconData, this.title, this.description}) : variant = DSAlertVariant.success;
 
-  /// Info variant - blue
-  const DSAlert.info({
-    super.key,
-    this.icon,
-    this.iconData,
-    this.title,
-    this.description,
-    this.textDirection,
-    this.decoration,
-    this.iconPadding,
-    this.iconColor,
-    this.titleStyle,
-    this.descriptionStyle,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-  }) : variant = DSAlertVariant.info;
+  const DSAlert.info({super.key, this.iconData, this.title, this.description}) : variant = DSAlertVariant.info;
 
-  /// Warning variant - orange
-  const DSAlert.warning({
-    super.key,
-    this.icon,
-    this.iconData,
-    this.title,
-    this.description,
-    this.textDirection,
-    this.decoration,
-    this.iconPadding,
-    this.iconColor,
-    this.titleStyle,
-    this.descriptionStyle,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-  }) : variant = DSAlertVariant.warning;
+  const DSAlert.warning({super.key, this.iconData, this.title, this.description}) : variant = DSAlertVariant.warning;
 
-  /// Destructive variant - red
-  const DSAlert.destructive({
-    super.key,
-    this.icon,
-    this.iconData,
-    this.title,
-    this.description,
-    this.textDirection,
-    this.decoration,
-    this.iconPadding,
-    this.iconColor,
-    this.titleStyle,
-    this.descriptionStyle,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-  }) : variant = DSAlertVariant.destructive;
+  const DSAlert.destructive({super.key, this.iconData, this.title, this.description}) : variant = DSAlertVariant.destructive;
 
-  /// Raw constructor - all parameters customizable
-  const DSAlert.raw({
-    super.key,
-    this.icon,
-    this.iconData,
-    this.title,
-    this.description,
-    this.textDirection,
-    this.decoration,
-    this.iconPadding,
-    this.iconColor,
-    this.titleStyle,
-    this.descriptionStyle,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-  }) : variant = DSAlertVariant.custom;
+  const DSAlert.muted({super.key, this.iconData, this.title, this.description}) : variant = DSAlertVariant.muted;
 
   final DSAlertVariant variant;
-
-  final Widget? icon;
-
   final IconData? iconData;
-
   final Widget? title;
-
   final Widget? description;
-
-  final TextDirection? textDirection;
-
-  final ShadDecoration? decoration;
-
-  final EdgeInsets? iconPadding;
-
-  final Color? iconColor;
-
-  final TextStyle? titleStyle;
-
-  final TextStyle? descriptionStyle;
-
-  final MainAxisAlignment? mainAxisAlignment;
-
-  final CrossAxisAlignment? crossAxisAlignment;
-
-  ShadDecoration _getDecoration(BuildContext context) {
-    if (decoration != null) return decoration!;
-
-    return switch (variant) {
-      DSAlertVariant.success => ShadDecoration(color: Colors.green.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.green.shade300)),
-      DSAlertVariant.info => ShadDecoration(color: Colors.blue.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.blue.shade300)),
-      DSAlertVariant.warning => ShadDecoration(color: Colors.orange.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.orange.shade300)),
-      DSAlertVariant.destructive => ShadDecoration(color: Colors.red.withValues(alpha: 0.1), border: DSBorder.all(color: Colors.red.shade300)),
-      DSAlertVariant.custom => const ShadDecoration(),
-    };
-  }
-
-  Color? _getIconColor() {
-    if (iconColor != null) return iconColor;
-
-    return switch (variant) {
-      DSAlertVariant.success => Colors.green,
-      DSAlertVariant.info => Colors.blue,
-      DSAlertVariant.warning => Colors.orange,
-      DSAlertVariant.destructive => Colors.red,
-      DSAlertVariant.custom => null,
-    };
-  }
-
-  IconData? _getDefaultIconData() {
-    if (iconData != null || icon != null) return iconData;
-
-    return switch (variant) {
-      DSAlertVariant.success => Icons.check_circle,
-      DSAlertVariant.info => Icons.info,
-      DSAlertVariant.warning => Icons.warning,
-      DSAlertVariant.destructive => Icons.error,
-      DSAlertVariant.custom => null,
-    };
-  }
 
   @override
   Widget build(BuildContext context) {
-    return ShadAlert(
-      icon: icon ?? Icon(_getDefaultIconData()),
-      title: title,
-      description: description,
-      textDirection: textDirection,
-      decoration: _getDecoration(context),
-      iconPadding: iconPadding,
-      iconColor: _getIconColor(),
-      titleStyle: titleStyle,
-      descriptionStyle: descriptionStyle,
-      mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: crossAxisAlignment,
+    final cs = context.dsColors;
+
+    final (Color bg, Color fg, IconData defaultIcon) = switch (variant) {
+      DSAlertVariant.success => (cs.success.withValues(alpha: 0.12), cs.success, LucideIcons.circleCheck),
+      DSAlertVariant.info => (cs.info.withValues(alpha: 0.12), cs.info, LucideIcons.info),
+      DSAlertVariant.warning => (cs.warning.withValues(alpha: 0.12), cs.warning, LucideIcons.triangleAlert),
+      DSAlertVariant.destructive => (cs.destructive.withValues(alpha: 0.12), cs.destructive, LucideIcons.circleX),
+      DSAlertVariant.muted => (cs.muted, cs.mutedForeground, LucideIcons.info),
+    };
+
+    bool hasTitle = title != null && title.toString().isNotEmpty;
+    bool hasDescription = description != null && description.toString().isNotEmpty;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(8)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(iconData ?? defaultIcon, size: 14, color: fg),
+          const SizedBox(width: 12),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (hasTitle) DefaultTextStyle.merge(style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: fg), child: title!),
+                if (hasTitle && hasDescription) const SizedBox(height: 2),
+                if (hasDescription) DefaultTextStyle.merge(style: TextStyle(fontSize: 13, color: fg), child: description!),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
+import '../../widgets/scaffold_base.dart';
+
 // ─── Marker class ─────────────────────────────────────────────────────────────
 
 class DsColorTokens extends StatelessWidget {
@@ -208,12 +210,15 @@ class _TokenDot extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 5),
-        Text(
-          token,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: muted ? FontWeight.w400 : FontWeight.w600,
-            color: muted ? cs.mutedForeground : cs.foreground,
+        Flexible(
+          child: Text(
+            token,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: muted ? FontWeight.w400 : FontWeight.w600,
+              color: muted ? cs.mutedForeground : cs.foreground,
+            ),
           ),
         ),
       ],
@@ -252,9 +257,9 @@ class _StatusBanner extends StatelessWidget {
         // Token labels row
         Row(
           children: [
-            _TokenDot(token: bgToken, color: color),
+            Expanded(child: _TokenDot(token: bgToken, color: color)),
             const SizedBox(width: 12),
-            _TokenDot(token: fgToken, color: fgColor, muted: true),
+            Expanded(child: _TokenDot(token: fgToken, color: fgColor, muted: true)),
           ],
         ),
         const SizedBox(height: 10),
@@ -339,36 +344,13 @@ class _Chip extends StatelessWidget {
   }
 }
 
-// ─── Scaffold wrapper ─────────────────────────────────────────────────────────
-
-class _PageScaffold extends StatelessWidget {
-  const _PageScaffold({required this.children});
-
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = DSTheme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: cs.background,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
-        ),
-      ),
-    );
-  }
-}
-
 // ─── Use cases ─────────────────────────────────────────────────────────────────
 
 @widgetbook.UseCase(name: 'Palette', type: DsColorTokens)
 Widget colorPalette(BuildContext context) {
   final c = context.dsColors;
 
-  return _PageScaffold(children: [
+  return ScaffoldBase(scrollable: true, maxWidth: 640, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     const _SectionLabel('Brand'),
     Row(children: [
       Expanded(child: _SwatchPair(
@@ -467,14 +449,14 @@ Widget colorPalette(BuildContext context) {
     ]),
 
     const SizedBox(height: 40),
-  ]);
+  ]));
 }
 
 @widgetbook.UseCase(name: 'Semantic', type: DsColorTokens)
 Widget colorSemantic(BuildContext context) {
   final c = context.dsColors;
 
-  return _PageScaffold(children: [
+  return ScaffoldBase(scrollable: true, maxWidth: 640, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     const _SectionLabel('Status Colors in Context'),
     const SizedBox(height: 8),
 
@@ -522,14 +504,14 @@ Widget colorSemantic(BuildContext context) {
     ),
 
     const SizedBox(height: 40),
-  ]);
+  ]));
 }
 
 @widgetbook.UseCase(name: 'Surfaces', type: DsColorTokens)
 Widget colorSurfaces(BuildContext context) {
   final c = context.dsColors;
 
-  return _PageScaffold(children: [
+  return ScaffoldBase(scrollable: true, maxWidth: 640, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     const _SectionLabel('Elevation & Layering'),
     const SizedBox(height: 4),
 
@@ -658,7 +640,7 @@ Widget colorSurfaces(BuildContext context) {
     ),
 
     const SizedBox(height: 40),
-  ]);
+  ]));
 }
 
 class _SurfacePill extends StatelessWidget {
