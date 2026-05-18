@@ -1,141 +1,173 @@
-Defines the theme and color scheme for the app.
+# Theming
 
-The supported color schemes are:
+DS UI provides a theming system built on top of `shadcn_ui`. Configure themes via `DSApp` + `DSThemeData` + a `DSColorScheme`.
 
-- blue
-- gray
-- green
-- neutral
-- orange
-- red
-- rose
-- slate
-- stone
-- violet
-- yellow
-- zinc
+---
 
-## Usage
+## Available Color Schemes
 
-```diff lang="dart"
+All schemes have `.light()` and `.dark()` constructors:
 
+| Scheme | Class |
+|---|---|
+| Zinc (default) | `DSZincColorScheme` |
+| Blue | `DSBlueColorScheme` |
+| Gray | `DSGrayColorScheme` |
+| Green | `DSGreenColorScheme` |
+| Neutral | `DSNeutralColorScheme` |
+| Orange | `DSOrangeColorScheme` |
+| Red | `DSRedColorScheme` |
+| Rose | `DSRoseColorScheme` |
+| Slate | `DSSlateColorScheme` |
+| Stone | `DSStoneColorScheme` |
+| Violet | `DSVioletColorScheme` |
+| Yellow | `DSYellowColorScheme` |
+| Paip | `DSPaipColorScheme` |
 
-@override
-Widget build(BuildContext context) {
-  return DSApp(
-+    darkTheme: DSThemeData(
-+      brightness: Brightness.dark,
-+      colorScheme: const DSSlateColorScheme.dark(),
-+    ),
-    child: ...
-  );
+---
+
+## Basic Setup
+
+```dart
+DSApp(
+  theme: DSThemeData(
+    brightness: Brightness.light,
+    colorScheme: const DSZincColorScheme.light(),
+  ),
+  darkTheme: DSThemeData(
+    brightness: Brightness.dark,
+    colorScheme: const DSZincColorScheme.dark(),
+  ),
+  themeMode: ThemeMode.system,
+  home: const MyPage(),
+)
+```
+
+You can override specific tokens of the scheme or the theme:
+
+```dart
+DSThemeData(
+  brightness: Brightness.dark,
+  colorScheme: const DSSlateColorScheme.dark(
+    background: Color(0xff0a0a0a),
+  ),
+  primaryButtonTheme: const DSButtonTheme(
+    backgroundColor: Colors.cyan,
+  ),
+)
+```
+
+---
+
+## Semantic Color Tokens (DSColorScheme)
+
+`DSColorScheme` extends `ShadColorScheme` and adds typed status tokens. All built-in schemes include them with these defaults:
+
+| Token | Default (hex) | Usage |
+|---|---|---|
+| `success` | `#22c55e` | Confirmations, success state |
+| `successForeground` | `#fafafa` | Text/icon on top of `success` |
+| `warning` | `#f59e0b` | Warnings, caution state |
+| `warningForeground` | `#fafafa` | Text/icon on top of `warning` |
+| `info` | `#3b82f6` | Informational messages, hints |
+| `infoForeground` | `#fafafa` | Text/icon on top of `info` |
+
+### Accessing via context
+
+```dart
+final colors = context.dsColors;
+
+Container(color: colors.primary)
+Container(color: colors.success)
+Container(color: colors.warning)
+Container(color: colors.info)
+Text('Ok', style: TextStyle(color: colors.successForeground))
+```
+
+### Context accessors
+
+```dart
+context.dsTextTheme   // DSTextTheme — full type scale
+context.dsColors      // DSColorScheme — Shad base tokens + DS semantic tokens
+context.isDarkTheme   // bool
+context.isLightTheme  // bool
+```
+
+> `context.dsColors` uses `DSColorScheme.resolve()` internally. It works even when the app uses a plain `ShadColorScheme` (without DS tokens), returning the semantic token defaults.
+
+---
+
+## Custom Color Scheme
+
+To use different semantic token values, extend `DSColorScheme`:
+
+```dart
+class MyColorScheme extends DSColorScheme {
+  const MyColorScheme.light({
+    super.background = const Color(0xffffffff),
+    super.foreground = const Color(0xff09090b),
+    super.primary = const Color(0xff6366f1),
+    super.primaryForeground = const Color(0xfffafafa),
+    // … other required Shad tokens …
+    super.success = const Color(0xff10b981),  // override default
+    super.warning = const Color(0xfff97316),  // override default
+  });
 }
 ```
 
-You can override specific properties of the selected theme/color scheme:
+For a fully custom palette based on Zinc, extend `DSZincCustomColorScheme` (see `lib/src/themes/color_scheme/zinc_custom.dart`).
 
-```diff lang="dart"
+---
 
+## Extra Custom Colors
 
-@override
-Widget build(BuildContext context) {
-  return DSApp(
-    darkTheme: DSThemeData(
-        brightness: Brightness.dark,
-        colorScheme: const DSSlateColorScheme.dark(
-+          background: Colors.blue,
-        ),
-+        primaryButtonTheme: const DSButtonTheme(
-+          backgroundColor: Colors.cyan,
-+        ),
-      ),
-    ),
-    child: ...
-  );
+Use the `custom` map to add color tokens beyond the semantic ones:
+
+```dart
+DSThemeData(
+  colorScheme: const DSZincColorScheme.light(
+    custom: {
+      'brand': Color(0xff6366f1),
+    },
+  ),
+)
+```
+
+Access via `context.dsColors.custom['brand']!`, or create an extension:
+
+```dart
+extension MyColorTokens on DSColorScheme {
+  Color get brand => custom['brand']!;
 }
+
+// usage
+Container(color: context.dsColors.brand)
 ```
 
-You can also create your custom color scheme, just extend the `DSColorScheme` class and pass all the properties.
+---
 
+## Dynamic Scheme Selection
 
-## DSColorScheme.fromName
-
-If you want to allow the user to change the default shadcn themes, I suggest using `DSColorScheme.fromName`.
+To let users switch color schemes at runtime, use `DSColorScheme.fromName`:
 
 ```dart
-// available color scheme names
-final shadThemeColors = [
-  'blue',
-  'gray',
-  'green',
-  'neutral',
-  'orange',
-  'red',
-  'rose',
-  'slate',
-  'stone',
-  'violet',
-  'yellow',
-  'zinc',
-];
+final schemes = ['blue', 'gray', 'green', 'neutral', 'orange',
+                  'red', 'rose', 'slate', 'stone', 'violet', 'yellow', 'zinc'];
 
-final lightColorScheme = DSColorScheme.fromName('blue');
-final darkColorScheme = DSColorScheme.fromName('slate', brightness: Brightness.dark);
+final lightScheme = DSColorScheme.fromName('blue');
+final darkScheme  = DSColorScheme.fromName('slate', brightness: Brightness.dark);
 ```
 
-In this way you can easily create a select to change the color scheme, for example:
+Example with `DSSelect` for interactive switching:
 
 ```dart
-
-
-
-// Somewhere in your app
 DSSelect<String>(
   initialValue: 'slate',
   maxHeight: 200,
-  options: shadThemeColors.map(
-    (option) => DSOption(
-      value: option,
-      child: Text(
-        option.capitalizeFirst(),
-      ),
-    ),
-  ),
-  selectedOptionBuilder: (context, value) {
-    return Text(value.capitalizeFirst());
-  },
+  options: schemes.map((s) => DSOption(value: s, child: Text(s))).toList(),
+  selectedOptionBuilder: (context, value) => Text(value),
   onChanged: (value) {
-    // rebuild the app using your state management solution
+    // rebuild the app via your state management solution
   },
-),
+)
 ```
-
-For example I'm using solidart as state management, here it is the example code used to rebuild the app widget when the user changes the theme mode. Check the "Toggle Theme" example at <https://solidart.mariuti.com/examples>
-
-The same can be done for the color scheme, using a `Signal<String>()`
-
-## Extend with custom colors
-
-You can extend the `DSColorScheme` with your own custom colors by using the `custom` parameter.
-```diff lang="dart"
-return DSApp(
-  theme: DSThemeData(
-+    colorScheme: const DSZincColorScheme.light(
-+      custom: {
-+        'myCustomColor': Color.fromARGB(255, 177, 4, 196),
-+      },
-+    ),
-  ),
-);
-```
-
-Then you can access it like this `DSTheme.of(context).colorScheme.custom['myCustomColor']!`.
-
-Or you can create an extension on `DSColorScheme` to make it easier to access:
-```dart
-extension CustomColorExtension on DSColorScheme {
-  Color get myCustomColor => custom['myCustomColor']!;
-}
-```
-
-In this way you can access it like other colors `DSTheme.of(context).colorScheme.myCustomColor`.

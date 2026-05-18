@@ -39,4 +39,38 @@ abstract class DSColorScheme extends ShadColorScheme {
     this.info = const Color(0xff3b82f6),
     this.infoForeground = const Color(0xfffafafa),
   });
+
+  /// Garante um [DSColorScheme] mesmo quando o tema só fornece [ShadColorScheme]
+  /// (por exemplo, esquemas nativos do shadcn sem as cores semânticas do DS).
+  static DSColorScheme resolve(ShadColorScheme scheme) {
+    if (scheme is DSColorScheme) return scheme;
+    return _DSBridgedColorScheme._(scheme);
+  }
+}
+
+class _DSBridgedColorScheme extends DSColorScheme {
+  _DSBridgedColorScheme._(ShadColorScheme shad)
+      : super(
+          background: shad.background,
+          foreground: shad.foreground,
+          card: shad.card,
+          cardForeground: shad.cardForeground,
+          popover: shad.popover,
+          popoverForeground: shad.popoverForeground,
+          primary: shad.primary,
+          primaryForeground: shad.primaryForeground,
+          secondary: shad.secondary,
+          secondaryForeground: shad.secondaryForeground,
+          muted: shad.muted,
+          mutedForeground: shad.mutedForeground,
+          accent: shad.accent,
+          accentForeground: shad.accentForeground,
+          destructive: shad.destructive,
+          destructiveForeground: shad.destructiveForeground,
+          border: shad.border,
+          input: shad.input,
+          ring: shad.ring,
+          selection: shad.selection,
+          custom: shad.custom,
+        );
 }

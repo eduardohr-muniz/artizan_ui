@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-/// A customizable linear progress indicator widget for DSizan UI.
+/// A customizable linear progress indicator widget for DS UI.
 ///
 /// The [DSProgress] widget displays a styled progress bar with configurable
 /// colors, height, and border radius. It integrates with [ShadTheme] for

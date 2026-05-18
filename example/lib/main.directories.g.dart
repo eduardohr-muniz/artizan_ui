@@ -10,55 +10,55 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:example/src/buttons/buttons_usecase.dart' as _i2;
-import 'package:example/src/empty_state/exmpty_state_usecase.dart' as _i3;
-import 'package:example/src/field/form_field.dart' as _i4;
+import 'package:example/src/foundation/colors_usecase.dart' as _i2;
+import 'package:example/src/foundation/typography_usecase.dart' as _i3;
 import 'package:widgetbook/widgetbook.dart' as _i1;
 
 final directories = <_i1.WidgetbookNode>[
   _i1.WidgetbookFolder(
-    name: 'components',
+    name: 'foundation',
     children: [
       _i1.WidgetbookComponent(
-        name: 'DSButton',
+        name: 'ColorTokens',
         useCases: [
           _i1.WidgetbookUseCase(
-            name: 'Button',
-            builder: _i2.primaryButton,
+            name: 'Palette',
+            builder: _i2.colorPalette,
           ),
           _i1.WidgetbookUseCase(
-            name: 'IconButton',
-            builder: _i2.iconButton,
+            name: 'Semantic',
+            builder: _i2.colorSemantic,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Surfaces',
+            builder: _i2.colorSurfaces,
           ),
         ],
       ),
       _i1.WidgetbookComponent(
-        name: 'DSEmptyState',
+        name: 'Typography',
         useCases: [
           _i1.WidgetbookUseCase(
-            name: 'InTable',
-            builder: _i3.emptyStateInTable,
+            name: 'All Tokens',
+            builder: _i3.typographyAll,
           ),
           _i1.WidgetbookUseCase(
-            name: 'Minimal',
-            builder: _i3.emptyStateMinimal,
+            name: 'Body',
+            builder: _i3.typographyBody,
           ),
           _i1.WidgetbookUseCase(
-            name: 'Non Table',
-            builder: _i3.emptyStateInList,
+            name: 'Display',
+            builder: _i3.typographyDisplay,
           ),
           _i1.WidgetbookUseCase(
-            name: 'Small',
-            builder: _i3.emptyStateInCard,
+            name: 'Label',
+            builder: _i3.typographyLabel,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Title',
+            builder: _i3.typographyTitle,
           ),
         ],
-      ),
-      _i1.WidgetbookLeafComponent(
-        name: 'DSTextFormField',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'FormField',
-          builder: _i4.emptyStateInTable,
-        ),
       ),
     ],
   )
