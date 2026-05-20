@@ -18,8 +18,7 @@ class DsTypeScale extends StatelessWidget {
 // ─── Shared constants ─────────────────────────────────────────────────────────
 
 const _sampleLong = 'The quick brown fox jumps over the lazy dog';
-const _sampleParagraph =
-    'Hamburgefons — the classic pangram used by typographers to preview typefaces at a glance.';
+const _sampleParagraph = 'Hamburgefons — the classic pangram used by typographers to preview typefaces at a glance.';
 
 // ─── Internal widgets ─────────────────────────────────────────────────────────
 
@@ -64,9 +63,7 @@ class _TypeRow extends StatelessWidget {
     final cs = DSTheme.of(context).colorScheme;
     final size = style.fontSize?.toStringAsFixed(0) ?? '—';
     final weight = _weightLabel(style.fontWeight);
-    final ls = (style.letterSpacing != null && style.letterSpacing != 0)
-        ? ' · ls ${style.letterSpacing!.toStringAsFixed(2)}'
-        : '';
+    final ls = (style.letterSpacing != null && style.letterSpacing != 0) ? ' · ls ${style.letterSpacing!.toStringAsFixed(2)}' : '';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +139,7 @@ Widget typeScaleAll(BuildContext context) {
       'Title',
       [
         ('titleLarge', t.titleLarge, 'Screen Title'),
-        ('titleMedium', t.titleMedium, 'Panel Heading'),
+        ('titleMedium', t.title, 'Panel Heading'),
         ('titleSmall', t.titleSmall, 'Section Heading'),
       ],
     ),
@@ -150,7 +147,7 @@ Widget typeScaleAll(BuildContext context) {
       'Body',
       [
         ('bodyLarge', t.bodyLarge, _sampleLong),
-        ('bodyMedium', t.bodyMedium, _sampleLong),
+        ('bodyMedium', t.body, _sampleLong),
         ('bodySmall', t.bodySmall, _sampleParagraph),
       ],
     ),
@@ -158,7 +155,7 @@ Widget typeScaleAll(BuildContext context) {
       'Label',
       [
         ('labelLarge', t.labelLarge, 'Button Label / Tab'),
-        ('labelMedium', t.labelMedium, 'Chip · Badge'),
+        ('labelMedium', t.label, 'Chip · Badge'),
         ('labelSmall', t.labelSmall, 'STATUS TAG'),
       ],
     ),
@@ -169,18 +166,18 @@ Widget typeScaleAll(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      for (final group in groups) ...[
-        _GroupHeader(group.$1),
-        for (var i = 0; i < group.$2.length; i++)
-          _TypeRow(
-            token: group.$2[i].$1,
-            style: group.$2[i].$2,
-            sample: group.$2[i].$3,
-            isLast: i == group.$2.length - 1,
-          ),
-        const SizedBox(height: 16),
+        for (final group in groups) ...[
+          _GroupHeader(group.$1),
+          for (var i = 0; i < group.$2.length; i++)
+            _TypeRow(
+              token: group.$2[i].$1,
+              style: group.$2[i].$2,
+              sample: group.$2[i].$3,
+              isLast: i == group.$2.length - 1,
+            ),
+          const SizedBox(height: 16),
+        ],
       ],
-    ],
     ),
   );
 }
@@ -197,15 +194,15 @@ Widget typeScaleDisplay(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      const _GroupHeader('Display'),
-      for (var i = 0; i < rows.length; i++)
-        _TypeRow(
-          token: rows[i].$1,
-          style: rows[i].$2,
-          sample: rows[i].$3,
-          isLast: i == rows.length - 1,
-        ),
-    ],
+        const _GroupHeader('Display'),
+        for (var i = 0; i < rows.length; i++)
+          _TypeRow(
+            token: rows[i].$1,
+            style: rows[i].$2,
+            sample: rows[i].$3,
+            isLast: i == rows.length - 1,
+          ),
+      ],
     ),
   );
 }
@@ -215,7 +212,7 @@ Widget typeScaleTitle(BuildContext context) {
   final t = DSTheme.of(context).textTheme;
   final rows = [
     ('titleLarge', t.titleLarge, 'Screen Title'),
-    ('titleMedium', t.titleMedium, 'Panel Heading'),
+    ('titleMedium', t.title, 'Panel Heading'),
     ('titleSmall', t.titleSmall, 'Section Heading'),
   ];
   return ScaffoldBase(
@@ -223,15 +220,15 @@ Widget typeScaleTitle(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      const _GroupHeader('Title'),
-      for (var i = 0; i < rows.length; i++)
-        _TypeRow(
-          token: rows[i].$1,
-          style: rows[i].$2,
-          sample: rows[i].$3,
-          isLast: i == rows.length - 1,
-        ),
-    ],
+        const _GroupHeader('Title'),
+        for (var i = 0; i < rows.length; i++)
+          _TypeRow(
+            token: rows[i].$1,
+            style: rows[i].$2,
+            sample: rows[i].$3,
+            isLast: i == rows.length - 1,
+          ),
+      ],
     ),
   );
 }
@@ -241,7 +238,7 @@ Widget typeScaleBody(BuildContext context) {
   final t = DSTheme.of(context).textTheme;
   final rows = [
     ('bodyLarge', t.bodyLarge, _sampleLong),
-    ('bodyMedium', t.bodyMedium, _sampleLong),
+    ('bodyMedium', t.body, _sampleLong),
     ('bodySmall', t.bodySmall, _sampleParagraph),
   ];
   return ScaffoldBase(
@@ -249,15 +246,15 @@ Widget typeScaleBody(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      const _GroupHeader('Body'),
-      for (var i = 0; i < rows.length; i++)
-        _TypeRow(
-          token: rows[i].$1,
-          style: rows[i].$2,
-          sample: rows[i].$3,
-          isLast: i == rows.length - 1,
-        ),
-    ],
+        const _GroupHeader('Body'),
+        for (var i = 0; i < rows.length; i++)
+          _TypeRow(
+            token: rows[i].$1,
+            style: rows[i].$2,
+            sample: rows[i].$3,
+            isLast: i == rows.length - 1,
+          ),
+      ],
     ),
   );
 }
@@ -267,7 +264,7 @@ Widget typeScaleLabel(BuildContext context) {
   final t = DSTheme.of(context).textTheme;
   final rows = [
     ('labelLarge', t.labelLarge, 'Button Label / Tab'),
-    ('labelMedium', t.labelMedium, 'Chip · Badge'),
+    ('labelMedium', t.label, 'Chip · Badge'),
     ('labelSmall', t.labelSmall, 'STATUS TAG'),
   ];
   return ScaffoldBase(
@@ -275,15 +272,15 @@ Widget typeScaleLabel(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      const _GroupHeader('Label'),
-      for (var i = 0; i < rows.length; i++)
-        _TypeRow(
-          token: rows[i].$1,
-          style: rows[i].$2,
-          sample: rows[i].$3,
-          isLast: i == rows.length - 1,
-        ),
-    ],
+        const _GroupHeader('Label'),
+        for (var i = 0; i < rows.length; i++)
+          _TypeRow(
+            token: rows[i].$1,
+            style: rows[i].$2,
+            sample: rows[i].$3,
+            isLast: i == rows.length - 1,
+          ),
+      ],
     ),
   );
 }
