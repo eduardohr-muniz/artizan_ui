@@ -20,8 +20,8 @@ import 'package:example/src/forms/controls_usecase.dart' as _i8;
 import 'package:example/src/forms/date_picker_usecase.dart' as _i9;
 import 'package:example/src/forms/select_usecase.dart' as _i10;
 import 'package:example/src/forms/text_field_usecase.dart' as _i11;
-import 'package:example/src/foundation/colors_usecase.dart' as _i12;
-import 'package:example/src/foundation/typography_usecase.dart' as _i13;
+import 'package:example/src/foundation/colors_usecase.dart' as _i13;
+import 'package:example/src/foundation/typography_usecase.dart' as _i12;
 import 'package:example/src/layout/card_usecase.dart' as _i15;
 import 'package:example/src/layout/separator_badge_usecase.dart' as _i14;
 import 'package:example/src/navigation/breadcrumb_usecase.dart' as _i16;
@@ -89,6 +89,14 @@ final directories = <_i1.WidgetbookNode>[
           _i1.WidgetbookUseCase(
             name: 'Destructive',
             builder: _i4.alertDestructive,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Info',
+            builder: _i4.alertInfo,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Muted',
+            builder: _i4.alertMuted,
           ),
           _i1.WidgetbookUseCase(
             name: 'Success',
@@ -226,44 +234,48 @@ final directories = <_i1.WidgetbookNode>[
     name: 'foundation',
     children: [
       _i1.WidgetbookComponent(
-        name: 'DsColorTokens',
+        name: 'DSTypography',
         useCases: [
           _i1.WidgetbookUseCase(
-            name: 'Palette',
-            builder: _i12.colorPalette,
+            name: 'All Tokens',
+            builder: _i12.typeScaleAll,
           ),
           _i1.WidgetbookUseCase(
-            name: 'Semantic',
-            builder: _i12.colorSemantic,
+            name: 'Body',
+            builder: _i12.typeScaleBody,
           ),
           _i1.WidgetbookUseCase(
-            name: 'Surfaces',
-            builder: _i12.colorSurfaces,
+            name: 'Caption',
+            builder: _i12.typeScaleCaption,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Display',
+            builder: _i12.typeScaleDisplay,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Label',
+            builder: _i12.typeScaleLabel,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Title',
+            builder: _i12.typeScaleTitle,
           ),
         ],
       ),
       _i1.WidgetbookComponent(
-        name: 'DsTypeScale',
+        name: 'DsColorTokens',
         useCases: [
           _i1.WidgetbookUseCase(
-            name: 'All Tokens',
-            builder: _i13.typeScaleAll,
+            name: 'Palette',
+            builder: _i13.colorPalette,
           ),
           _i1.WidgetbookUseCase(
-            name: 'Body',
-            builder: _i13.typeScaleBody,
+            name: 'Semantic',
+            builder: _i13.colorSemantic,
           ),
           _i1.WidgetbookUseCase(
-            name: 'Display',
-            builder: _i13.typeScaleDisplay,
-          ),
-          _i1.WidgetbookUseCase(
-            name: 'Label',
-            builder: _i13.typeScaleLabel,
-          ),
-          _i1.WidgetbookUseCase(
-            name: 'Title',
-            builder: _i13.typeScaleTitle,
+            name: 'Surfaces',
+            builder: _i13.colorSurfaces,
           ),
         ],
       ),

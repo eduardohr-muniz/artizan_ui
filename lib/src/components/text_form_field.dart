@@ -383,7 +383,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    DSTextTheme textTheme = DSTheme.of(context).textTheme;
+    final textTheme = DSTheme.of(context).textTheme;
     final colors = DSTheme.of(context).colorScheme;
     switch (widget.variant) {
       case DSTextFieldVariant.primary:

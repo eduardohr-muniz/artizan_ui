@@ -80,9 +80,9 @@ class DSEmptyState extends StatefulWidget {
 }
 
 class _DSEmptyStateState extends State<DSEmptyState> {
-  Widget _title(BuildContext context) => Text(widget.title!, style: context.dsTextTheme.small, textAlign: widget.textAlignment);
+  Widget _title(BuildContext context) => Text(widget.title!, style: DSTheme.of(context).textTheme.small, textAlign: widget.textAlignment);
 
-  Widget _subtitle(BuildContext context) => Text(widget.subtitle!, style: context.dsTextTheme.muted, textAlign: widget.textAlignment);
+  Widget _subtitle(BuildContext context) => Text(widget.subtitle!, style: DSTheme.of(context).textTheme.muted, textAlign: widget.textAlignment);
 
   Widget _icon(BuildContext context) {
     final iconWidget = IconTheme(data: IconThemeData(color: widget.color ?? context.dsColors.foreground), child: widget.icon);

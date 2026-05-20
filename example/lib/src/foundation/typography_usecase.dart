@@ -7,9 +7,9 @@ import '../../widgets/scaffold_base.dart';
 // ─── Marker class ─────────────────────────────────────────────────────────────
 
 /// Marker class used by @widgetbook.UseCase — not rendered directly.
-/// Named `DsTypeScale` to avoid conflict with Flutter's built-in [Typography].
-class DsTypeScale extends StatelessWidget {
-  const DsTypeScale({super.key});
+/// Named `DSTypography` to avoid conflict with Flutter's built-in [Typography].
+class DSTypography extends StatelessWidget {
+  const DSTypography({super.key});
 
   @override
   Widget build(BuildContext context) => const SizedBox.shrink();
@@ -19,6 +19,7 @@ class DsTypeScale extends StatelessWidget {
 
 const _sampleLong = 'The quick brown fox jumps over the lazy dog';
 const _sampleParagraph = 'Hamburgefons — the classic pangram used by typographers to preview typefaces at a glance.';
+const _sampleCaption = 'Last updated 3 min ago · v1.2.0';
 
 // ─── Internal widgets ─────────────────────────────────────────────────────────
 
@@ -51,12 +52,14 @@ class _TypeRow extends StatelessWidget {
     required this.style,
     required this.sample,
     this.isLast = false,
+    this.muted = false,
   });
 
   final String token;
   final TextStyle style;
   final String sample;
   final bool isLast;
+  final bool muted;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class _TypeRow extends StatelessWidget {
     final size = style.fontSize?.toStringAsFixed(0) ?? '—';
     final weight = _weightLabel(style.fontWeight);
     final ls = (style.letterSpacing != null && style.letterSpacing != 0) ? ' · ls ${style.letterSpacing!.toStringAsFixed(2)}' : '';
+    final sampleColor = muted ? cs.mutedForeground : cs.foreground;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +104,7 @@ class _TypeRow extends StatelessWidget {
               const SizedBox(height: 6),
               Text(
                 sample,
-                style: style.copyWith(color: cs.foreground),
+                style: style.copyWith(color: sampleColor),
               ),
             ],
           ),
@@ -123,74 +127,83 @@ class _TypeRow extends StatelessWidget {
 
 // ─── Use cases ─────────────────────────────────────────────────────────────────
 
-@widgetbook.UseCase(name: 'All Tokens', type: DsTypeScale)
+@widgetbook.UseCase(name: 'All Tokens', type: DSTypography)
 Widget typeScaleAll(BuildContext context) {
-  final t = DSTheme.of(context).textTheme;
+  final t = context.dsTextTheme;
 
-  final groups = [
-    (
-      'Display',
-      [
-        ('displayLarge', t.displayLarge, 'Display Large'),
-        ('displaySmall', t.displaySmall, 'Display Small'),
-      ],
-    ),
-    (
-      'Title',
-      [
-        ('titleLarge', t.titleLarge, 'Screen Title'),
-        ('titleMedium', t.title, 'Panel Heading'),
-        ('titleSmall', t.titleSmall, 'Section Heading'),
-      ],
-    ),
-    (
-      'Body',
-      [
-        ('bodyLarge', t.bodyLarge, _sampleLong),
-        ('bodyMedium', t.body, _sampleLong),
-        ('bodySmall', t.bodySmall, _sampleParagraph),
-      ],
-    ),
-    (
-      'Label',
-      [
-        ('labelLarge', t.labelLarge, 'Button Label / Tab'),
-        ('labelMedium', t.label, 'Chip · Badge'),
-        ('labelSmall', t.labelSmall, 'STATUS TAG'),
-      ],
-    ),
+  final displayRows = [
+    ('displayLarge', t.displayLarge, 'Display Large', false),
+    ('displaySmall', t.displaySmall, 'Display Small', false),
   ];
+  final titleRows = [
+    ('titleLarge', t.titleLarge, 'Screen Title', false),
+    ('title', t.title, 'Panel Heading', false),
+    ('titleSmall', t.titleSmall, 'Section Heading', false),
+  ];
+  final bodyRows = [
+    ('bodyLarge', t.bodyLarge, _sampleLong, false),
+    ('body', t.body, _sampleLong, false),
+    ('bodySmall', t.bodySmall, _sampleParagraph, false),
+    ('bodyMuted', t.body, _sampleLong, true),
+    ('bodySmallMuted', t.bodySmall, _sampleParagraph, true),
+  ];
+  final labelRows = [
+    ('labelLarge', t.labelLarge, 'Button Label / Tab', false),
+    ('label', t.label, 'Chip · Badge', false),
+    ('labelSmall', t.labelSmall, 'STATUS TAG', false),
+  ];
+
+  final captionRows = [
+    ('caption', t.caption, _sampleCaption, false),
+    ('captionMuted', t.caption, _sampleCaption, true),
+  ];
+
+  Widget buildGroup(String header, List<(String, TextStyle, String, bool)> rows) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _GroupHeader(header),
+          for (var i = 0; i < rows.length; i++)
+            _TypeRow(
+              token: rows[i].$1,
+              style: rows[i].$2,
+              sample: rows[i].$3,
+              muted: rows[i].$4,
+              isLast: i == rows.length - 1,
+            ),
+          const SizedBox(height: 16),
+        ],
+      );
 
   return ScaffoldBase(
     scrollable: true,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final group in groups) ...[
-          _GroupHeader(group.$1),
-          for (var i = 0; i < group.$2.length; i++)
-            _TypeRow(
-              token: group.$2[i].$1,
-              style: group.$2[i].$2,
-              sample: group.$2[i].$3,
-              isLast: i == group.$2.length - 1,
-            ),
-          const SizedBox(height: 16),
-        ],
+        buildGroup('Display', displayRows),
+        buildGroup('Title', titleRows),
+        buildGroup('Body', bodyRows),
+        buildGroup('Label', labelRows),
+        buildGroup('Caption', captionRows),
       ],
     ),
   );
 }
 
-@widgetbook.UseCase(name: 'Display', type: DsTypeScale)
+@widgetbook.UseCase(name: 'Display', type: DSTypography)
 Widget typeScaleDisplay(BuildContext context) {
-  final t = DSTheme.of(context).textTheme;
+  final t = context.dsTextTheme;
   final rows = [
     ('displayLarge', t.displayLarge, 'Display Large'),
     ('displaySmall', t.displaySmall, 'Display Small'),
   ];
   return ScaffoldBase(
     scrollable: true,
+    // dart format off
+    code: '''
+Text('Hero Text', style: context.dsTextTheme.displayLarge)
+Text('Modal Title', style: context.dsTextTheme.displaySmall)
+''',
+    // dart format on
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -207,16 +220,23 @@ Widget typeScaleDisplay(BuildContext context) {
   );
 }
 
-@widgetbook.UseCase(name: 'Title', type: DsTypeScale)
+@widgetbook.UseCase(name: 'Title', type: DSTypography)
 Widget typeScaleTitle(BuildContext context) {
-  final t = DSTheme.of(context).textTheme;
+  final t = context.dsTextTheme;
   final rows = [
     ('titleLarge', t.titleLarge, 'Screen Title'),
-    ('titleMedium', t.title, 'Panel Heading'),
+    ('title', t.title, 'Panel Heading'),
     ('titleSmall', t.titleSmall, 'Section Heading'),
   ];
   return ScaffoldBase(
     scrollable: true,
+    // dart format off
+    code: '''
+Text('Page Title', style: context.dsTextTheme.titleLarge)
+Text('Card Title', style: context.dsTextTheme.title)
+Text('Section Header', style: context.dsTextTheme.titleSmall)
+''',
+    // dart format on
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -233,16 +253,39 @@ Widget typeScaleTitle(BuildContext context) {
   );
 }
 
-@widgetbook.UseCase(name: 'Body', type: DsTypeScale)
+@widgetbook.UseCase(name: 'Body', type: DSTypography)
 Widget typeScaleBody(BuildContext context) {
-  final t = DSTheme.of(context).textTheme;
+  final t = context.dsTextTheme;
   final rows = [
-    ('bodyLarge', t.bodyLarge, _sampleLong),
-    ('bodyMedium', t.body, _sampleLong),
-    ('bodySmall', t.bodySmall, _sampleParagraph),
+    ('bodyLarge', t.bodyLarge, _sampleLong, false),
+    ('body', t.body, _sampleLong, false),
+    ('bodySmall', t.bodySmall, _sampleParagraph, false),
+    ('bodyMuted', t.body, _sampleLong, true),
+    ('bodySmallMuted', t.bodySmall, _sampleParagraph, true),
   ];
   return ScaffoldBase(
     scrollable: true,
+    // dart format off
+    code: '''
+Text('Primary text', style: context.dsTextTheme.bodyLarge)
+Text('Default text', style: context.dsTextTheme.body)
+Text('Helper text', style: context.dsTextTheme.bodySmall)
+
+// muted variants
+Text(
+  'Secondary info',
+  style: context.dsTextTheme.body.copyWith(
+    color: context.dsColors.mutedForeground,
+  ),
+)
+Text(
+  'Timestamp',
+  style: context.dsTextTheme.bodySmall.copyWith(
+    color: context.dsColors.mutedForeground,
+  ),
+)
+''',
+    // dart format on
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -252,6 +295,7 @@ Widget typeScaleBody(BuildContext context) {
             token: rows[i].$1,
             style: rows[i].$2,
             sample: rows[i].$3,
+            muted: rows[i].$4,
             isLast: i == rows.length - 1,
           ),
       ],
@@ -259,16 +303,62 @@ Widget typeScaleBody(BuildContext context) {
   );
 }
 
-@widgetbook.UseCase(name: 'Label', type: DsTypeScale)
-Widget typeScaleLabel(BuildContext context) {
-  final t = DSTheme.of(context).textTheme;
+@widgetbook.UseCase(name: 'Caption', type: DSTypography)
+Widget typeScaleCaption(BuildContext context) {
+  final t = context.dsTextTheme;
   final rows = [
-    ('labelLarge', t.labelLarge, 'Button Label / Tab'),
-    ('labelMedium', t.label, 'Chip · Badge'),
-    ('labelSmall', t.labelSmall, 'STATUS TAG'),
+    ('caption', t.caption, _sampleCaption, false),
+    ('captionMuted', t.caption, _sampleCaption, true),
   ];
   return ScaffoldBase(
     scrollable: true,
+    // dart format off
+    code: '''
+Text('Last updated 3 min ago', style: context.dsTextTheme.caption)
+
+// muted variant
+Text(
+  'Last updated 3 min ago',
+  style: context.dsTextTheme.caption.copyWith(
+    color: context.dsColors.mutedForeground,
+  ),
+)
+''',
+    // dart format on
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _GroupHeader('Caption'),
+        for (var i = 0; i < rows.length; i++)
+          _TypeRow(
+            token: rows[i].$1,
+            style: rows[i].$2,
+            sample: rows[i].$3,
+            muted: rows[i].$4,
+            isLast: i == rows.length - 1,
+          ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Label', type: DSTypography)
+Widget typeScaleLabel(BuildContext context) {
+  final t = context.dsTextTheme;
+  final rows = [
+    ('labelLarge', t.labelLarge, 'Button Label / Tab', false),
+    ('label', t.label, 'Chip · Badge', false),
+    ('labelSmall', t.labelSmall, 'STATUS TAG', false),
+  ];
+  return ScaffoldBase(
+    scrollable: true,
+    // dart format off
+    code: '''
+Text('Submit', style: context.dsTextTheme.labelLarge)
+Text('New', style: context.dsTextTheme.label)
+Text('DRAFT', style: context.dsTextTheme.labelSmall)
+''',
+    // dart format on
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -278,6 +368,7 @@ Widget typeScaleLabel(BuildContext context) {
             token: rows[i].$1,
             style: rows[i].$2,
             sample: rows[i].$3,
+            muted: rows[i].$4,
             isLast: i == rows.length - 1,
           ),
       ],

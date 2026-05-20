@@ -47,7 +47,7 @@ class _DSSegmentedBadgeState<T> extends State<DSSegmentedBadge<T>> {
       children: [
         if (widget.label != null)
           DefaultTextStyle(
-            style: context.dsTextTheme.muted.copyWith(color: context.dsColors.foreground, fontWeight: FontWeight.w600),
+            style: DSTheme.of(context).textTheme.muted.copyWith(color: context.dsColors.foreground, fontWeight: FontWeight.w600),
             child: widget.label!,
           ),
         Container(

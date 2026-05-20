@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef DSTextTheme = ShadTextTheme;
-
 // Keys for DS semantic tokens stored in the ShadTextTheme custom map
 const _kDisplayLarge = '_ds_displayLarge';
 const _kDisplaySmall = '_ds_displaySmall';
@@ -15,68 +13,75 @@ const _kBodySmall = '_ds_bodySmall';
 const _kLabelLarge = '_ds_labelLarge';
 const _kLabelMedium = '_ds_labelMedium';
 const _kLabelSmall = '_ds_labelSmall';
+const _kCaption = '_ds_caption';
 
-/// Typed accessors for the DS semantic type scale on top of [DSTextTheme].
+/// Typed, opaque wrapper around [ShadTextTheme] that exposes only the DS
+/// semantic type scale. Shad base tokens (h1–h4, p, small, muted…) are not
+/// accessible through this API.
 ///
-/// All tokens are pre-populated when you use [createDSTextTheme].
-/// Each getter falls back to a sensible default using the theme's own [family]
-/// if the token is absent (e.g. when using a raw [ShadTextTheme]).
+/// Access via `context.dsTextTheme`. Configure via [createDSTextTheme].
 ///
 /// ```dart
-/// // access in widgets
 /// context.dsTextTheme.titleLarge
-/// context.dsTextTheme.bodyMedium
-/// context.dsTextTheme.labelSmall
+/// context.dsTextTheme.body
+/// context.dsTextTheme.caption
 /// ```
-extension DSTextThemeTokens on DSTextTheme {
+class DSTextTheme {
+  const DSTextTheme(this._shad);
+
+  final ShadTextTheme _shad;
+
   // ── Display ──────────────────────────────────────────────────────────────
 
   /// 30px / w700 / ls -0.3 — hero text, splash screens, empty states
-  TextStyle get displayLarge => custom[_kDisplayLarge] ?? _fallback(fontSize: 30, fontWeight: FontWeight.w700, height: 1.2, letterSpacing: -0.3);
+  TextStyle get displayLarge => _shad.custom[_kDisplayLarge] ?? _fallback(fontSize: 30, fontWeight: FontWeight.w700, height: 1.2, letterSpacing: -0.3);
 
   /// 24px / w700 / ls -0.24 — large modal titles, prominent page headers
-  TextStyle get displaySmall => custom[_kDisplaySmall] ?? _fallback(fontSize: 24, fontWeight: FontWeight.w700, height: 1.25, letterSpacing: -0.24);
+  TextStyle get displaySmall => _shad.custom[_kDisplaySmall] ?? _fallback(fontSize: 24, fontWeight: FontWeight.w700, height: 1.25, letterSpacing: -0.24);
 
   // ── Title ─────────────────────────────────────────────────────────────────
 
   /// 20px / w700 — screen titles, top-level section headers
-  TextStyle get titleLarge => custom[_kTitleLarge] ?? _fallback(fontSize: 20, fontWeight: FontWeight.w700, height: 1.25, letterSpacing: -0.2);
+  TextStyle get titleLarge => _shad.custom[_kTitleLarge] ?? _fallback(fontSize: 20, fontWeight: FontWeight.w700, height: 1.25, letterSpacing: -0.2);
 
   /// 18px / w600 — panel headings, card titles, dialog titles
-  TextStyle get title => custom[_kTitleMedium] ?? _fallback(fontSize: 18, fontWeight: FontWeight.w600, height: 1.375, letterSpacing: 0);
+  TextStyle get title => _shad.custom[_kTitleMedium] ?? _fallback(fontSize: 18, fontWeight: FontWeight.w600, height: 1.375);
 
   /// 16px / w600 — sub-section headings, list group headers
-  TextStyle get titleSmall => custom[_kTitleSmall] ?? _fallback(fontSize: 16, fontWeight: FontWeight.w600, height: 1.375, letterSpacing: 0);
+  TextStyle get titleSmall => _shad.custom[_kTitleSmall] ?? _fallback(fontSize: 16, fontWeight: FontWeight.w600, height: 1.375);
 
   // ── Body ──────────────────────────────────────────────────────────────────
 
   /// 16px / w400 — primary readable text, descriptions
-  TextStyle get bodyLarge => custom[_kBodyLarge] ?? _fallback(fontSize: 16, fontWeight: FontWeight.w400, height: 1.5, letterSpacing: 0);
+  TextStyle get bodyLarge => _shad.custom[_kBodyLarge] ?? _fallback(fontSize: 16, fontWeight: FontWeight.w400, height: 1.5);
 
   /// 14px / w400 — default body text, list items, inputs
-  TextStyle get body => custom[_kBodyMedium] ?? _fallback(fontSize: 14, fontWeight: FontWeight.w400, height: 1.5, letterSpacing: 0);
+  TextStyle get body => _shad.custom[_kBodyMedium] ?? _fallback(fontSize: 14, fontWeight: FontWeight.w400, height: 1.5);
 
   /// 12px / w400 — secondary text, captions, helper copy, timestamps
-  TextStyle get bodySmall => custom[_kBodySmall] ?? _fallback(fontSize: 12, fontWeight: FontWeight.w400, height: 1.5, letterSpacing: 0);
+  TextStyle get bodySmall => _shad.custom[_kBodySmall] ?? _fallback(fontSize: 12, fontWeight: FontWeight.w400, height: 1.5);
 
   // ── Label ─────────────────────────────────────────────────────────────────
 
   /// 14px / w600 — button labels, tabs, navigation items, form labels
-  TextStyle get labelLarge => custom[_kLabelLarge] ?? _fallback(fontSize: 14, fontWeight: FontWeight.w600, height: 1.43, letterSpacing: 0);
+  TextStyle get labelLarge => _shad.custom[_kLabelLarge] ?? _fallback(fontSize: 14, fontWeight: FontWeight.w600, height: 1.43);
 
   /// 12px / w600 — chip labels, badge text, compact buttons
-  TextStyle get label => custom[_kLabelMedium] ?? _fallback(fontSize: 12, fontWeight: FontWeight.w600, height: 1.33, letterSpacing: 0.1);
+  TextStyle get label => _shad.custom[_kLabelMedium] ?? _fallback(fontSize: 12, fontWeight: FontWeight.w600, height: 1.33, letterSpacing: 0.1);
 
   /// 11px / w500 — status tags, compact badges, micro-labels
   /// Use `.toUpperCase()` on the string when displaying as an uppercase label.
-  TextStyle get labelSmall => custom[_kLabelSmall] ?? _fallback(fontSize: 11, fontWeight: FontWeight.w500, height: 1.18, letterSpacing: 0.4);
+  TextStyle get labelSmall => _shad.custom[_kLabelSmall] ?? _fallback(fontSize: 11, fontWeight: FontWeight.w500, height: 1.18, letterSpacing: 0.4);
+
+  /// 10px / w400 — fine print, footnotes, timestamps, metadata annotations
+  TextStyle get caption => _shad.custom[_kCaption] ?? _fallback(fontSize: 10, fontWeight: FontWeight.w400, height: 1.4, letterSpacing: 0.2);
 
   TextStyle _fallback({required double fontSize, required FontWeight fontWeight, required double height, double letterSpacing = 0}) => TextStyle(
     fontSize: fontSize,
     fontWeight: fontWeight,
     height: height,
     letterSpacing: letterSpacing,
-    fontFamily: family,
+    fontFamily: _shad.family,
     decoration: TextDecoration.none,
     fontStyle: FontStyle.normal,
     textBaseline: TextBaseline.alphabetic,
@@ -84,21 +89,20 @@ extension DSTextThemeTokens on DSTextTheme {
   );
 }
 
-/// Creates a [DSTextTheme] with the full DS semantic type scale pre-populated.
+/// Creates a [ShadTextTheme] with the full DS semantic type scale pre-populated.
 ///
-/// The base Shad tokens (h1–h4, p, small, muted…) are also set to a compact
-/// scale suited for mobile/app contexts. Every token can be overridden:
+/// Pass the result to `DSThemeData(textTheme: createDSTextTheme(...))`.
+/// Access tokens in widgets via `context.dsTextTheme`.
 ///
 /// ```dart
 /// DSThemeData(
 ///   textTheme: createDSTextTheme(
 ///     family: 'Inter',
-///     package: 'my_pkg',
 ///     titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
 ///   ),
 /// )
 /// ```
-DSTextTheme createDSTextTheme({
+ShadTextTheme createDSTextTheme({
   String? family,
   String? package,
   GoogleFontBuilder? googleFontBuilder,
@@ -128,6 +132,7 @@ DSTextTheme createDSTextTheme({
   TextStyle? labelLarge,
   TextStyle? labelMedium,
   TextStyle? labelSmall,
+  TextStyle? caption,
   Map<String, TextStyle> extraCustom = const {},
 }) {
   var effectiveFamily = family ?? kDefaultFontFamily;
@@ -155,7 +160,7 @@ DSTextTheme createDSTextTheme({
     leadingDistribution: TextLeadingDistribution.even,
   );
 
-  return DSTextTheme(
+  return ShadTextTheme(
     family: family,
     package: package,
     googleFontBuilder: googleFontBuilder,
@@ -189,6 +194,7 @@ DSTextTheme createDSTextTheme({
       _kLabelLarge: labelLarge ?? mk(fontSize: 14, fontWeight: FontWeight.w600, height: 1.43),
       _kLabelMedium: labelMedium ?? mk(fontSize: 12, fontWeight: FontWeight.w600, height: 1.33, letterSpacing: 0.1),
       _kLabelSmall: labelSmall ?? mk(fontSize: 11, fontWeight: FontWeight.w500, height: 1.18, letterSpacing: 0.4),
+      _kCaption: caption ?? mk(fontSize: 10, fontWeight: FontWeight.w400, height: 1.4, letterSpacing: 0.2),
       ...extraCustom,
     },
   );

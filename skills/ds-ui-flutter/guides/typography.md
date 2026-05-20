@@ -1,29 +1,29 @@
 # Typography
 
-DS UI defines two levels of type scale accessible via `context.dsTextTheme`:
+DS UI exposes a semantic type scale via **DS custom tokens**. These are the canonical way to apply typography — always prefer them over Shad base tokens (`h1`, `p`, `muted`, etc.).
 
-- **Shad base tokens** (`h1`, `h2`, `h3`, `h4`, `p`, `small`, `muted` …) — inherited from shadcn_ui.
-- **DS semantic tokens** (`displayLarge`, `titleLarge`, `bodyMedium` …) — added by DS UI via extension.
+Access the scale through `context.dsTextTheme` (returns `DSTextTheme`):
 
-Always use `createDSTextTheme()` when configuring the theme to ensure all semantic tokens are populated.
+```dart
+context.dsTextTheme.titleLarge
+context.dsTextTheme.body
+```
+
+Always use `createDSTextTheme()` when configuring the theme to ensure all tokens are populated.
 
 ---
 
-## DS Semantic Tokens
+## DS Tokens Reference
 
 ### Display
 
-#### displayLarge
-30px / w700 / ls -0.3 — hero text, splash screens, empty states.
+| Token | Size | Weight | Letter Spacing | Usage |
+|---|---|---|---|---|
+| `displayLarge` | 30px | w700 | -0.3 | Hero text, splash screens, empty states |
+| `displaySmall` | 24px | w700 | -0.24 | Large modal titles, prominent page headers |
 
 ```dart
 Text('Hero Text', style: context.dsTextTheme.displayLarge)
-```
-
-#### displaySmall
-24px / w700 / ls -0.24 — large modal titles, prominent page headers.
-
-```dart
 Text('Modal Title', style: context.dsTextTheme.displaySmall)
 ```
 
@@ -31,24 +31,15 @@ Text('Modal Title', style: context.dsTextTheme.displaySmall)
 
 ### Title
 
-#### titleLarge
-20px / w700 / ls -0.2 — screen titles, top-level section headers.
+| Token | Size | Weight | Usage |
+|---|---|---|---|
+| `titleLarge` | 20px | w700 | Screen titles, top-level section headers |
+| `title` | 18px | w600 | Panel headings, card titles, dialog titles |
+| `titleSmall` | 16px | w600 | Sub-section headings, list group headers |
 
 ```dart
 Text('Page Title', style: context.dsTextTheme.titleLarge)
-```
-
-#### titleMedium
-18px / w600 — panel headings, card titles, dialog titles.
-
-```dart
-Text('Card Title', style: context.dsTextTheme.titleMedium)
-```
-
-#### titleSmall
-16px / w600 — sub-section headings, list group headers.
-
-```dart
+Text('Card Title', style: context.dsTextTheme.title)
 Text('Section Header', style: context.dsTextTheme.titleSmall)
 ```
 
@@ -56,94 +47,82 @@ Text('Section Header', style: context.dsTextTheme.titleSmall)
 
 ### Body
 
-#### bodyLarge
-16px / w400 — primary readable text, descriptions.
+| Token | Size | Weight | Usage |
+|---|---|---|---|
+| `bodyLarge` | 16px | w400 | Primary readable text, descriptions |
+| `body` | 14px | w400 | Default body text, list items, inputs |
+| `bodySmall` | 12px | w400 | Secondary text, captions, helper copy, timestamps |
 
 ```dart
 Text('Primary body text.', style: context.dsTextTheme.bodyLarge)
-```
-
-#### bodyMedium
-14px / w400 — default body text, list items, inputs.
-
-```dart
-Text('Default body text.', style: context.dsTextTheme.bodyMedium)
-```
-
-#### bodySmall
-12px / w400 — secondary text, captions, helper copy, timestamps.
-
-```dart
+Text('Default body text.', style: context.dsTextTheme.body)
 Text('Helper text', style: context.dsTextTheme.bodySmall)
+```
+
+#### Muted body variants
+
+`body` and `bodySmall` carry only the typographic scale — apply the muted color via `.copyWith`:
+
+| Token | Size | Weight | Usage |
+|---|---|---|---|
+| `body` | 14px | w400 | Secondary/subdued body text |
+| `bodySmall` | 12px | w400 | Secondary/subdued small text |
+
+```dart
+Text(
+  'Secondary info',
+  style: context.dsTextTheme.body.copyWith(
+    color: context.dsColors.mutedForeground,
+  ),
+)
+Text(
+  'Timestamp',
+  style: context.dsTextTheme.bodySmall.copyWith(
+    color: context.dsColors.mutedForeground,
+  ),
+)
+```
+
+Override the typography in `createDSTextTheme` if needed:
+
+```dart
+createDSTextTheme(
+  body: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+  bodySmall: const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+)
 ```
 
 ---
 
 ### Label
 
-#### labelLarge
-14px / w600 — button labels, tabs, navigation items, form labels.
+| Token | Size | Weight | Letter Spacing | Usage |
+|---|---|---|---|---|
+| `labelLarge` | 14px | w600 | 0 | Button labels, tabs, navigation items, form labels |
+| `label` | 12px | w600 | 0.1 | Chip labels, badge text, compact buttons |
+| `labelSmall` | 11px | w500 | 0.4 | Status tags, compact badges, micro-labels |
+| `caption` | 10px | w400 | 0.2 | Fine print, footnotes, timestamps, metadata annotations |
 
 ```dart
 Text('Submit', style: context.dsTextTheme.labelLarge)
-```
-
-#### labelMedium
-12px / w600 / ls 0.1 — chip labels, badge text, compact buttons.
-
-```dart
-Text('New', style: context.dsTextTheme.labelMedium)
-```
-
-#### labelSmall
-11px / w500 / ls 0.4 — status tags, compact badges, micro-labels. Use `.toUpperCase()` when displaying as an uppercase label.
-
-```dart
+Text('New', style: context.dsTextTheme.label)
 Text('draft'.toUpperCase(), style: context.dsTextTheme.labelSmall)
+Text('Last updated 3 min ago', style: context.dsTextTheme.caption)
 ```
 
----
-
-## Shad Base Tokens
-
-The original Shad tokens remain available and follow a compact scale suited for mobile/app contexts:
-
-| Token | Size | Weight | Usage |
-|---|---|---|---|
-| `h1Large` | 30px | w700 | Equivalent to `displayLarge` |
-| `h1` | 24px | w700 | Equivalent to `displaySmall` |
-| `h2` | 20px | w700 | Equivalent to `titleLarge` |
-| `h3` | 18px | w600 | Equivalent to `titleMedium` |
-| `h4` | 16px | w600 | Equivalent to `titleSmall` |
-| `lead` | 18px | w400 | Subtitle / intro text |
-| `large` | 16px | w600 | Prominent large text |
-| `p` | 14px | w400 | Default paragraph |
-| `blockquote` | 14px | w400 | Quotation (italic) |
-| `table` | 14px | w700 | Table header |
-| `list` | 14px | w400 | List item |
-| `small` | 12px | w500 | Small text |
-| `muted` | 12px | w400 | Secondary / muted text |
-
-```dart
-Text('Heading', style: context.dsTextTheme.h2)
-Text('Body paragraph.', style: context.dsTextTheme.p)
-Text('Helper text', style: context.dsTextTheme.muted)
-```
+> Use `.toUpperCase()` on the string when displaying `labelSmall` as an uppercase label.
 
 ---
 
 ## Theme Configuration
 
-Use `createDSTextTheme()` to ensure all semantic tokens are pre-populated. Individual tokens can be overridden:
-
 ```dart
 DSThemeData(
   textTheme: createDSTextTheme(
     family: 'Inter',
-    // override DS semantic tokens
+    // override DS tokens
     titleLarge: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-    // override Shad base tokens
-    muted: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+    bodyMuted: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
   ),
 )
 ```
@@ -152,7 +131,7 @@ DSThemeData(
 
 ## Custom Font Family
 
-By default DS UI uses [Geist](https://vercel.com/font). To change it, add the font to your `pubspec.yaml`:
+By default DS UI uses [Geist](https://vercel.com/font). To change it, add the font to `pubspec.yaml`:
 
 ```yaml
 flutter:
@@ -164,7 +143,7 @@ flutter:
           weight: 700
 ```
 
-Then pass the `family` to `createDSTextTheme`:
+Then pass `family` to `createDSTextTheme`:
 
 ```dart
 DSThemeData(
@@ -176,7 +155,7 @@ DSThemeData(
 
 ## Google Font
 
-Install the [google_fonts](https://pub.dev/packages/google_fonts) package and use the `googleFontBuilder` parameter:
+Install [google_fonts](https://pub.dev/packages/google_fonts) and use `googleFontBuilder`:
 
 ```dart
 DSThemeData(
@@ -188,9 +167,9 @@ DSThemeData(
 
 ---
 
-## Extra Custom Styles
+## Extra Custom Tokens
 
-Use `extraCustom` in `createDSTextTheme` to add your own tokens:
+Use `extraCustom` in `createDSTextTheme` to add project-specific tokens:
 
 ```dart
 DSThemeData(
@@ -202,13 +181,29 @@ DSThemeData(
 )
 ```
 
-Access via `context.dsTextTheme.custom['myCaption']!`, or create an extension for convenience:
+Create an extension for convenient access:
 
 ```dart
 extension MyTextTokens on DSTextTheme {
   TextStyle get myCaption => custom['myCaption']!;
 }
 
-// usage
 Text('caption', style: context.dsTextTheme.myCaption)
 ```
+
+---
+
+## Shad Base Tokens (avoid in new code)
+
+The Shad tokens (`h1`, `h2`, `p`, `muted`, etc.) remain available for compatibility but should not be used in new code — the DS tokens above cover all use cases with clearer semantics.
+
+| Shad token | DS equivalent |
+|---|---|
+| `h1Large` | `displayLarge` |
+| `h1` | `displaySmall` |
+| `h2` | `titleLarge` |
+| `h3` | `title` |
+| `h4` | `titleSmall` |
+| `p` | `body` |
+| `small` | `bodySmall` |
+| `muted` | `dsTextTheme.bodySmall + `.copyWith(color: context.dsColors.mutedForeground)` |
