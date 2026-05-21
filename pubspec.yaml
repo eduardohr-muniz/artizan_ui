@@ -16,6 +16,7 @@ dependencies:
   boxy: ^2.2.0
   collection: ^1.18.0
   flutter_breakpoints: ^1.0.1
+  dotted_border: ^3.1.0
   # auto_form_validate: ^1.0.5+2
   auto_form_validate: ^2.0.3
   lucide_icons_flutter:

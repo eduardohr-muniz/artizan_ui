@@ -7,6 +7,7 @@ export './switch.dart';
 export './badge.dart';
 export './breadcrumb.dart';
 export './divider.dart';
+export './divider_dotted.dart';
 export './dialog.dart';
 export 'toast.dart';
 export './alert.dart';
