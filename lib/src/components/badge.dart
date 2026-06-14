@@ -72,8 +72,7 @@ class DSBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveHoverBg = hoverBackgroundColor ??
-        (backgroundColor != null ? Color.lerp(backgroundColor, Colors.black, 0.12) : null);
+    final effectiveHoverBg = hoverBackgroundColor ?? (backgroundColor != null ? Color.lerp(backgroundColor, Colors.black, 0.12) : null);
 
     return ShadBadge.raw(
       variant: _toShadBadgeVariant(variant),
