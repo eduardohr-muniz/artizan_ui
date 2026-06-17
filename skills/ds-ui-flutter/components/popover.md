@@ -47,11 +47,11 @@ class _PopoverPageState extends State<PopoverPage> {
               children: [
                 Text(
                   'Dimensions',
-                  style: textTheme.h4,
+                  style: textTheme.titleSmall,
                 ),
                 Text(
                   'Set the dimensions for the layer.',
-                  style: textTheme.p,
+                  style: textTheme.body,
                 ),
                 const SizedBox(height: 4),
                 ...layer
@@ -134,11 +134,11 @@ class _PopoverPageState extends State<PopoverPage> {
               children: [
                 Text(
                   'Dimensions',
-                  style: textTheme.h4,
+                  style: textTheme.titleSmall,
                 ),
                 Text(
                   'Set the dimensions for the layer.',
-                  style: textTheme.p,
+                  style: textTheme.body,
                 ),
                 const SizedBox(height: 4),
                 ...layer

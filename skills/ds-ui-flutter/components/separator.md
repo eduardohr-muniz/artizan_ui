@@ -48,7 +48,6 @@ class _SeparatorPageState extends State<SeparatorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'Separator',
       editable: [
@@ -81,7 +80,7 @@ class _SeparatorPageState extends State<SeparatorPage> {
         ),
       ],
       children: [
-        Text('Horizontal', style: theme.textTheme.h4),
+        Text('Horizontal', style: context.dsTextTheme.titleSmall),
         DSSeparator.horizontal(
           thickness: thickness.toDouble(),
           margin: EdgeInsets.all(margin.toDouble()),
@@ -92,13 +91,13 @@ class _SeparatorPageState extends State<SeparatorPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Vertical', style: theme.textTheme.h4),
+              Text('Vertical', style: context.dsTextTheme.titleSmall),
               DSSeparator.vertical(
                 thickness: thickness.toDouble(),
                 margin: EdgeInsets.all(margin.toDouble()),
                 radius: BorderRadius.all(Radius.circular(radius.toDouble())),
               ),
-              Text('divider', style: theme.textTheme.h4),
+              Text('divider', style: context.dsTextTheme.titleSmall),
             ],
           ),
         ),

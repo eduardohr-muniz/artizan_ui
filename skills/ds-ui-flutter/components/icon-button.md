@@ -77,7 +77,7 @@ DSIconButton(
     dimension: 16,
     child: CircularProgressIndicator(
       strokeWidth: 2,
-      color: DSTheme.of(context).colorScheme.primaryForeground,
+      color: DSColors.theme(context).primaryForeground,
     ),
   ),
 )
@@ -126,7 +126,6 @@ class _IconButtonPageState extends State<IconButtonPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return FocusTraversalGroup(
       policy: WidgetOrderTraversalPolicy(),
       child: BaseScaffold(
@@ -188,7 +187,7 @@ class _IconButtonPageState extends State<IconButtonPage> {
               dimension: 16,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                color: theme.colorScheme.primaryForeground,
+                color: DSColors.theme(context).primaryForeground,
               ),
             ),
           ),

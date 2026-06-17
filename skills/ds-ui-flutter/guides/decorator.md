@@ -10,25 +10,25 @@ DSDecoration(
   ),
   secondaryFocusedBorder: DSBorder.all(
     width: 2,
-    color: colorScheme.ring,
+    color: DSColors.theme(context).ring,
     radius: radius.add(radius / 2),
     padding: const EdgeInsets.all(2),
   ),
-  labelStyle: textTheme.muted.copyWith(
+  labelStyle: context.dsTextTheme.bodySmall.copyWith(
     fontWeight: FontWeight.w500,
-    color: colorScheme.foreground,
+    color: DSColors.theme(context).foreground,
   ),
-  errorStyle: textTheme.muted.copyWith(
+  errorStyle: context.dsTextTheme.bodySmall.copyWith(
     fontWeight: FontWeight.w500,
-    color: colorScheme.destructive,
+    color: DSColors.theme(context).destructive,
   ),
   labelPadding: const EdgeInsets.only(bottom: 8),
-  descriptionStyle: textTheme.muted,
+  descriptionStyle: context.dsTextTheme.bodySmall,
   descriptionPadding: const EdgeInsets.only(top: 8),
   errorPadding: const EdgeInsets.only(top: 8),
-  errorLabelStyle: textTheme.muted.copyWith(
+  errorLabelStyle: context.dsTextTheme.bodySmall.copyWith(
     fontWeight: FontWeight.w500,
-    color: colorScheme.destructive,
+    color: DSColors.theme(context).destructive,
   ),
 );
 ```

@@ -124,7 +124,7 @@ class DropdownBreadcrumb extends StatelessWidget {
 ```dart
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import '../common/base_scaffold.dart';
+import '../../ds-ui-flutter copy/common/base_scaffold.dart';
 
 class BreadcrumbPage extends StatelessWidget {
   const BreadcrumbPage({super.key});

@@ -169,6 +169,10 @@ final directories = <_i1.WidgetbookNode>[
             builder: _i8.controlCheckbox,
           ),
           _i1.WidgetbookUseCase(
+            name: 'Range Slider',
+            builder: _i8.controlRangeSlider,
+          ),
+          _i1.WidgetbookUseCase(
             name: 'Slider',
             builder: _i8.controlSlider,
           ),

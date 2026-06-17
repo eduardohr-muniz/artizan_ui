@@ -10,7 +10,6 @@ class MenubarExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     final square = SizedBox.square(
       dimension: 16,
       child: Center(
@@ -18,7 +17,7 @@ class MenubarExample extends StatelessWidget {
           dimension: 8,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: theme.colorScheme.foreground,
+              color: DSColors.theme(context).foreground,
               shape: BoxShape.circle,
             ),
           ),
@@ -27,7 +26,7 @@ class MenubarExample extends StatelessWidget {
     );
     final divider = DSSeparator.horizontal(
       margin: const EdgeInsets.symmetric(vertical: 4),
-      color: theme.colorScheme.muted,
+      color: DSColors.theme(context).muted,
     );
     return DSMenubar(
       items: [
@@ -134,7 +133,6 @@ class _MenubarPageState extends State<MenubarPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     final square = SizedBox.square(
       dimension: 16,
       child: Center(
@@ -142,7 +140,7 @@ class _MenubarPageState extends State<MenubarPage> {
           dimension: 8,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: theme.colorScheme.foreground,
+              color: DSColors.theme(context).foreground,
               shape: BoxShape.circle,
             ),
           ),
@@ -151,7 +149,7 @@ class _MenubarPageState extends State<MenubarPage> {
     );
     final divider = DSSeparator.horizontal(
       margin: const EdgeInsets.symmetric(vertical: 4),
-      color: theme.colorScheme.muted,
+      color: DSColors.theme(context).muted,
     );
 
     return BaseScaffold(

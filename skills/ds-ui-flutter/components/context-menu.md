@@ -13,7 +13,6 @@ class ContextMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -58,7 +57,7 @@ class ContextMenuPage extends StatelessWidget {
             const Divider(height: 8),
             Padding(
               padding: const EdgeInsets.fromLTRB(36, 8, 8, 8),
-              child: Text('People', style: theme.textTheme.small),
+              child: Text('People', style: context.dsTextTheme.bodySmall),
             ),
             const Divider(height: 8),
             DSContextMenuItem(
@@ -69,7 +68,7 @@ class ContextMenuPage extends StatelessWidget {
                     width: 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.foreground,
+                      color: DSColors.theme(context).foreground,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -84,7 +83,7 @@ class ContextMenuPage extends StatelessWidget {
             height: 200,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              border: Border.all(color: theme.colorScheme.border),
+              border: Border.all(color: DSColors.theme(context).border),
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Text('Right click here'),
@@ -107,7 +106,6 @@ class ContextMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     const divider = DSSeparator.horizontal(
       margin: EdgeInsets.symmetric(vertical: 4),
     );
@@ -155,7 +153,7 @@ class ContextMenuPage extends StatelessWidget {
             divider,
             Padding(
               padding: const EdgeInsets.fromLTRB(36, 8, 8, 8),
-              child: Text('People', style: theme.textTheme.small),
+              child: Text('People', style: context.dsTextTheme.bodySmall),
             ),
             divider,
             DSContextMenuItem(
@@ -166,7 +164,7 @@ class ContextMenuPage extends StatelessWidget {
                     width: 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.foreground,
+                      color: DSColors.theme(context).foreground,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -181,7 +179,7 @@ class ContextMenuPage extends StatelessWidget {
             height: 200,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              border: Border.all(color: theme.colorScheme.border),
+              border: Border.all(color: DSColors.theme(context).border),
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Text('Right click here'),

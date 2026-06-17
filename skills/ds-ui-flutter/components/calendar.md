@@ -188,7 +188,6 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'Calendar',
       editable: [
@@ -271,7 +270,7 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
       ],
       children: [
-        Text('Single', style: theme.textTheme.h4),
+        Text('Single', style: context.dsTextTheme.titleSmall),
         DSCalendar(
           selected: selected,
           fromMonth: DateTime(2023),
@@ -288,7 +287,7 @@ class _CalendarPageState extends State<CalendarPage> {
           allowDeselection: allowDeselection,
         ),
         const DSSeparator.horizontal(),
-        Text('Multiple', style: theme.textTheme.h4),
+        Text('Multiple', style: context.dsTextTheme.titleSmall),
         DSCalendar.multiple(
           numberOfMonths: 2,
           fromMonth: DateTime(2024),
@@ -305,7 +304,7 @@ class _CalendarPageState extends State<CalendarPage> {
           hideWeekdayNames: hideWeekdayNames,
         ),
         const DSSeparator.horizontal(),
-        Text('Range', style: theme.textTheme.h4),
+        Text('Range', style: context.dsTextTheme.titleSmall),
         DSCalendar.range(
           onChanged: print,
           min: 2,

@@ -17,10 +17,9 @@ class CardProject extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSCard(
       width: 350,
-      title: Text('Create project', style: theme.textTheme.h4),
+      title: Text('Create project', style: context.dsTextTheme.titleSmall),
       description: const Text('Deploy your new project in one-click.'),
       footer: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,7 +107,6 @@ class _CardNotificationsState extends State<CardNotifications> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSCard(
       width: 380,
       title: const Text('Notifications'),
@@ -129,15 +127,15 @@ class _CardNotificationsState extends State<CardNotifications> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              borderRadius: theme.radius,
-              border: Border.all(color: theme.colorScheme.border),
+              borderRadius: DSTheme.of(context).radius,
+              border: Border.all(color: DSColors.theme(context).border),
             ),
             child: Row(
               children: [
                 Icon(
                   LucideIcons.bellRing,
                   size: 24,
-                  color: theme.colorScheme.foreground,
+                  color: DSColors.theme(context).foreground,
                 ),
                 Expanded(
                   child: Padding(
@@ -147,12 +145,12 @@ class _CardNotificationsState extends State<CardNotifications> {
                       children: [
                         Text(
                           'Push Notifications',
-                          style: theme.textTheme.small,
+                          style: context.dsTextTheme.bodySmall,
                         ),
                         const SizedBox(height: 4),
                         Text(
                           'Send notifications to device.',
-                          style: theme.textTheme.muted,
+                          style: context.dsTextTheme.bodySmall,
                         )
                       ],
                     ),
@@ -192,9 +190,9 @@ class _CardNotificationsState extends State<CardNotifications> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Your call has been confirmed.',
-                                style: theme.textTheme.small),
+                                style: context.dsTextTheme.bodySmall),
                             const SizedBox(height: 4),
-                            Text(n.description, style: theme.textTheme.muted),
+                            Text(n.description, style: context.dsTextTheme.bodySmall),
                           ],
                         ),
                       ),
@@ -258,7 +256,6 @@ class _CardPageState extends State<CardPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'Card',
       children: [
@@ -328,15 +325,15 @@ class _CardPageState extends State<CardPage> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  borderRadius: theme.radius,
-                  border: Border.all(color: theme.colorScheme.border),
+                  borderRadius: DSTheme.of(context).radius,
+                  border: Border.all(color: DSColors.theme(context).border),
                 ),
                 child: Row(
                   children: [
                     Icon(
                       LucideIcons.bellRing,
                       size: 24,
-                      color: theme.colorScheme.foreground,
+                      color: DSColors.theme(context).foreground,
                     ),
                     Expanded(
                       child: Padding(
@@ -346,12 +343,12 @@ class _CardPageState extends State<CardPage> {
                           children: [
                             Text(
                               'Push Notifications',
-                              style: theme.textTheme.small,
+                              style: context.dsTextTheme.bodySmall,
                             ),
                             const SizedBox(height: 4),
                             Text(
                               'Send notifications to device.',
-                              style: theme.textTheme.muted,
+                              style: context.dsTextTheme.bodySmall,
                             ),
                           ],
                         ),
@@ -394,12 +391,12 @@ class _CardPageState extends State<CardPage> {
                               children: [
                                 Text(
                                   'Your call has been confirmed.',
-                                  style: theme.textTheme.small,
+                                  style: context.dsTextTheme.bodySmall,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   n.description,
-                                  style: theme.textTheme.muted,
+                                  style: context.dsTextTheme.bodySmall,
                                 ),
                               ],
                             ),

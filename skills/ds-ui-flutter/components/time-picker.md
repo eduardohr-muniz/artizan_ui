@@ -162,7 +162,6 @@ class _TimePickerFormFieldPageState extends State<TimePickerFormFieldPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSForm(
       key: formKey,
       enabled: enabled,
@@ -242,11 +241,11 @@ class _TimePickerFormFieldPageState extends State<TimePickerFormFieldPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('FormValue', style: theme.textTheme.p),
+                        Text('FormValue', style: context.dsTextTheme.body),
                         const SizedBox(height: 4),
                         SelectableText(
                           formValue.toString(),
-                          style: theme.textTheme.small,
+                          style: context.dsTextTheme.bodySmall,
                         ),
                       ],
                     ),

@@ -1,3 +1,4 @@
+import 'package:ds_ui/ds_ui.dart';
 import 'package:ds_ui/src/utils/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -23,11 +24,12 @@ class DSAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = context.dsColors;
+    final primitives = DSColorSchemePrimitivePalette();
 
     final (Color bg, Color fg, IconData defaultIcon) = switch (variant) {
       DSAlertVariant.success => (cs.success.withValues(alpha: 0.12), cs.success, LucideIcons.circleCheck),
       DSAlertVariant.info => (cs.info.withValues(alpha: 0.12), cs.info, LucideIcons.info),
-      DSAlertVariant.warning => (cs.warning.withValues(alpha: 0.12), cs.warning, LucideIcons.triangleAlert),
+      DSAlertVariant.warning => (cs.warning.withValues(alpha: 0.12), primitives.amber.shade800, LucideIcons.triangleAlert),
       DSAlertVariant.destructive => (cs.destructive.withValues(alpha: 0.12), cs.destructive, LucideIcons.circleX),
       DSAlertVariant.muted => (cs.muted, cs.mutedForeground, LucideIcons.info),
     };
@@ -37,7 +39,7 @@ class DSAlert extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(8), border: Border.all(color: fg.withValues(alpha: 0.2))),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

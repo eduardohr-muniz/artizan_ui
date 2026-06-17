@@ -10,18 +10,17 @@ class BasicResizable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 200),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: theme.radius,
+          borderRadius: DSTheme.of(context).radius,
           border: Border.all(
-            color: theme.colorScheme.border,
+            color: DSColors.theme(context).border,
           ),
         ),
         child: ClipRRect(
-          borderRadius: theme.radius,
+          borderRadius: DSTheme.of(context).radius,
           child: DSResizablePanelGroup(
             children: [
               DSResizablePanel(
@@ -30,7 +29,7 @@ class BasicResizable extends StatelessWidget {
                 minSize: .2,
                 maxSize: .8,
                 child: Center(
-                  child: Text('One', style: theme.textTheme.large),
+                  child: Text('One', style: context.dsTextTheme.titleSmall),
                 ),
               ),
               DSResizablePanel(
@@ -43,13 +42,13 @@ class BasicResizable extends StatelessWidget {
                       id: 0,
                       defaultSize: .3,
                       child: Center(
-                          child: Text('Two', style: theme.textTheme.large)),
+                          child: Text('Two', style: context.dsTextTheme.titleSmall)),
                     ),
                     DSResizablePanel(
                       id: 1,
                       defaultSize: .7,
                       child: Align(
-                          child: Text('Three', style: theme.textTheme.large)),
+                          child: Text('Three', style: context.dsTextTheme.titleSmall)),
                     ),
                   ],
                 ),
@@ -80,18 +79,17 @@ class VerticalResizable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 200),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: theme.radius,
+          borderRadius: DSTheme.of(context).radius,
           border: Border.all(
-            color: theme.colorScheme.border,
+            color: DSColors.theme(context).border,
           ),
         ),
         child: ClipRRect(
-          borderRadius: theme.radius,
+          borderRadius: DSTheme.of(context).radius,
           child: DSResizablePanelGroup(
             axis: Axis.vertical,
             children: [
@@ -100,7 +98,7 @@ class VerticalResizable extends StatelessWidget {
                 defaultSize: 0.3,
                 minSize: 0.1,
                 child: Center(
-                  child: Text('Header', style: theme.textTheme.large),
+                  child: Text('Header', style: context.dsTextTheme.titleSmall),
                 ),
               ),
               DSResizablePanel(
@@ -108,7 +106,7 @@ class VerticalResizable extends StatelessWidget {
                 defaultSize: 0.7,
                 minSize: 0.1,
                 child: Center(
-                  child: Text('Footer', style: theme.textTheme.large),
+                  child: Text('Footer', style: context.dsTextTheme.titleSmall),
                 ),
               ),
             ],
@@ -136,18 +134,17 @@ class HandleResizable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 200),
       child: DecoratedBox(
           decoration: BoxDecoration(
-            borderRadius: theme.radius,
+            borderRadius: DSTheme.of(context).radius,
             border: Border.all(
-              color: theme.colorScheme.border,
+              color: DSColors.theme(context).border,
             ),
           ),
           child: ClipRRect(
-          borderRadius: theme.radius,
+          borderRadius: DSTheme.of(context).radius,
           child: DSResizablePanelGroup(
             showHandle: true,
             children: [
@@ -156,7 +153,7 @@ class HandleResizable extends StatelessWidget {
                 defaultSize: .5,
                 minSize: .2,
                 child: Center(
-                  child: Text('Sidebar', style: theme.textTheme.large),
+                  child: Text('Sidebar', style: context.dsTextTheme.titleSmall),
                 ),
               ),
               DSResizablePanel(
@@ -164,7 +161,7 @@ class HandleResizable extends StatelessWidget {
                 defaultSize: .5,
                 minSize: .2,
                 child: Center(
-                  child: Text('Content', style: theme.textTheme.large),
+                  child: Text('Content', style: context.dsTextTheme.titleSmall),
                 ),
               ),
             ],
@@ -195,7 +192,6 @@ class _ResizablePageState extends State<ResizablePage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'Resizable',
       editable: [
@@ -211,13 +207,13 @@ class _ResizablePageState extends State<ResizablePage> {
           height: 200,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              borderRadius: theme.radius,
+              borderRadius: DSTheme.of(context).radius,
               border: Border.all(
-                color: theme.colorScheme.border,
+                color: DSColors.theme(context).border,
               ),
             ),
             child: ClipRRect(
-              borderRadius: theme.radius,
+              borderRadius: DSTheme.of(context).radius,
               child: DSResizablePanelGroup(
                 mainAxisSize: MainAxisSize.min,
                 showHandle: true,
@@ -233,7 +229,7 @@ class _ResizablePageState extends State<ResizablePage> {
                         alignment: Alignment.center,
                         child: Text(
                           'One',
-                          style: theme.textTheme.large,
+                          style: context.dsTextTheme.titleSmall,
                         ),
                       ),
                     ),
@@ -252,7 +248,7 @@ class _ResizablePageState extends State<ResizablePage> {
                             alignment: Alignment.center,
                             child: Text(
                               'Two',
-                              style: theme.textTheme.large,
+                              style: context.dsTextTheme.titleSmall,
                             ),
                           ),
                         ),
@@ -264,7 +260,7 @@ class _ResizablePageState extends State<ResizablePage> {
                             alignment: Alignment.center,
                             child: Text(
                               'Three',
-                              style: theme.textTheme.large,
+                              style: context.dsTextTheme.titleSmall,
                             ),
                           ),
                         ),

@@ -105,8 +105,6 @@ DSButton.outline(
 
 
 ```dart
-final theme = DSTheme.of(context);
-
 DSButton.outline(
   child: const Text('Show Toast'),
   onPressed: () {
@@ -119,7 +117,7 @@ DSButton.outline(
           child: const Text('Try again'),
           decoration: DSDecoration(
             border: DSBorder.all(
-              color: theme.colorScheme.destructiveForeground,
+              color: DSColors.theme(context).destructiveForeground,
               width: 1,
             ),
           ),

@@ -47,6 +47,7 @@ Use `DSThemeData` within `DSApp` to define your light and dark themes.
 | Popover | Displays rich content in a portal, triggered by a button. | [popover.md](components/popover.md) |
 | Progress | Displays an indicator showing the completion progress of a task, typically displayed as a progress bar. | [progress.md](components/progress.md) |
 | RadioGroup | A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time. | [radio-group.md](components/radio-group.md) |
+| RangeSlider | An input where the user selects a range (two values) from within a given range. | [range-slider.md](components/range-slider.md) |
 | Resizable | Resizable panel groups and layouts. | [resizable.md](components/resizable.md) |
 | Segmented | A themed row of toggle buttons for single or multi-selection. | [segmented.md](components/segmented.md) |
 | SegmentedBadge | A pill-shaped inline toggle control built from badge items. | [segmented-badge.md](components/segmented-badge.md) |
@@ -114,7 +115,6 @@ class _CounterPageState extends State<CounterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text('DScn Counter')),
       body: Center(
@@ -123,11 +123,11 @@ class _CounterPageState extends State<CounterPage> {
           children: [
             Text(
               'You have pushed the button this many times:',
-              style: theme.textTheme.muted,
+              style: context.dsTextTheme.bodySmall,
             ),
             Text(
               '$_counter',
-              style: theme.textTheme.h1,
+              style: context.dsTextTheme.displaySmall,
             ),
           ],
         ),

@@ -17,7 +17,6 @@ class DialogExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSButton.outline(
       child: const Text('Edit Profile'),
       onPressed: () {
@@ -43,7 +42,7 @@ class DialogExample extends StatelessWidget {
                             child: Text(
                               p.title,
                               textAlign: TextAlign.end,
-                              style: theme.textTheme.small,
+                              style: context.dsTextTheme.bodySmall,
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -133,7 +132,6 @@ class _DialogPageState extends State<DialogPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'Dialog',
       editable: [
@@ -184,7 +182,7 @@ class _DialogPageState extends State<DialogPage> {
                                 child: Text(
                                   p.title,
                                   textAlign: TextAlign.end,
-                                  style: theme.textTheme.small,
+                                  style: context.dsTextTheme.bodySmall,
                                 ),
                               ),
                               const SizedBox(width: 16),

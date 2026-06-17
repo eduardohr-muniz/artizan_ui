@@ -66,7 +66,6 @@ class _PresetsDatePickerState extends State<PresetsDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 600),
       child: DSDatePicker(
@@ -94,7 +93,7 @@ class _PresetsDatePickerState extends State<PresetsDatePicker> {
           ),
         ),
         selected: selected,
-        calendarDecoration: theme.calendarTheme.decoration,
+        calendarDecoration: DSTheme.of(context).calendarTheme.decoration,
         popoverPadding: const EdgeInsets.all(4),
       ),
     );
@@ -179,7 +178,6 @@ class _DatePickerPageState extends State<DatePickerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'DatePicker',
       editable: [
@@ -195,7 +193,7 @@ class _DatePickerPageState extends State<DatePickerPage> {
         ),
       ],
       children: [
-        Text('Single', style: theme.textTheme.h4),
+        Text('Single', style: context.dsTextTheme.titleSmall),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
           child: DSDatePicker(
@@ -204,7 +202,7 @@ class _DatePickerPageState extends State<DatePickerPage> {
           ),
         ),
         const DSSeparator.horizontal(),
-        Text('Range', style: theme.textTheme.h4),
+        Text('Range', style: context.dsTextTheme.titleSmall),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
           child: DSDatePicker.range(
@@ -213,7 +211,7 @@ class _DatePickerPageState extends State<DatePickerPage> {
           ),
         ),
         const DSSeparator.horizontal(),
-        Text('With Presets', style: theme.textTheme.h4),
+        Text('With Presets', style: context.dsTextTheme.titleSmall),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
           child: DSDatePicker(
@@ -243,7 +241,7 @@ class _DatePickerPageState extends State<DatePickerPage> {
             closeOnSelection: closeOnSelection,
             allowDeselection: allowDeselection,
             selected: selected,
-            calendarDecoration: theme.calendarTheme.decoration,
+            calendarDecoration: DSTheme.of(context).calendarTheme.decoration,
             popoverPadding: const EdgeInsets.all(4),
           ),
         ),
@@ -280,7 +278,6 @@ class _DatePickerFormFieldPageState extends State<DatePickerFormFieldPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSForm(
       key: formKey,
       enabled: enabled,
@@ -310,7 +307,7 @@ class _DatePickerFormFieldPageState extends State<DatePickerFormFieldPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Single', style: theme.textTheme.h4),
+                Text('Single', style: context.dsTextTheme.titleSmall),
                 DSDatePickerFormField(
                   id: 'date',
                   label: const Text('Date of birth'),
@@ -326,7 +323,7 @@ class _DatePickerFormFieldPageState extends State<DatePickerFormFieldPage> {
                   },
                 ),
                 const DSSeparator.horizontal(),
-                Text('Range', style: theme.textTheme.h4),
+                Text('Range', style: context.dsTextTheme.titleSmall),
                 DSDateRangePickerFormField(
                   id: 'range-date',
                   label: const Text('Range of dates'),
@@ -362,11 +359,11 @@ class _DatePickerFormFieldPageState extends State<DatePickerFormFieldPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('FormValue', style: theme.textTheme.p),
+                        Text('FormValue', style: context.dsTextTheme.body),
                         const SizedBox(height: 4),
                         SelectableText(
                           formValue.toString(),
-                          style: theme.textTheme.small,
+                          style: context.dsTextTheme.bodySmall,
                         ),
                       ],
                     ),

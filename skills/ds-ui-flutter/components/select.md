@@ -18,7 +18,6 @@ class SelectExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 180),
       child: DSSelect<String>(
@@ -28,9 +27,9 @@ class SelectExample extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             child: Text(
               'Fruits',
-              style: theme.textTheme.muted.copyWith(
+              style: context.dsTextTheme.bodySmall.copyWith(
                 fontWeight: FontWeight.w600,
-                color: theme.colorScheme.popoverForeground,
+                color: DSColors.theme(context).popoverForeground,
               ),
               textAlign: TextAlign.start,
             ),
@@ -93,7 +92,7 @@ final timezones = {
   },
 };
 
-List<Widget> getTimezonesWidgets(DSThemeData theme) {
+List<Widget> getTimezonesWidgets(BuildContext context) {
   final widgets = <Widget>[];
   for (final zone in timezones.entries) {
     widgets.add(
@@ -101,9 +100,9 @@ List<Widget> getTimezonesWidgets(DSThemeData theme) {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         child: Text(
           zone.key,
-          style: theme.textTheme.muted.copyWith(
+          style: context.dsTextTheme.bodySmall.copyWith(
             fontWeight: FontWeight.w600,
-            color: theme.colorScheme.popoverForeground,
+            color: DSColors.theme(context).popoverForeground,
           ),
           textAlign: TextAlign.start,
         ),
@@ -120,12 +119,11 @@ class SelectExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 280),
       child: DSSelect<String>(
         placeholder: const Text('Select a timezone'),
-        options: getTimezonesWidgets(theme),
+        options: getTimezonesWidgets(context),
         selectedOptionBuilder: (context, value) {
           final timezone = timezones.entries
               .firstWhere((element) => element.value.containsKey(value))
@@ -271,7 +269,6 @@ class SelectMultiple extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSSelect<String>.multiple(
       minWidth: 340,
       onChanged: print,
@@ -283,7 +280,7 @@ class SelectMultiple extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           child: Text(
             'Fruits',
-            style: theme.textTheme.large,
+            style: context.dsTextTheme.titleSmall,
             textAlign: TextAlign.start,
           ),
         ),
@@ -398,7 +395,6 @@ class _SelectPageState extends State<SelectPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'Select',
       editable: [
@@ -462,7 +458,7 @@ class _SelectPageState extends State<SelectPage> {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               child: Text(
                 'Fruits',
-                style: theme.textTheme.large,
+                style: context.dsTextTheme.titleSmall,
                 textAlign: TextAlign.start,
               ),
             ),
@@ -494,9 +490,9 @@ class _SelectPageState extends State<SelectPage> {
                   ),
                   child: Text(
                     zone.key,
-                    style: theme.textTheme.muted.copyWith(
+                    style: context.dsTextTheme.bodySmall.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: theme.colorScheme.popoverForeground,
+                      color: DSColors.theme(context).popoverForeground,
                     ),
                     textAlign: TextAlign.start,
                   ),
@@ -566,7 +562,7 @@ class _SelectPageState extends State<SelectPage> {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               child: Text(
                 'Fruits',
-                style: theme.textTheme.large,
+                style: context.dsTextTheme.titleSmall,
                 textAlign: TextAlign.start,
               ),
             ),
@@ -621,7 +617,6 @@ class _SelectFormFieldPageState extends State<SelectFormFieldPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSForm(
       key: formKey,
       enabled: enabled,
@@ -712,13 +707,13 @@ class _SelectFormFieldPageState extends State<SelectFormFieldPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('FormValue', style: theme.textTheme.p),
+                        Text('FormValue', style: context.dsTextTheme.body),
                         const SizedBox(height: 4),
                         SelectableText(
                           const JsonEncoder.withIndent(
                             '    ',
                           ).convert(formValue),
-                          style: theme.textTheme.small,
+                          style: context.dsTextTheme.bodySmall,
                         ),
                       ],
                     ),

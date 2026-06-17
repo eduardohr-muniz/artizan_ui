@@ -26,7 +26,6 @@ class EditProfileSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return DSSheet(
       constraints: side == DSSheetSide.left || side == DSSheetSide.right
           ? const BoxConstraints(maxWidth: 512)
@@ -48,7 +47,7 @@ class EditProfileSheet extends StatelessWidget {
                       child: Text(
                         p.title,
                         textAlign: TextAlign.end,
-                        style: theme.textTheme.small,
+                        style: context.dsTextTheme.bodySmall,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -171,7 +170,6 @@ class _SheetPageState extends State<SheetPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = DSTheme.of(context);
     return BaseScaffold(
       appBarTitle: 'Sheet',
       editable: [
@@ -243,7 +241,7 @@ class _SheetPageState extends State<SheetPage> {
                                           child: Text(
                                             p.title,
                                             textAlign: TextAlign.end,
-                                            style: theme.textTheme.small,
+                                            style: context.dsTextTheme.bodySmall,
                                           ),
                                         ),
                                         const SizedBox(width: 16),

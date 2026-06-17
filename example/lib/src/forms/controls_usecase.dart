@@ -138,3 +138,85 @@ DSSlider(
     ),
   );
 }
+
+// ─── Range Slider ───────────────────────────────────────────────────────────
+
+@widgetbook.UseCase(name: 'Range Slider', type: DsControls)
+Widget controlRangeSlider(BuildContext context) {
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final divisions = context.knobs.boolean(label: 'Divisions', initialValue: false);
+  final cs = context.dsColors;
+
+  return ScaffoldBase(
+    scrollable: true,
+    code: '''
+DSRangeSlider(
+  values: RangeValues(20, 70),
+  min: 0,
+  max: 100,
+  onChanged: (value) {},
+)''',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Range Slider', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+        const SizedBox(height: 16),
+        _RangeSliderDemo(
+          initial: const RangeValues(20, 70),
+          min: 0,
+          max: 100,
+          divisions: divisions ? 10 : null,
+          enabled: enabled,
+        ),
+      ],
+    ),
+  );
+}
+
+/// Holder de estado local — o [DSRangeSlider] é controlado (values + onChanged).
+class _RangeSliderDemo extends StatefulWidget {
+  const _RangeSliderDemo({
+    required this.initial,
+    required this.min,
+    required this.max,
+    required this.enabled,
+    this.divisions,
+  });
+
+  final RangeValues initial;
+  final double min;
+  final double max;
+  final bool enabled;
+  final int? divisions;
+
+  @override
+  State<_RangeSliderDemo> createState() => _RangeSliderDemoState();
+}
+
+class _RangeSliderDemoState extends State<_RangeSliderDemo> {
+  late RangeValues _values = widget.initial;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = context.dsColors;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${_values.start.round()} – ${_values.end.round()}',
+          style: TextStyle(fontSize: 13, color: cs.mutedForeground),
+        ),
+        const SizedBox(height: 8),
+        DSRangeSlider(
+          values: _values,
+          min: widget.min,
+          max: widget.max,
+          divisions: widget.divisions,
+          enabled: widget.enabled,
+          labels: RangeLabels('${_values.start.round()}', '${_values.end.round()}'),
+          onChanged: (value) => setState(() => _values = value),
+        ),
+      ],
+    );
+  }
+}

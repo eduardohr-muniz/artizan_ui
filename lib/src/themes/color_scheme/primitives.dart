@@ -32,6 +32,9 @@ class DSColorSwatch {
   final Color shade900;
   final Color shade950;
 
+  /// Atalho callable: `swatch()` → [shade500] (default); `swatch(700)` → tom 700.
+  Color call([int shade = 500]) => this[shade];
+
   /// Lookup por índice numérico: `swatch[500]` → [shade500].
   Color operator [](int shade) => switch (shade) {
     50 => shade50,
