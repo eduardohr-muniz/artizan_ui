@@ -157,7 +157,7 @@ class DSCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = DSTheme.of(context);
 
-    final effectivePadding = padding ?? theme.cardTheme.padding ?? const EdgeInsets.all(24);
+    final effectivePadding = padding ?? theme.cardTheme.padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
     final effectiveBackgroundColor = backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;
     final effectiveRadius = radius ?? theme.cardTheme.radius ?? theme.radius;
     final effectiveBorder = border ?? BoxBorder.all(color: theme.colorScheme.border);
@@ -188,6 +188,7 @@ class DSCard extends StatelessWidget {
         mainAxisSize: effectiveRowMainAxisSize,
         mainAxisAlignment: effectiveRowMainAxisAlignment,
         crossAxisAlignment: effectiveRowCrossAxisAlignment,
+        spacing: 12,
         children: [
           if (leading != null) leading!,
           Flexible(

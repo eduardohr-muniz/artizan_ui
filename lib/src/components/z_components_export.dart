@@ -20,6 +20,7 @@ export './menu_bar.dart';
 export './popover.dart';
 export './separator.dart';
 export './tabs.dart';
+export './tab_bar.dart';
 export './progress.dart';
 export './slider.dart';
 export './range_slider.dart';

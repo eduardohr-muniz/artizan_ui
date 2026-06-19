@@ -57,6 +57,7 @@ Use `DSThemeData` within `DSApp` to define your light and dark themes.
 | Slider | An input where the user selects a value from within a given range. | [slider.md](components/slider.md) |
 | Sonner | An opinionated toast component. | [sonner.md](components/sonner.md) |
 | Switch | A control that allows the user to toggle between checked and not checked. | [switch.md](components/switch.md) |
+| TabBar | Top navigation tabs (Material style) with a sliding underline indicator and a subtle glow; switches a `DSTabBarView`. | [tabbar.md](components/tabbar.md) |
 | Table | A responsive table component. | [table.md](components/table.md) |
 | Tabs | A set of layered sections of content—known as tab panels—that are displayed one at a time. | [tabs.md](components/tabs.md) |
 | Textarea | Displays a form textarea or a component that looks like a textarea. | [textarea.md](components/textarea.md) |
