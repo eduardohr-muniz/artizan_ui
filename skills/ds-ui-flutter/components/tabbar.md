@@ -58,8 +58,10 @@ class MyPage extends StatelessWidget {
 | `onTap` | `null` | Called with the tapped index. |
 | `isScrollable` | `true` | Required to honor `tabAlignment`. |
 | `tabAlignment` | `TabAlignment.start` | Left-aligns the tabs. |
-| `indicatorColor` | `primary` | Color of the indicator (and selected label by default). |
-| `labelColor` / `labelStyle` | `primary` / `titleSmall` | Selected label color/style. |
+| `indicatorColor` | `ring` | Color of the indicator and glow. |
+| `labelColor` / `labelStyle` | `foreground` / `titleSmall` | Selected label color/style. |
+| `labelPadding` / `padding` | `EdgeInsets.only(right: 21)` | Spacing per label / around the bar. |
+| `indicatorPadding` | `EdgeInsets.symmetric(vertical: 4)` | Insets the indicator line. |
 | `indicatorWeight` | `2.3` | Line thickness. |
 | `indicatorRadius` | `4` | Rounded ends of the indicator. |
 | `glow` | `true` | Subtle glow under the indicator. Set `false` for a flat underline. |

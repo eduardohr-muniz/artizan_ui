@@ -57,9 +57,9 @@ class DSTabBar extends StatelessWidget implements PreferredSizeWidget {
     this.indicatorColor,
     this.labelColor,
     this.labelStyle,
-    this.labelPadding,
-    this.padding,
-    this.indicatorPadding = EdgeInsets.zero,
+    this.labelPadding = const EdgeInsets.only(right: 21),
+    this.padding = const EdgeInsets.only(right: 21),
+    this.indicatorPadding = const EdgeInsets.symmetric(vertical: 4),
     this.indicatorWeight = 2.3,
     this.indicatorRadius = 4,
     this.glow = true,
@@ -83,22 +83,22 @@ class DSTabBar extends StatelessWidget implements PreferredSizeWidget {
   /// Alinhamento das abas. Padrão [TabAlignment.start] (à esquerda).
   final TabAlignment tabAlignment;
 
-  /// Cor do indicador e (por padrão) do rótulo selecionado. Padrão: `primary`.
+  /// Cor do indicador (e do glow). Padrão: `ring`.
   final Color? indicatorColor;
 
-  /// Cor do rótulo selecionado. Padrão: [indicatorColor] (ou `primary`).
+  /// Cor do rótulo selecionado. Padrão: `foreground`.
   final Color? labelColor;
 
   /// Estilo do rótulo selecionado. Padrão: `dsTextTheme.titleSmall`.
   final TextStyle? labelStyle;
 
-  /// Espaçamento horizontal de cada rótulo.
+  /// Espaçamento horizontal de cada rótulo. Padrão: `EdgeInsets.only(right: 21)`.
   final EdgeInsetsGeometry? labelPadding;
 
-  /// Preenchimento da barra de abas.
+  /// Preenchimento da barra de abas. Padrão: `EdgeInsets.only(right: 21)`.
   final EdgeInsetsGeometry? padding;
 
-  /// Preenchimento aplicado ao indicador (recorta a linha do indicador).
+  /// Preenchimento aplicado ao indicador. Padrão: `EdgeInsets.symmetric(vertical: 4)`.
   final EdgeInsets indicatorPadding;
 
   /// Espessura da linha do indicador. Padrão `2.3`.
@@ -119,32 +119,25 @@ class DSTabBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = indicatorColor ?? context.dsColors.primary;
+    final accent = indicatorColor ?? context.dsColors.ring;
     return TabBar(
       controller: controller,
       onTap: onTap,
       isScrollable: isScrollable,
       tabAlignment: tabAlignment,
-      tabs: [
-        for (final item in tabs) Tab(text: item.text, icon: item.icon),
-      ],
+      tabs: [for (final item in tabs) Tab(text: item.text, icon: item.icon)],
       // Identidade do DS: sem divisória, sem ripple, sem ajuste automático de cor.
       dividerColor: Colors.transparent,
       dividerHeight: 0,
       enableFeedback: false,
       overlayColor: const WidgetStatePropertyAll(Colors.transparent),
       automaticIndicatorColorAdjustment: false,
-      labelColor: labelColor ?? accent,
+      labelColor: labelColor ?? context.dsColors.foreground,
       labelStyle: labelStyle ?? context.dsTextTheme.titleSmall,
       labelPadding: labelPadding,
       padding: padding,
       indicatorPadding: indicatorPadding,
-      indicator: DSTabBarIndicator(
-        color: accent,
-        strokeWidth: indicatorWeight,
-        radius: Radius.circular(indicatorRadius),
-        glow: glow,
-      ),
+      indicator: DSTabBarIndicator(color: accent, strokeWidth: indicatorWeight, radius: Radius.circular(indicatorRadius), glow: glow),
     );
   }
 }
@@ -152,12 +145,7 @@ class DSTabBar extends StatelessWidget implements PreferredSizeWidget {
 /// Indicador de aba do [DSTabBar]: linha inferior arredondada com um glow sutil.
 /// Exposto para quem quiser usar um [TabBar] do Material com o mesmo indicador.
 class DSTabBarIndicator extends Decoration {
-  const DSTabBarIndicator({
-    required this.color,
-    this.strokeWidth = 2.3,
-    this.radius = const Radius.circular(4),
-    this.glow = true,
-  });
+  const DSTabBarIndicator({required this.color, this.strokeWidth = 2.3, this.radius = const Radius.circular(4), this.glow = true});
 
   /// Cor da linha (e do glow).
   final Color color;

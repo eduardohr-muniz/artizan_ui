@@ -33,11 +33,13 @@ class DsDividerDotted extends StatelessWidget {
                       ..moveTo(resolvedThickness / 2, 0)
                       ..lineTo(resolvedThickness / 2, size.height),
       ),
-      child:
-          _isHorizontal ? SizedBox(width: double.infinity, height: resolvedThickness) : SizedBox(height: double.infinity, width: resolvedThickness),
+      // Horizontal preenche a largura disponível (greedy). Vertical é não-guloso
+      // na altura (sem `double.infinity`) para não ter altura intrínseca infinita
+      // — assim funciona dentro de `Row` com `CrossAxisAlignment.stretch` e de
+      // `IntrinsicHeight` sem estourar o layout.
+      child: _isHorizontal ? SizedBox(width: double.infinity, height: resolvedThickness) : SizedBox(width: resolvedThickness),
     );
 
-    if (margin != null) return Padding(padding: margin!, child: dotted);
-    return dotted;
+    return Padding(padding: margin ?? (_isHorizontal ? EdgeInsets.symmetric(vertical: 4) : EdgeInsets.symmetric(horizontal: 4)), child: dotted);
   }
 }
