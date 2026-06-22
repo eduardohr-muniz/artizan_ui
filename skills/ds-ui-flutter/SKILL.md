@@ -24,6 +24,7 @@ Use `DSThemeData` within `DSApp` to define your light and dark themes.
 ## Components
 | Name | Description | Reference |
 | :--- | :--- | :--- |
+| KeepAlive | Keeps a child's state alive when the parent recycles off-screen children (TabBarView/PageView, lazy lists) — `AutomaticKeepAliveClientMixin`. | [keep-alive.md](components/keep-alive.md) |
 | Accordion | A vertically stacked set of interactive headings that each reveal a section of content. | [accordion.md](components/accordion.md) |
 | Alert | Displays a callout for user attention. | [alert.md](components/alert.md) |
 | Avatar | An image element with a placeholder for representing the user. | [avatar.md](components/avatar.md) |
