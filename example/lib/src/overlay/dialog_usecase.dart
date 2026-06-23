@@ -43,7 +43,7 @@ await showDSDialog(
                 DSTextFormField(label: Text('Name'), placeholder: Text('João Silva')),
                 SizedBox(height: 12),
                 DSTextFormField(
-                    label: Text('Email'), placeholder: Text('joao@email.com')),
+                    label: Text('Email'), placeholder: Text('joao@email.com'),),
               ],
             ),
           ),

@@ -33,12 +33,12 @@ SizedBox(height: 16, child: DSSeparator.vertical())''',
         Text('Horizontal', style: TextStyle(fontSize: 12, color: cs.mutedForeground)),
         const SizedBox(height: 12),
         Text('Section A',
-            style: TextStyle(fontWeight: FontWeight.w600, color: cs.foreground)),
+            style: TextStyle(fontWeight: FontWeight.w600, color: cs.foreground),),
         const SizedBox(height: 8),
         const DSSeparator.horizontal(),
         const SizedBox(height: 8),
         Text('Section B',
-            style: TextStyle(fontWeight: FontWeight.w600, color: cs.foreground)),
+            style: TextStyle(fontWeight: FontWeight.w600, color: cs.foreground),),
         const SizedBox(height: 24),
         Text('Vertical', style: TextStyle(fontSize: 12, color: cs.mutedForeground)),
         const SizedBox(height: 12),
@@ -81,7 +81,7 @@ DSBadge(backgroundColor: cs.warning, foregroundColor: cs.warningForeground, chil
       children: [
         Text('Variants',
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w600, color: cs.mutedForeground)),
+                fontSize: 12, fontWeight: FontWeight.w600, color: cs.mutedForeground,),),
         const SizedBox(height: 12),
         Wrap(
           spacing: 8,
@@ -96,7 +96,7 @@ DSBadge(backgroundColor: cs.warning, foregroundColor: cs.warningForeground, chil
         const SizedBox(height: 24),
         Text('Semantic',
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w600, color: cs.mutedForeground)),
+                fontSize: 12, fontWeight: FontWeight.w600, color: cs.mutedForeground,),),
         const SizedBox(height: 12),
         Wrap(
           spacing: 8,
@@ -105,15 +105,15 @@ DSBadge(backgroundColor: cs.warning, foregroundColor: cs.warningForeground, chil
             DSBadge(
                 backgroundColor: cs.success,
                 foregroundColor: cs.successForeground,
-                child: const Text('Active')),
+                child: const Text('Active'),),
             DSBadge(
                 backgroundColor: cs.warning,
                 foregroundColor: cs.warningForeground,
-                child: const Text('Pending')),
+                child: const Text('Pending'),),
             DSBadge(
                 backgroundColor: cs.info,
                 foregroundColor: cs.infoForeground,
-                child: const Text('Draft')),
+                child: const Text('Draft'),),
             DSBadge(
               backgroundColor: cs.destructive,
               foregroundColor: cs.destructiveForeground,

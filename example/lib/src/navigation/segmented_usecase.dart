@@ -41,7 +41,7 @@ DSSegmented<_View>(
       children: [
         Text('View',
             style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
+                fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground,),),
         const SizedBox(height: 8),
         DSSegmented<_View>(
           selected: {_View.list},
@@ -55,7 +55,7 @@ DSSegmented<_View>(
         const SizedBox(height: 24),
         Text('With icons',
             style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
+                fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground,),),
         const SizedBox(height: 8),
         DSSegmented<_View>(
           selected: {_View.grid},

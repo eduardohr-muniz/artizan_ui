@@ -41,7 +41,7 @@ DSPopover(
             Text(
               'Quick actions',
               style: TextStyle(
-                  fontSize: 14, fontWeight: FontWeight.w600, color: cs.foreground),
+                  fontSize: 14, fontWeight: FontWeight.w600, color: cs.foreground,),
             ),
             const SizedBox(height: 8),
             _PopoverItem(icon: LucideIcons.pencil, label: 'Edit'),
@@ -57,7 +57,7 @@ DSPopover(
           children: [
             Text('Options'),
             SizedBox(width: 4),
-            Icon(LucideIcons.chevronsUpDown, size: 14)
+            Icon(LucideIcons.chevronsUpDown, size: 14),
           ],
         ),
       ),
@@ -107,7 +107,7 @@ DSTooltip(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text('Hover over the icons',
-            style: TextStyle(fontSize: 13, color: cs.mutedForeground)),
+            style: TextStyle(fontSize: 13, color: cs.mutedForeground),),
         const SizedBox(height: 24),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +118,7 @@ DSTooltip(
                 child: Text('Add item', style: TextStyle(fontSize: 12)),
               ),
               child: DSIconButton.outline(
-                  icon: const Icon(LucideIcons.plus), onPressed: () async {}),
+                  icon: const Icon(LucideIcons.plus), onPressed: () async {},),
             ),
             const SizedBox(width: 12),
             DSTooltip(
@@ -127,7 +127,7 @@ DSTooltip(
                 child: Text('Edit item', style: TextStyle(fontSize: 12)),
               ),
               child: DSIconButton.outline(
-                  icon: const Icon(LucideIcons.pencil), onPressed: () async {}),
+                  icon: const Icon(LucideIcons.pencil), onPressed: () async {},),
             ),
             const SizedBox(width: 12),
             DSTooltip(
@@ -136,7 +136,7 @@ DSTooltip(
                 child: Text('Delete item', style: TextStyle(fontSize: 12)),
               ),
               child: DSIconButton.destructive(
-                  icon: const Icon(LucideIcons.trash2), onPressed: () async {}),
+                  icon: const Icon(LucideIcons.trash2), onPressed: () async {},),
             ),
           ],
         ),

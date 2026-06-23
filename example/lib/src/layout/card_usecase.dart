@@ -89,14 +89,14 @@ DSCard(
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                    color: cs.muted, borderRadius: BorderRadius.circular(8)),
+                    color: cs.muted, borderRadius: BorderRadius.circular(8),),
                 child: Icon(item.$1, size: 18, color: cs.mutedForeground),
               ),
               title: Text(item.$2, style: const TextStyle(fontWeight: FontWeight.w600)),
               description: Text(item.$3),
               trailing: Text(item.$4,
                   style: TextStyle(
-                      fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
+                      fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground,),),
             ),
           ),
       ],

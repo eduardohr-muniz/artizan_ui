@@ -46,7 +46,7 @@ DSTabs<String>(
                 Text(
                   'Account settings',
                   style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground),
+                      fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground,),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -68,7 +68,7 @@ DSTabs<String>(
                 Text(
                   'Change password',
                   style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground),
+                      fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground,),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -90,7 +90,7 @@ DSTabs<String>(
                 Text(
                   'Billing details',
                   style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground),
+                      fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground,),
                 ),
                 const SizedBox(height: 8),
                 Text(

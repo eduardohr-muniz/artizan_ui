@@ -32,7 +32,7 @@ DSSwitch(
       children: [
         Text('Switch',
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground,),),
         const SizedBox(height: 16),
         DSSwitch(
           initialValue: true,
@@ -82,7 +82,7 @@ DSCheckBox(
       children: [
         Text('Checkbox',
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground,),),
         const SizedBox(height: 16),
         DSCheckBox(
           initialValue: true,
@@ -134,10 +134,10 @@ DSSlider(
       children: [
         Text('Slider',
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground,),),
         const SizedBox(height: 16),
         DSSlider(
-            initialValue: 40, min: min, max: max, enabled: enabled, onChanged: (_) {}),
+            initialValue: 40, min: min, max: max, enabled: enabled, onChanged: (_) {},),
         const SizedBox(height: 24),
         Text('With divisions', style: TextStyle(fontSize: 13, color: cs.mutedForeground)),
         const SizedBox(height: 8),
@@ -147,7 +147,7 @@ DSSlider(
             max: 5,
             divisions: 4,
             enabled: enabled,
-            onChanged: (_) {}),
+            onChanged: (_) {},),
       ],
     ),
   );
@@ -175,7 +175,7 @@ DSRangeSlider(
       children: [
         Text('Range Slider',
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground,),),
         const SizedBox(height: 16),
         _RangeSliderDemo(
           initial: const RangeValues(20, 70),

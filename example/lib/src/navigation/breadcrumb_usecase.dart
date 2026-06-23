@@ -40,7 +40,7 @@ DSBreadcrumb(children: [
                 children: [
                   Icon(LucideIcons.house, size: 14),
                   SizedBox(width: 4),
-                  Text('Home')
+                  Text('Home'),
                 ],
               ),
             ),

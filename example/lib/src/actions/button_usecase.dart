@@ -63,7 +63,7 @@ DSButton.darken(onPressed: () async {}, child: Text('Button'))''',
                 width: 100,
                 child: Text(v.$1,
                     style:
-                        TextStyle(fontSize: 12, color: context.dsColors.mutedForeground)),
+                        TextStyle(fontSize: 12, color: context.dsColors.mutedForeground),),
               ),
               v.$2,
             ],

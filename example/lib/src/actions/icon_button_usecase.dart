@@ -20,27 +20,27 @@ Widget iconButtonAllVariants(BuildContext context) {
     (
       'Primary',
       DSIconButton(
-          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null,)
     ),
     (
       'Secondary',
       DSIconButton.secondary(
-          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null,)
     ),
     (
       'Outline',
       DSIconButton.outline(
-          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null,)
     ),
     (
       'Ghost',
       DSIconButton.ghost(
-          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null,)
     ),
     (
       'Destructive',
       DSIconButton.destructive(
-          icon: const Icon(LucideIcons.trash2), onPressed: enabled ? () async {} : null)
+          icon: const Icon(LucideIcons.trash2), onPressed: enabled ? () async {} : null,)
     ),
   ];
 
