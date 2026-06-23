@@ -354,7 +354,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
         textInputType: widget.formController!.textInputType,
       );
       if (newValue != null) {
-        print('newValue: $newValue');
+        debugPrint('newValue: $newValue');
       }
     }
     return null;
@@ -400,7 +400,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
           error: widget.error,
           description: widget.description,
           onChanged: (v) => _onChanged(v),
-          valueTransformer: widget.valueTransformer,
+          toValueTransformer: widget.valueTransformer,
           onReset: widget.onReset,
           focusNode: _focusNode,
           decoration: widget.decoration,

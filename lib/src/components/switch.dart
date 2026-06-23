@@ -80,7 +80,7 @@ class DSSwitch extends StatelessWidget {
       onReset: onReset,
       onChanged: onChanged,
       onSaved: onSaved,
-      valueTransformer: valueTransformer,
+      toValueTransformer: valueTransformer,
       label: label,
       description: description,
       restorationId: restorationId,

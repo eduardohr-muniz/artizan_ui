@@ -1,7 +1,5 @@
 import 'package:ds_ui/ds_ui.dart';
-import 'package:ds_ui/src/utils/context_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 enum DSAlertVariant { success, info, warning, destructive, muted }
 
