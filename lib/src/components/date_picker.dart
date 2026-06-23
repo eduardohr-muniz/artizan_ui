@@ -346,8 +346,8 @@ class DSDatePicker extends StatefulWidget {
   /// Creates a date picker widget with a specified [variant], offering full
   /// customization.
   const DSDatePicker.raw({
-    super.key,
     required this.variant,
+    super.key,
     this.id,
     this.label,
     this.description,
@@ -1033,7 +1033,10 @@ class _DSDatePickerState extends State<DSDatePicker> {
           footer: widget.footer,
           groupId: widget.groupId,
           calendarDecoration: widget.calendarDecoration,
-          popoverPadding: widget.popoverPadding is EdgeInsets ? widget.popoverPadding! as EdgeInsets : null,
+          popoverPadding:
+              widget.popoverPadding is EdgeInsets
+                  ? widget.popoverPadding! as EdgeInsets
+                  : null,
           multipleSelected: widget.multipleSelected,
           onMultipleChanged: widget.onMultipleChanged,
           showOutsideDays: widget.showOutsideDays,
@@ -1070,10 +1073,16 @@ class _DSDatePickerState extends State<DSDatePicker> {
           runSpacingBetweenMonths: widget.runSpacingBetweenMonths,
           monthConstraints: widget.monthConstraints,
           calendarHeaderHeight: widget.calendarHeaderHeight,
-          calendarHeaderPadding: widget.calendarHeaderPadding is EdgeInsets ? widget.calendarHeaderPadding! as EdgeInsets : null,
+          calendarHeaderPadding:
+              widget.calendarHeaderPadding is EdgeInsets
+                  ? widget.calendarHeaderPadding! as EdgeInsets
+                  : null,
           captionLayoutGap: widget.captionLayoutGap,
           calendarHeaderTextStyle: widget.calendarHeaderTextStyle,
-          weekdaysPadding: widget.weekdaysPadding is EdgeInsets ? widget.weekdaysPadding! as EdgeInsets : null,
+          weekdaysPadding:
+              widget.weekdaysPadding is EdgeInsets
+                  ? widget.weekdaysPadding! as EdgeInsets
+                  : null,
           weekdaysTextStyle: widget.weekdaysTextStyle,
           weekdaysTextAlign: widget.weekdaysTextAlign,
           weekNumbersHeaderText: widget.weekNumbersHeaderText,
@@ -1092,8 +1101,12 @@ class _DSDatePickerState extends State<DSDatePicker> {
           gridMainAxisSpacing: widget.gridMainAxisSpacing,
           gridCrossAxisSpacing: widget.gridCrossAxisSpacing,
           dayButtonOutsideMonthTextStyle: widget.dayButtonOutsideMonthTextStyle,
-          dayButtonOutsideMonthVariant: _mapButtonVariant(widget.dayButtonOutsideMonthVariant),
-          selectedDayButtonOusideMonthVariant: _mapButtonVariant(widget.selectedDayButtonOusideMonthVariant),
+          dayButtonOutsideMonthVariant: _mapButtonVariant(
+            widget.dayButtonOutsideMonthVariant,
+          ),
+          selectedDayButtonOusideMonthVariant: _mapButtonVariant(
+            widget.selectedDayButtonOusideMonthVariant,
+          ),
           closeOnTapOutside: widget.closeOnTapOutside,
           anchor: widget.anchor,
           effects: widget.effects,
@@ -1181,7 +1194,10 @@ class _DSDatePickerState extends State<DSDatePicker> {
           footer: widget.footer,
           groupId: widget.groupId,
           calendarDecoration: widget.calendarDecoration,
-          popoverPadding: widget.popoverPadding is EdgeInsets ? widget.popoverPadding! as EdgeInsets : null,
+          popoverPadding:
+              widget.popoverPadding is EdgeInsets
+                  ? widget.popoverPadding! as EdgeInsets
+                  : null,
           multipleSelected: widget.multipleSelected,
           onMultipleChanged: widget.onMultipleChanged,
           showOutsideDays: widget.showOutsideDays,
@@ -1218,10 +1234,16 @@ class _DSDatePickerState extends State<DSDatePicker> {
           runSpacingBetweenMonths: widget.runSpacingBetweenMonths,
           monthConstraints: widget.monthConstraints,
           calendarHeaderHeight: widget.calendarHeaderHeight,
-          calendarHeaderPadding: widget.calendarHeaderPadding is EdgeInsets ? widget.calendarHeaderPadding! as EdgeInsets : null,
+          calendarHeaderPadding:
+              widget.calendarHeaderPadding is EdgeInsets
+                  ? widget.calendarHeaderPadding! as EdgeInsets
+                  : null,
           captionLayoutGap: widget.captionLayoutGap,
           calendarHeaderTextStyle: widget.calendarHeaderTextStyle,
-          weekdaysPadding: widget.weekdaysPadding is EdgeInsets ? widget.weekdaysPadding! as EdgeInsets : null,
+          weekdaysPadding:
+              widget.weekdaysPadding is EdgeInsets
+                  ? widget.weekdaysPadding! as EdgeInsets
+                  : null,
           weekdaysTextStyle: widget.weekdaysTextStyle,
           weekdaysTextAlign: widget.weekdaysTextAlign,
           weekNumbersHeaderText: widget.weekNumbersHeaderText,
@@ -1237,13 +1259,19 @@ class _DSDatePickerState extends State<DSDatePicker> {
           dayButtonTextStyle: widget.dayButtonTextStyle,
           dayButtonVariant: _mapButtonVariant(widget.dayButtonVariant),
           selectedDayButtonVariant: _mapButtonVariant(widget.selectedDayButtonVariant),
-          insideRangeDayButtonVariant: _mapButtonVariant(widget.insideRangeDayButtonVariant),
+          insideRangeDayButtonVariant: _mapButtonVariant(
+            widget.insideRangeDayButtonVariant,
+          ),
           todayButtonVariant: _mapButtonVariant(widget.todayButtonVariant),
           gridMainAxisSpacing: widget.gridMainAxisSpacing,
           gridCrossAxisSpacing: widget.gridCrossAxisSpacing,
           dayButtonOutsideMonthTextStyle: widget.dayButtonOutsideMonthTextStyle,
-          dayButtonOutsideMonthVariant: _mapButtonVariant(widget.dayButtonOutsideMonthVariant),
-          selectedDayButtonOusideMonthVariant: _mapButtonVariant(widget.selectedDayButtonOusideMonthVariant),
+          dayButtonOutsideMonthVariant: _mapButtonVariant(
+            widget.dayButtonOutsideMonthVariant,
+          ),
+          selectedDayButtonOusideMonthVariant: _mapButtonVariant(
+            widget.selectedDayButtonOusideMonthVariant,
+          ),
           closeOnTapOutside: widget.closeOnTapOutside,
           anchor: widget.anchor,
           effects: widget.effects,

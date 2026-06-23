@@ -39,7 +39,9 @@ DSSegmented<_View>(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('View', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
+        Text('View',
+            style: TextStyle(
+                fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
         const SizedBox(height: 8),
         DSSegmented<_View>(
           selected: {_View.list},
@@ -51,7 +53,9 @@ DSSegmented<_View>(
           onSelectionChanged: (_) {},
         ),
         const SizedBox(height: 24),
-        Text('With icons', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
+        Text('With icons',
+            style: TextStyle(
+                fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
         const SizedBox(height: 8),
         DSSegmented<_View>(
           selected: {_View.grid},

@@ -16,13 +16,32 @@ enum DSSeparatorVariant {
 /// Tipicamente usado para separar conteúdo ou seções de linhas, colunas ou listas.
 class DSSeparator extends StatelessWidget {
   /// Cria um separador vertical
-  const DSSeparator.vertical({this.margin, this.thickness, this.color, this.radius, super.key}) : variant = DSSeparatorVariant.vertical;
+  const DSSeparator.vertical({
+    this.margin,
+    this.thickness,
+    this.color,
+    this.radius,
+    super.key,
+  }) : variant = DSSeparatorVariant.vertical;
 
   /// Cria um separador horizontal
-  const DSSeparator.horizontal({this.margin, this.thickness, this.color, this.radius, super.key}) : variant = DSSeparatorVariant.horizontal;
+  const DSSeparator.horizontal({
+    this.margin,
+    this.thickness,
+    this.color,
+    this.radius,
+    super.key,
+  }) : variant = DSSeparatorVariant.horizontal;
 
   /// Cria um separador com uma variante especificada
-  const DSSeparator.raw({this.margin, this.thickness, this.color, required this.variant, this.radius, super.key});
+  const DSSeparator.raw({
+    required this.variant,
+    this.margin,
+    this.thickness,
+    this.color,
+    this.radius,
+    super.key,
+  });
 
   /// A margem (ou espaço) ao redor do separador
   final EdgeInsets? margin;
@@ -42,6 +61,12 @@ class DSSeparator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShadSeparator.raw(margin: margin, thickness: thickness, color: color, variant: variant.shadVariant, radius: radius);
+    return ShadSeparator.raw(
+      margin: margin,
+      thickness: thickness,
+      color: color,
+      variant: variant.shadVariant,
+      radius: radius,
+    );
   }
 }

@@ -14,9 +14,10 @@ class DsTextField extends StatelessWidget {
 @widgetbook.UseCase(name: 'Default', type: DsTextField)
 Widget textFieldDefault(BuildContext context) {
   final label = context.knobs.string(label: 'Label', initialValue: 'Email');
-  final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Enter your email');
+  final placeholder =
+      context.knobs.string(label: 'Placeholder', initialValue: 'Enter your email');
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
-  final obscure = context.knobs.boolean(label: 'Password field', initialValue: false);
+  final obscure = context.knobs.boolean(label: 'Password field');
 
   return ScaffoldBase(
     scrollable: true,
@@ -51,7 +52,8 @@ DSTextFormField(
 @widgetbook.UseCase(name: 'Underline', type: DsTextField)
 Widget textFieldUnderline(BuildContext context) {
   final label = context.knobs.string(label: 'Label', initialValue: 'Search');
-  final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Search...');
+  final placeholder =
+      context.knobs.string(label: 'Placeholder', initialValue: 'Search...');
 
   return ScaffoldBase(
     scrollable: true,
@@ -95,15 +97,19 @@ DSButton(onPressed: () async {}, child: Text('Create account'))''',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Sign up', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: cs.foreground)),
+        Text('Sign up',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w700, color: cs.foreground)),
         const SizedBox(height: 4),
-        Text('Create your account', style: TextStyle(fontSize: 14, color: cs.mutedForeground)),
+        Text('Create your account',
+            style: TextStyle(fontSize: 14, color: cs.mutedForeground)),
         const SizedBox(height: 24),
         const DSTextFormField(label: Text('Name'), placeholder: Text('João Silva')),
         const SizedBox(height: 16),
         const DSTextFormField(label: Text('Email'), placeholder: Text('joao@email.com')),
         const SizedBox(height: 16),
-        const DSTextFormField(label: Text('Password'), placeholder: Text('••••••••'), obscureText: true),
+        const DSTextFormField(
+            label: Text('Password'), placeholder: Text('••••••••'), obscureText: true),
         const SizedBox(height: 24),
         DSButton(onPressed: () async {}, child: const Text('Create account')),
       ],

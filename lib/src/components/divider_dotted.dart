@@ -3,9 +3,11 @@ import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 
 class DsDividerDotted extends StatelessWidget {
-  const DsDividerDotted.horizontal({this.margin, this.color, super.key}) : _isHorizontal = true;
+  const DsDividerDotted.horizontal({this.margin, this.color, super.key})
+    : _isHorizontal = true;
 
-  const DsDividerDotted.vertical({this.margin, this.color, super.key}) : _isHorizontal = false;
+  const DsDividerDotted.vertical({this.margin, this.color, super.key})
+    : _isHorizontal = false;
 
   final EdgeInsets? margin;
 
@@ -17,7 +19,7 @@ class DsDividerDotted extends StatelessWidget {
     final resolvedColor = color ?? context.dsColors.border;
     final resolvedThickness = 1.2;
 
-    Widget dotted = DottedBorder(
+    final Widget dotted = DottedBorder(
       options: CustomPathDottedBorderOptions(
         color: resolvedColor,
         strokeWidth: resolvedThickness,
@@ -37,9 +39,19 @@ class DsDividerDotted extends StatelessWidget {
       // na altura (sem `double.infinity`) para não ter altura intrínseca infinita
       // — assim funciona dentro de `Row` com `CrossAxisAlignment.stretch` e de
       // `IntrinsicHeight` sem estourar o layout.
-      child: _isHorizontal ? SizedBox(width: double.infinity, height: resolvedThickness) : SizedBox(width: resolvedThickness),
+      child:
+          _isHorizontal
+              ? SizedBox(width: double.infinity, height: resolvedThickness)
+              : SizedBox(width: resolvedThickness),
     );
 
-    return Padding(padding: margin ?? (_isHorizontal ? EdgeInsets.symmetric(vertical: 4) : EdgeInsets.symmetric(horizontal: 4)), child: dotted);
+    return Padding(
+      padding:
+          margin ??
+          (_isHorizontal
+              ? EdgeInsets.symmetric(vertical: 4)
+              : EdgeInsets.symmetric(horizontal: 4)),
+      child: dotted,
+    );
   }
 }

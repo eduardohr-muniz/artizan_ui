@@ -14,9 +14,21 @@ class DSDivider extends StatelessWidget {
 
   final BorderRadiusGeometry? radius;
 
-  const DSDivider.vertical({this.margin, this.thickness, this.color, this.radius, super.key}) : variant = DSDividerVariant.vertical;
+  const DSDivider.vertical({
+    this.margin,
+    this.thickness,
+    this.color,
+    this.radius,
+    super.key,
+  }) : variant = DSDividerVariant.vertical;
 
-  const DSDivider.horizontal({this.margin, this.thickness, this.color, this.radius, super.key}) : variant = DSDividerVariant.horizontal;
+  const DSDivider.horizontal({
+    this.margin,
+    this.thickness,
+    this.color,
+    this.radius,
+    super.key,
+  }) : variant = DSDividerVariant.horizontal;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,9 @@ class DSDivider extends StatelessWidget {
     );
   }
 
-  ShadSeparatorVariant _buildShadSeparatorVariantFromDSDividerVariant(DSDividerVariant variant) {
+  ShadSeparatorVariant _buildShadSeparatorVariantFromDSDividerVariant(
+    DSDividerVariant variant,
+  ) {
     switch (variant) {
       case DSDividerVariant.vertical:
         return ShadSeparatorVariant.vertical;

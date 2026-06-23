@@ -18,7 +18,8 @@ class DSTypography extends StatelessWidget {
 // ─── Shared constants ─────────────────────────────────────────────────────────
 
 const _sampleLong = 'The quick brown fox jumps over the lazy dog';
-const _sampleParagraph = 'Hamburgefons — the classic pangram used by typographers to preview typefaces at a glance.';
+const _sampleParagraph =
+    'Hamburgefons — the classic pangram used by typographers to preview typefaces at a glance.';
 const _sampleCaption = 'Last updated 3 min ago · v1.2.0';
 
 // ─── Internal widgets ─────────────────────────────────────────────────────────
@@ -66,7 +67,9 @@ class _TypeRow extends StatelessWidget {
     final cs = DSTheme.of(context).colorScheme;
     final size = style.fontSize?.toStringAsFixed(0) ?? '—';
     final weight = _weightLabel(style.fontWeight);
-    final ls = (style.letterSpacing != null && style.letterSpacing != 0) ? ' · ls ${style.letterSpacing!.toStringAsFixed(2)}' : '';
+    final ls = (style.letterSpacing != null && style.letterSpacing != 0)
+        ? ' · ls ${style.letterSpacing!.toStringAsFixed(2)}'
+        : '';
     final sampleColor = muted ? cs.mutedForeground : cs.foreground;
 
     return Column(
@@ -158,7 +161,8 @@ Widget typeScaleAll(BuildContext context) {
     ('captionMuted', t.caption, _sampleCaption, true),
   ];
 
-  Widget buildGroup(String header, List<(String, TextStyle, String, bool)> rows) => Column(
+  Widget buildGroup(String header, List<(String, TextStyle, String, bool)> rows) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _GroupHeader(header),

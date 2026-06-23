@@ -41,9 +41,9 @@ enum DSContextMenuItemVariant {
 /// Widget que encapsula o ShadContextMenuRegion
 class DSContextMenuRegion extends StatefulWidget {
   const DSContextMenuRegion({
-    super.key,
     required this.child,
     required this.items,
+    super.key,
     this.visible,
     this.constraints,
     this.onHoverArea,
@@ -126,7 +126,9 @@ class _DSContextMenuRegionState extends State<DSContextMenuRegion> {
   DSContextMenuController? _controller;
   Offset? _offset;
 
-  DSContextMenuController get controller => widget.controller ?? (_controller ??= DSContextMenuController(isOpen: widget.visible ?? false));
+  DSContextMenuController get controller =>
+      widget.controller ??
+      (_controller ??= DSContextMenuController(isOpen: widget.visible ?? false));
 
   bool get _enableLeftClick =>
       widget.trigger == DSContextMenuTrigger.leftClick ||
@@ -138,7 +140,9 @@ class _DSContextMenuRegionState extends State<DSContextMenuRegion> {
       widget.trigger == DSContextMenuTrigger.leftAndRight ||
       widget.trigger == DSContextMenuTrigger.all;
 
-  bool get _enableLongPress => widget.trigger == DSContextMenuTrigger.longPress || widget.trigger == DSContextMenuTrigger.all;
+  bool get _enableLongPress =>
+      widget.trigger == DSContextMenuTrigger.longPress ||
+      widget.trigger == DSContextMenuTrigger.all;
 
   @override
   void didUpdateWidget(covariant DSContextMenuRegion oldWidget) {
@@ -173,7 +177,9 @@ class _DSContextMenuRegionState extends State<DSContextMenuRegion> {
   Widget build(BuildContext context) {
     final effectiveLongPressEnabled =
         _enableLongPress &&
-        (widget.longPressEnabled ?? (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS));
+        (widget.longPressEnabled ??
+            (defaultTargetPlatform == TargetPlatform.android ||
+                defaultTargetPlatform == TargetPlatform.iOS));
 
     // Aplica offset se fornecido
     final finalOffset =
@@ -208,7 +214,8 @@ class _DSContextMenuRegionState extends State<DSContextMenuRegion> {
         onSecondaryTapDown:
             _enableRightClick
                 ? (d) async {
-                  final isContextMenuAlreadyDisabled = kIsWeb && !BrowserContextMenu.enabled;
+                  final isContextMenuAlreadyDisabled =
+                      kIsWeb && !BrowserContextMenu.enabled;
                   if (kIsWeb && !isContextMenuAlreadyDisabled) {
                     await BrowserContextMenu.disableContextMenu();
                   }
@@ -220,7 +227,8 @@ class _DSContextMenuRegionState extends State<DSContextMenuRegion> {
         onSecondaryTapUp:
             _enableRightClick
                 ? (d) async {
-                  final isContextMenuAlreadyDisabled = kIsWeb && !BrowserContextMenu.enabled;
+                  final isContextMenuAlreadyDisabled =
+                      kIsWeb && !BrowserContextMenu.enabled;
                   if (defaultTargetPlatform == TargetPlatform.windows) {
                     _show(d.globalPosition);
                     await Future<void>.delayed(Duration.zero);
@@ -246,9 +254,9 @@ class _DSContextMenuRegionState extends State<DSContextMenuRegion> {
 /// Widget que encapsula o ShadContextMenu
 class DSContextMenu extends StatelessWidget {
   const DSContextMenu({
-    super.key,
     required this.child,
     required this.items,
+    super.key,
     this.anchor,
     this.visible,
     this.constraints,
@@ -349,8 +357,8 @@ class DSContextMenu extends StatelessWidget {
 /// Widget que encapsula o ShadContextMenuItem
 class DSContextMenuItem extends StatelessWidget {
   const DSContextMenuItem({
-    super.key,
     required this.child,
+    super.key,
     this.items = const [],
     this.enabled = true,
     this.leading,
@@ -374,8 +382,8 @@ class DSContextMenuItem extends StatelessWidget {
   }) : variant = DSContextMenuItemVariant.primary;
 
   const DSContextMenuItem.inset({
-    super.key,
     required this.child,
+    super.key,
     this.items = const [],
     this.enabled = true,
     this.leading,

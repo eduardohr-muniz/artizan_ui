@@ -80,17 +80,30 @@ class DSEmptyState extends StatefulWidget {
 }
 
 class _DSEmptyStateState extends State<DSEmptyState> {
-  Widget _title(BuildContext context) => Text(widget.title!, style: DSTheme.of(context).textTheme.small, textAlign: widget.textAlignment);
+  Widget _title(BuildContext context) => Text(
+    widget.title!,
+    style: DSTheme.of(context).textTheme.small,
+    textAlign: widget.textAlignment,
+  );
 
-  Widget _subtitle(BuildContext context) => Text(widget.subtitle!, style: DSTheme.of(context).textTheme.muted, textAlign: widget.textAlignment);
+  Widget _subtitle(BuildContext context) => Text(
+    widget.subtitle!,
+    style: DSTheme.of(context).textTheme.muted,
+    textAlign: widget.textAlignment,
+  );
 
   Widget _icon(BuildContext context) {
-    final iconWidget = IconTheme(data: IconThemeData(color: widget.color ?? context.dsColors.foreground), child: widget.icon);
+    final iconWidget = IconTheme(
+      data: IconThemeData(color: widget.color ?? context.dsColors.foreground),
+      child: widget.icon,
+    );
 
     if (!widget.showAvatar) return iconWidget;
 
     return CircleAvatar(
-      backgroundColor: widget.backgroundColor ?? (widget.color ?? context.dsColors.primary).withValues(alpha: .2),
+      backgroundColor:
+          widget.backgroundColor ??
+          (widget.color ?? context.dsColors.primary).withValues(alpha: .2),
       child: iconWidget,
     );
   }
@@ -99,7 +112,6 @@ class _DSEmptyStateState extends State<DSEmptyState> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         _icon(context),
         const SizedBox(width: 16),
@@ -109,7 +121,8 @@ class _DSEmptyStateState extends State<DSEmptyState> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.title != null) _title(context),
-              if (widget.title != null && widget.subtitle != null) const SizedBox(height: 4),
+              if (widget.title != null && widget.subtitle != null)
+                const SizedBox(height: 4),
               if (widget.subtitle != null) _subtitle(context),
               if (widget.action != null) ...[const SizedBox(height: 16), widget.action!],
             ],

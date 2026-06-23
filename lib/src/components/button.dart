@@ -79,8 +79,8 @@ class DSButton extends StatefulWidget {
   }) : variant = DSButtonVariant.primary;
 
   const DSButton.raw({
-    super.key,
     required this.variant,
+    super.key,
     this.size,
     this.child,
     this.leading,
@@ -345,8 +345,8 @@ class DSButton extends StatefulWidget {
   }) : variant = DSButtonVariant.ghost;
 
   const DSButton.link({
-    super.key,
     required this.child,
+    super.key,
     this.onPressed,
     this.size,
     this.cursor,
@@ -398,8 +398,8 @@ class DSButton extends StatefulWidget {
   }) : variant = DSButtonVariant.link;
 
   const DSButton.darken({
-    super.key,
     required this.child,
+    super.key,
     this.onPressed,
     this.size,
     this.cursor,
@@ -566,11 +566,19 @@ class _DSButtonState extends State<DSButton> {
       return SizedBox(
         width: 14,
         height: 14,
-        child: CircularProgressIndicator(strokeWidth: 1, strokeCap: StrokeCap.round, color: foregroundColor ?? context.dsColors.foreground),
+        child: CircularProgressIndicator(
+          strokeWidth: 1,
+          strokeCap: StrokeCap.round,
+          color: foregroundColor ?? context.dsColors.foreground,
+        ),
       );
     }
 
-    return DSLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.dsColors.foreground, child: widget.trailing!);
+    return DSLoardOnButton(
+      visibility: _effectiveIsLoading,
+      color: foregroundColor ?? context.dsColors.foreground,
+      child: widget.trailing!,
+    );
   }
 
   FutureOr<void> _effectiveOnPressed() async {
@@ -600,7 +608,10 @@ class _DSButtonState extends State<DSButton> {
       DSButtonVariant.darken => theme.primaryButtonTheme.copyWith(
         backgroundColor: isDark ? Colors.white : Colors.black,
         foregroundColor: isDark ? Colors.black : Colors.white,
-        hoverBackgroundColor: isDark ? Colors.white.withValues(alpha: 0.9) : Colors.black.withValues(alpha: 0.9),
+        hoverBackgroundColor:
+            isDark
+                ? Colors.white.withValues(alpha: 0.9)
+                : Colors.black.withValues(alpha: 0.9),
         hoverForegroundColor: isDark ? Colors.black : Colors.white,
         pressedBackgroundColor: isDark ? Colors.white : Colors.black,
         pressedForegroundColor: isDark ? Colors.black : Colors.white,
@@ -608,32 +619,54 @@ class _DSButtonState extends State<DSButton> {
     };
   }
 
-  Color? _effectiveBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectiveBackgroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
 
-  Color? _effectiveForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectiveForegroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.black : Colors.white;
     return null;
   }
 
-  Color? _effectiveHoverBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
-    if (variant == DSButtonVariant.darken) return isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.1);
+  Color? _effectiveHoverBackgroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
+    if (variant == DSButtonVariant.darken) {
+      return isDark
+          ? Colors.white.withValues(alpha: 0.1)
+          : Colors.black.withValues(alpha: 0.1);
+    }
     return null;
   }
 
-  Color? _effectivePressedBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectivePressedBackgroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
 
-  Color? _effectiveHoverForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectiveHoverForegroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.black : Colors.white;
     return null;
   }
 
-  Color? _effectivePressedForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectivePressedForegroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
@@ -653,12 +686,24 @@ class _DSButtonState extends State<DSButton> {
       width: widget.width,
       height: widget.height,
       padding: widget.padding,
-      backgroundColor: widget.backgroundColor ?? _effectiveBackgroundColor(isDark: isDark, variant: widget.variant),
-      hoverBackgroundColor: widget.hoverBackgroundColor ?? _effectiveHoverBackgroundColor(isDark: isDark, variant: widget.variant),
-      foregroundColor: widget.foregroundColor ?? _effectiveForegroundColor(isDark: isDark, variant: widget.variant),
-      hoverForegroundColor: widget.hoverForegroundColor ?? _effectiveHoverForegroundColor(isDark: isDark, variant: widget.variant),
-      pressedBackgroundColor: widget.pressedBackgroundColor ?? _effectivePressedBackgroundColor(isDark: isDark, variant: widget.variant),
-      pressedForegroundColor: widget.pressedForegroundColor ?? _effectivePressedForegroundColor(isDark: isDark, variant: widget.variant),
+      backgroundColor:
+          widget.backgroundColor ??
+          _effectiveBackgroundColor(isDark: isDark, variant: widget.variant),
+      hoverBackgroundColor:
+          widget.hoverBackgroundColor ??
+          _effectiveHoverBackgroundColor(isDark: isDark, variant: widget.variant),
+      foregroundColor:
+          widget.foregroundColor ??
+          _effectiveForegroundColor(isDark: isDark, variant: widget.variant),
+      hoverForegroundColor:
+          widget.hoverForegroundColor ??
+          _effectiveHoverForegroundColor(isDark: isDark, variant: widget.variant),
+      pressedBackgroundColor:
+          widget.pressedBackgroundColor ??
+          _effectivePressedBackgroundColor(isDark: isDark, variant: widget.variant),
+      pressedForegroundColor:
+          widget.pressedForegroundColor ??
+          _effectivePressedForegroundColor(isDark: isDark, variant: widget.variant),
       autofocus: widget.autofocus,
       focusNode: widget.focusNode,
       shadows: widget.shadows,

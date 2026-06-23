@@ -38,8 +38,11 @@ DSPopover(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Quick actions',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: cs.foreground)),
+            Text(
+              'Quick actions',
+              style: TextStyle(
+                  fontSize: 14, fontWeight: FontWeight.w600, color: cs.foreground),
+            ),
             const SizedBox(height: 8),
             _PopoverItem(icon: LucideIcons.pencil, label: 'Edit'),
             _PopoverItem(icon: LucideIcons.copy, label: 'Duplicate'),
@@ -51,7 +54,11 @@ DSPopover(
         onPressed: () async {},
         child: const Row(
           mainAxisSize: MainAxisSize.min,
-          children: [Text('Options'), SizedBox(width: 4), Icon(LucideIcons.chevronsUpDown, size: 14)],
+          children: [
+            Text('Options'),
+            SizedBox(width: 4),
+            Icon(LucideIcons.chevronsUpDown, size: 14)
+          ],
         ),
       ),
     ),
@@ -99,7 +106,8 @@ DSTooltip(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Hover over the icons', style: TextStyle(fontSize: 13, color: cs.mutedForeground)),
+        Text('Hover over the icons',
+            style: TextStyle(fontSize: 13, color: cs.mutedForeground)),
         const SizedBox(height: 24),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +117,8 @@ DSTooltip(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Text('Add item', style: TextStyle(fontSize: 12)),
               ),
-              child: DSIconButton.outline(icon: const Icon(LucideIcons.plus), onPressed: () async {}),
+              child: DSIconButton.outline(
+                  icon: const Icon(LucideIcons.plus), onPressed: () async {}),
             ),
             const SizedBox(width: 12),
             DSTooltip(
@@ -117,7 +126,8 @@ DSTooltip(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Text('Edit item', style: TextStyle(fontSize: 12)),
               ),
-              child: DSIconButton.outline(icon: const Icon(LucideIcons.pencil), onPressed: () async {}),
+              child: DSIconButton.outline(
+                  icon: const Icon(LucideIcons.pencil), onPressed: () async {}),
             ),
             const SizedBox(width: 12),
             DSTooltip(
@@ -125,7 +135,8 @@ DSTooltip(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Text('Delete item', style: TextStyle(fontSize: 12)),
               ),
-              child: DSIconButton.destructive(icon: const Icon(LucideIcons.trash2), onPressed: () async {}),
+              child: DSIconButton.destructive(
+                  icon: const Icon(LucideIcons.trash2), onPressed: () async {}),
             ),
           ],
         ),

@@ -6,9 +6,9 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 /// Widget principal do DSInputOtp
 class DSInputOtp extends StatelessWidget {
   const DSInputOtp({
-    super.key,
     required this.maxLength,
     required this.children,
+    super.key,
     this.gap,
     this.jumpToNextWhenFilled = true,
     this.inputFormatters,
@@ -118,7 +118,7 @@ class DSInputOtp extends StatelessWidget {
 
 /// Widget para agrupar slots do Input OTP
 class DSInputOtpGroup extends StatelessWidget {
-  const DSInputOtpGroup({super.key, required this.children});
+  const DSInputOtpGroup({required this.children, super.key});
 
   /// Lista de widgets filhos (slots do OTP)
   final List<Widget> children;

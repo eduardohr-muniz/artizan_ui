@@ -157,23 +157,41 @@ class DSCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = DSTheme.of(context);
 
-    final effectivePadding = padding ?? theme.cardTheme.padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
-    final effectiveBackgroundColor = backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;
+    final effectivePadding =
+        padding ??
+        theme.cardTheme.padding ??
+        const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
+    final effectiveBackgroundColor =
+        backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;
     final effectiveRadius = radius ?? theme.cardTheme.radius ?? theme.radius;
     final effectiveBorder = border ?? BoxBorder.all(color: theme.colorScheme.border);
     final effectiveShadows = shadows ?? theme.cardTheme.shadows;
 
-    final effectiveRowMainAxisSize = rowMainAxisSize ?? theme.cardTheme.rowMainAxisSize ?? MainAxisSize.min;
+    final effectiveRowMainAxisSize =
+        rowMainAxisSize ?? theme.cardTheme.rowMainAxisSize ?? MainAxisSize.min;
 
-    final effectiveRowMainAxisAlignment = rowMainAxisAlignment ?? theme.cardTheme.rowMainAxisAlignment ?? MainAxisAlignment.spaceBetween;
+    final effectiveRowMainAxisAlignment =
+        rowMainAxisAlignment ??
+        theme.cardTheme.rowMainAxisAlignment ??
+        MainAxisAlignment.spaceBetween;
 
-    final effectiveRowCrossAxisAlignment = rowCrossAxisAlignment ?? theme.cardTheme.rowCrossAxisAlignment ?? CrossAxisAlignment.start;
+    final effectiveRowCrossAxisAlignment =
+        rowCrossAxisAlignment ??
+        theme.cardTheme.rowCrossAxisAlignment ??
+        CrossAxisAlignment.start;
 
-    final effectiveColumnMainAxisSize = columnMainAxisSize ?? theme.cardTheme.columnMainAxisSize ?? MainAxisSize.min;
+    final effectiveColumnMainAxisSize =
+        columnMainAxisSize ?? theme.cardTheme.columnMainAxisSize ?? MainAxisSize.min;
 
-    final effectiveColumnMainAxisAlignment = columnMainAxisAlignment ?? theme.cardTheme.columnMainAxisAlignment ?? MainAxisAlignment.start;
+    final effectiveColumnMainAxisAlignment =
+        columnMainAxisAlignment ??
+        theme.cardTheme.columnMainAxisAlignment ??
+        MainAxisAlignment.start;
 
-    final effectiveColumnCrossAxisAlignment = columnCrossAxisAlignment ?? theme.cardTheme.columnCrossAxisAlignment ?? CrossAxisAlignment.start;
+    final effectiveColumnCrossAxisAlignment =
+        columnCrossAxisAlignment ??
+        theme.cardTheme.columnCrossAxisAlignment ??
+        CrossAxisAlignment.start;
 
     // final effectiveClipBehavior = clipBehavior ?? theme.cardTheme.clipBehavior ?? Clip.antiAlias;
 
@@ -183,7 +201,12 @@ class DSCard extends StatelessWidget {
       padding: effectivePadding,
 
       // clipBehavior: effectiveClipBehavior,
-      decoration: BoxDecoration(color: effectiveBackgroundColor, borderRadius: effectiveRadius, border: effectiveBorder, boxShadow: effectiveShadows),
+      decoration: BoxDecoration(
+        color: effectiveBackgroundColor,
+        borderRadius: effectiveRadius,
+        border: effectiveBorder,
+        boxShadow: effectiveShadows,
+      ),
       child: Row(
         mainAxisSize: effectiveRowMainAxisSize,
         mainAxisAlignment: effectiveRowMainAxisAlignment,
@@ -197,8 +220,15 @@ class DSCard extends StatelessWidget {
               crossAxisAlignment: effectiveColumnCrossAxisAlignment,
               mainAxisAlignment: effectiveColumnMainAxisAlignment,
               children: [
-                if (title != null) DefaultTextStyle(style: theme.textTheme.h3.copyWith(color: theme.colorScheme.cardForeground), child: title!),
-                if (description != null) DefaultTextStyle(style: theme.textTheme.muted, child: description!),
+                if (title != null)
+                  DefaultTextStyle(
+                    style: theme.textTheme.h3.copyWith(
+                      color: theme.colorScheme.cardForeground,
+                    ),
+                    child: title!,
+                  ),
+                if (description != null)
+                  DefaultTextStyle(style: theme.textTheme.muted, child: description!),
                 if (child != null) Flexible(child: child!),
                 if (footer != null) footer!,
               ],

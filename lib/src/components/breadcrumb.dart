@@ -12,8 +12,8 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class DSBreadcrumb extends StatelessWidget {
   /// {@macro DSBreadcrumb}
   const DSBreadcrumb({
-    super.key,
     required this.children,
+    super.key,
     this.separator,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
@@ -93,7 +93,15 @@ class DSBreadcrumb extends StatelessWidget {
 /// {@endtemplate}
 class DSBreadcrumbLink extends StatefulWidget {
   /// {@macro DSBreadcrumbLink}
-  const DSBreadcrumbLink({super.key, required this.child, this.onPressed, this.normalColor, this.hoverColor, this.textStyle, this.onHoverChange});
+  const DSBreadcrumbLink({
+    required this.child,
+    super.key,
+    this.onPressed,
+    this.normalColor,
+    this.hoverColor,
+    this.textStyle,
+    this.onHoverChange,
+  });
 
   /// The widget to display as the link content.
   final Widget child;
@@ -201,9 +209,9 @@ class DSBreadcrumbEllipsis extends StatelessWidget {
 class DSBreadcrumbDropdown extends StatefulWidget {
   /// {@macro DSBreadcrumbDropdown}
   const DSBreadcrumbDropdown({
-    super.key,
     required this.child,
     required this.items,
+    super.key,
     this.backgroundColor,
     this.padding,
     this.anchor,
@@ -307,7 +315,13 @@ class _DSBreadcrumbDropdownState extends State<DSBreadcrumbDropdown> {
 /// {@endtemplate}
 class DSBreadcrumbDropMenuItem extends StatelessWidget {
   /// {@macro DSBreadcrumbDropMenuItem}
-  const DSBreadcrumbDropMenuItem({super.key, required this.child, this.onPressed, this.textStyle, this.itemPadding});
+  const DSBreadcrumbDropMenuItem({
+    required this.child,
+    super.key,
+    this.onPressed,
+    this.textStyle,
+    this.itemPadding,
+  });
 
   /// The widget to display as the breadcrumb item content.
   final Widget child;
@@ -329,6 +343,11 @@ class DSBreadcrumbDropMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShadBreadcrumbDropMenuItem(onPressed: onPressed, textStyle: textStyle, itemPadding: itemPadding, child: child);
+    return ShadBreadcrumbDropMenuItem(
+      onPressed: onPressed,
+      textStyle: textStyle,
+      itemPadding: itemPadding,
+      child: child,
+    );
   }
 }

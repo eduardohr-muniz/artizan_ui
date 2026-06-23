@@ -20,12 +20,27 @@ Widget buttonAllVariants(BuildContext context) {
 
   final variants = [
     ('Primary', DSButton(onPressed: enabled ? () async {} : null, child: Text(label))),
-    ('Secondary', DSButton.secondary(onPressed: enabled ? () async {} : null, child: Text(label))),
-    ('Outline', DSButton.outline(onPressed: enabled ? () async {} : null, child: Text(label))),
-    ('Ghost', DSButton.ghost(onPressed: enabled ? () async {} : null, child: Text(label))),
-    ('Destructive', DSButton.destructive(onPressed: enabled ? () async {} : null, child: Text(label))),
+    (
+      'Secondary',
+      DSButton.secondary(onPressed: enabled ? () async {} : null, child: Text(label))
+    ),
+    (
+      'Outline',
+      DSButton.outline(onPressed: enabled ? () async {} : null, child: Text(label))
+    ),
+    (
+      'Ghost',
+      DSButton.ghost(onPressed: enabled ? () async {} : null, child: Text(label))
+    ),
+    (
+      'Destructive',
+      DSButton.destructive(onPressed: enabled ? () async {} : null, child: Text(label))
+    ),
     ('Link', DSButton.link(onPressed: enabled ? () async {} : null, child: Text(label))),
-    ('Darken', DSButton.darken(onPressed: enabled ? () async {} : null, child: Text(label))),
+    (
+      'Darken',
+      DSButton.darken(onPressed: enabled ? () async {} : null, child: Text(label))
+    ),
   ];
 
   return ScaffoldBase(
@@ -46,7 +61,9 @@ DSButton.darken(onPressed: () async {}, child: Text('Button'))''',
             children: [
               SizedBox(
                 width: 100,
-                child: Text(v.$1, style: TextStyle(fontSize: 12, color: context.dsColors.mutedForeground)),
+                child: Text(v.$1,
+                    style:
+                        TextStyle(fontSize: 12, color: context.dsColors.mutedForeground)),
               ),
               v.$2,
             ],
@@ -62,8 +79,8 @@ DSButton.darken(onPressed: () async {}, child: Text('Button'))''',
 Widget buttonPrimary(BuildContext context) {
   final label = context.knobs.string(label: 'Label', initialValue: 'Continue');
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
-  final hasLeading = context.knobs.boolean(label: 'Leading icon', initialValue: false);
-  final hasTrailing = context.knobs.boolean(label: 'Trailing icon', initialValue: false);
+  final hasLeading = context.knobs.boolean(label: 'Leading icon');
+  final hasTrailing = context.knobs.boolean(label: 'Trailing icon');
 
   return ScaffoldBase(
     code: '''
@@ -122,8 +139,8 @@ DSButton(
 Widget buttonDarken(BuildContext context) {
   final label = context.knobs.string(label: 'Label', initialValue: 'Continue');
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
-  final hasLeading = context.knobs.boolean(label: 'Leading icon', initialValue: false);
-  final hasTrailing = context.knobs.boolean(label: 'Trailing icon', initialValue: false);
+  final hasLeading = context.knobs.boolean(label: 'Leading icon');
+  final hasTrailing = context.knobs.boolean(label: 'Trailing icon');
 
   return ScaffoldBase(
     code: '''

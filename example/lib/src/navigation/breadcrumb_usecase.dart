@@ -23,20 +23,27 @@ DSBreadcrumb(children: [
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DSBreadcrumb(children: [
-          DSBreadcrumbLink(onPressed: () {}, child: const Text('Home')),
-          DSBreadcrumbLink(onPressed: () {}, child: const Text('Components')),
-          const Text('Breadcrumb'),
-        ]),
+        DSBreadcrumb(
+          children: [
+            DSBreadcrumbLink(onPressed: () {}, child: const Text('Home')),
+            DSBreadcrumbLink(onPressed: () {}, child: const Text('Components')),
+            const Text('Breadcrumb'),
+          ],
+        ),
         const SizedBox(height: 24),
         DSBreadcrumb(
           separator: const Icon(LucideIcons.chevronRight, size: 14),
           children: [
             DSBreadcrumbLink(
-                onPressed: () {},
-                child: const Row(
-                  children: [Icon(LucideIcons.house, size: 14), SizedBox(width: 4), Text('Home')],
-                )),
+              onPressed: () {},
+              child: const Row(
+                children: [
+                  Icon(LucideIcons.house, size: 14),
+                  SizedBox(width: 4),
+                  Text('Home')
+                ],
+              ),
+            ),
             DSBreadcrumbLink(onPressed: () {}, child: const Text('Settings')),
             const Text('Profile'),
           ],

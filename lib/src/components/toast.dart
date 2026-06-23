@@ -69,6 +69,7 @@ class DSToast extends StatelessWidget {
     this.constraints,
   }) : variant = DSToastVariant.destructive;
   const DSToast.raw({
+    required this.variant,
     super.key,
     this.id,
     this.title,
@@ -94,7 +95,6 @@ class DSToast extends StatelessWidget {
     this.padding,
     this.closeIconPosition,
     this.constraints,
-    required this.variant,
   });
 
   /// The unique identifier for the toast.
@@ -246,7 +246,7 @@ class DSToast extends StatelessWidget {
 /// A widget that manages and displays toasts within the widget tree.
 class DSToaster extends StatelessWidget {
   /// Creates a toaster widget that wraps the provided child.
-  const DSToaster({super.key, required this.child});
+  const DSToaster({required this.child, super.key});
 
   /// The widget below the toaster in the tree.
   final Widget child;
@@ -269,7 +269,7 @@ class DSToaster extends StatelessWidget {
 
 class DSSonner extends StatelessWidget {
   /// Creates a toaster widget that wraps the provided child.
-  const DSSonner({super.key, required this.child});
+  const DSSonner({required this.child, super.key});
 
   /// The widget below the toaster in the tree.
   final Widget child;

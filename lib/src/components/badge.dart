@@ -14,8 +14,8 @@ class DSBadge extends StatelessWidget {
   final DSBadgeVariant variant;
 
   const DSBadge({
-    super.key,
     required this.child,
+    super.key,
     this.shape,
     this.backgroundColor,
     this.hoverBackgroundColor,
@@ -26,8 +26,8 @@ class DSBadge extends StatelessWidget {
   });
 
   const DSBadge.secondary({
-    super.key,
     required this.child,
+    super.key,
     this.shape,
     this.backgroundColor,
     this.hoverBackgroundColor,
@@ -37,8 +37,8 @@ class DSBadge extends StatelessWidget {
   }) : variant = DSBadgeVariant.secondary;
 
   const DSBadge.outline({
-    super.key,
     required this.child,
+    super.key,
     this.shape,
     this.backgroundColor,
     this.hoverBackgroundColor,
@@ -48,8 +48,8 @@ class DSBadge extends StatelessWidget {
   }) : variant = DSBadgeVariant.outline;
 
   const DSBadge.destructive({
-    super.key,
     required this.child,
+    super.key,
     this.shape,
     this.backgroundColor,
     this.hoverBackgroundColor,
@@ -59,9 +59,9 @@ class DSBadge extends StatelessWidget {
   }) : variant = DSBadgeVariant.destructive;
 
   const DSBadge.raw({
-    super.key,
     required this.variant,
     required this.child,
+    super.key,
     this.shape,
     this.backgroundColor,
     this.hoverBackgroundColor,
@@ -72,7 +72,11 @@ class DSBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveHoverBg = hoverBackgroundColor ?? (backgroundColor != null ? Color.lerp(backgroundColor, Colors.black, 0.12) : null);
+    final effectiveHoverBg =
+        hoverBackgroundColor ??
+        (backgroundColor != null
+            ? Color.lerp(backgroundColor, Colors.black, 0.12)
+            : null);
 
     return ShadBadge.raw(
       variant: _toShadBadgeVariant(variant),

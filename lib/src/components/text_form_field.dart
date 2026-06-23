@@ -76,7 +76,8 @@ class DSTextFormField extends StatefulWidget {
   final bool scribbleEnabled;
   final bool enableIMEPersonalizedLearning;
   final ContentInsertionConfiguration? contentInsertionConfiguration;
-  final Widget Function(BuildContext context, EditableTextState state)? contextMenuBuilder;
+  final Widget Function(BuildContext context, EditableTextState state)?
+  contextMenuBuilder;
   final UndoHistoryController? undoController;
   final SpellCheckConfiguration? spellCheckConfiguration;
   final Color? selectionColor;
@@ -295,23 +296,32 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
   @override
   void initState() {
     _validate();
-    _focusNode = widget.formController?.helper.prepareFocusNode(widget.focusNode) ?? widget.focusNode;
+    _focusNode =
+        widget.formController?.helper.prepareFocusNode(widget.focusNode) ??
+        widget.focusNode;
     if (widget.controller != null) _handleInitalValueController();
     super.initState();
   }
 
-  _validate() {
+  void _validate() {
     assert(
-      !(widget.formController != null && widget.formController!.formaters.length >= 2 && widget.controller == null),
+      !(widget.formController != null &&
+          widget.formController!.formaters.length >= 2 &&
+          widget.controller == null),
       'To use two masks it is necessary to provide a controller',
     );
-    assert(!(widget.initialValue != null && widget.controller != null), 'When you have a controller, you do not need to provide an initialValue');
+    assert(
+      !(widget.initialValue != null && widget.controller != null),
+      'When you have a controller, you do not need to provide an initialValue',
+    );
   }
 
-  _handleInitalValueController() {
+  void _handleInitalValueController() {
     if (widget.formController == null) return;
     if (widget.controller!.text.isNotEmpty) {
-      widget.controller!.text = widget.formController!.helper.formatValue(value: widget.controller!.text);
+      widget.controller!.text = widget.formController!.helper.formatValue(
+        value: widget.controller!.text,
+      );
     }
   }
 
@@ -363,9 +373,12 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
   String? Function(String?)? _validator() {
     if (widget.validator != null) return widget.validator;
     if (widget.formController != null && _focusNode != null) {
-      return (v) => widget.formController?.helper.validate(value: v, focusNode: _focusNode);
+      return (v) =>
+          widget.formController?.helper.validate(value: v, focusNode: _focusNode);
     }
-    if (widget.formController != null && _focusNode == null) log('🔍 [DSTextFormField] Error: FormController != null && _focusNode == null');
+    if (widget.formController != null && _focusNode == null) {
+      log('🔍 [DSTextFormField] Error: FormController != null && _focusNode == null');
+    }
     return null;
   }
 
@@ -508,7 +521,9 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
             counterText: widget.counterText,
             prefixIconColor: colors.primary,
             prefixText: widget.prefixText,
-            hintStyle: widget.placeholderStyle?.copyWith(color: colors.mutedForeground) ?? textTheme.muted,
+            hintStyle:
+                widget.placeholderStyle?.copyWith(color: colors.mutedForeground) ??
+                textTheme.muted,
             suffixText: widget.suffixText,
             label: widget.label,
             labelStyle: textTheme.small.copyWith(color: colors.mutedForeground),
@@ -519,11 +534,21 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
             alignLabelWithHint: true,
             isDense: true,
             border: UnderlineInputBorder(borderSide: BorderSide(color: colors.border)),
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors.border)),
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors.primary)),
-            errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors.destructive)),
-            focusedErrorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors.destructive)),
-            disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors.border.withValues(alpha: 0.5))),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.border),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.primary),
+            ),
+            errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.destructive),
+            ),
+            focusedErrorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.destructive),
+            ),
+            disabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.border.withValues(alpha: 0.5)),
+            ),
           ),
           readOnly: widget.readOnly,
           showCursor: widget.showCursor,

@@ -22,9 +22,7 @@ String _hex(Color c) {
 }
 
 Color _onColor(Color bg) =>
-    bg.computeLuminance() > 0.35
-        ? const Color(0xff09090b)
-        : const Color(0xfffafafa);
+    bg.computeLuminance() > 0.35 ? const Color(0xff09090b) : const Color(0xfffafafa);
 
 // ─── Atoms ────────────────────────────────────────────────────────────────────
 
@@ -74,12 +72,14 @@ class _Swatch extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Clipboard.setData(ClipboardData(text: hex));
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('$token → $hex copied'),
-          duration: const Duration(milliseconds: 1500),
-          behavior: SnackBarBehavior.floating,
-          width: 240,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('$token → $hex copied'),
+            duration: const Duration(milliseconds: 1500),
+            behavior: SnackBarBehavior.floating,
+            width: 240,
+          ),
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,7 +206,7 @@ class _TokenDot extends StatelessWidget {
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
-            border: Border.all(color: cs.border, width: 1),
+            border: Border.all(color: cs.border),
           ),
         ),
         const SizedBox(width: 5),
@@ -280,16 +280,22 @@ class _StatusBanner extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: color)),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: color,
+                      ),
+                    ),
                     const SizedBox(height: 2),
-                    Text(body,
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: cs.foreground.withAlpha(204))),
+                    Text(
+                      body,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: cs.foreground.withAlpha(204),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -303,10 +309,11 @@ class _StatusBanner extends StatelessWidget {
           children: [
             _Chip(label: 'Filled', bg: color, fg: fgColor),
             _Chip(
-                label: 'Subtle',
-                bg: color.withAlpha(20),
-                fg: color,
-                border: color.withAlpha(80)),
+              label: 'Subtle',
+              bg: color.withAlpha(20),
+              fg: color,
+              border: color.withAlpha(80),
+            ),
             _Chip(label: _hex(color), bg: cs.muted, fg: cs.mutedForeground),
           ],
         ),
@@ -337,9 +344,14 @@ class _Chip extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: border != null ? Border.all(color: border!) : null,
       ),
-      child: Text(label,
-          style: TextStyle(
-              fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: fg,
+        ),
+      ),
     );
   }
 }
@@ -350,297 +362,419 @@ class _Chip extends StatelessWidget {
 Widget colorPalette(BuildContext context) {
   final c = context.dsColors;
 
-  return ScaffoldBase(scrollable: true, maxWidth: 640, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    const _SectionLabel('Brand'),
-    Row(children: [
-      Expanded(child: _SwatchPair(
-        bgToken: 'primary', fgToken: 'primaryForeground',
-        bg: c.primary, fg: c.primaryForeground,
-        description: 'Main action color',
-      )),
-      const SizedBox(width: 12),
-      Expanded(child: _SwatchPair(
-        bgToken: 'secondary', fgToken: 'secondaryForeground',
-        bg: c.secondary, fg: c.secondaryForeground,
-        description: 'Alternative actions',
-      )),
-      const SizedBox(width: 12),
-      Expanded(child: _SwatchPair(
-        bgToken: 'destructive', fgToken: 'destructiveForeground',
-        bg: c.destructive, fg: c.destructiveForeground,
-        description: 'Danger / delete',
-      )),
-    ]),
-
-    const _SectionLabel('Surfaces'),
-    Row(children: [
-      Expanded(child: _Swatch(token: 'background', color: c.background,
-          description: 'App canvas', bordered: true)),
-      const SizedBox(width: 12),
-      Expanded(child: _Swatch(token: 'card', color: c.card,
-          description: 'Cards, panels', bordered: true)),
-      const SizedBox(width: 12),
-      Expanded(child: _Swatch(token: 'popover', color: c.popover,
-          description: 'Dropdowns, tooltips', bordered: true)),
-    ]),
-    const SizedBox(height: 12),
-    Row(children: [
-      Expanded(child: _Swatch(token: 'muted', color: c.muted,
-          description: 'Subtle backgrounds')),
-      const SizedBox(width: 12),
-      Expanded(child: _Swatch(token: 'accent', color: c.accent,
-          description: 'Hover state fill')),
-      const SizedBox(width: 12),
-      const Expanded(child: SizedBox()),
-    ]),
-
-    const _SectionLabel('Text'),
-    Row(children: [
-      Expanded(child: _Swatch(token: 'foreground', color: c.foreground,
-          description: 'Primary text')),
-      const SizedBox(width: 12),
-      Expanded(child: _Swatch(token: 'mutedForeground', color: c.mutedForeground,
-          description: 'Secondary text')),
-      const SizedBox(width: 12),
-      Expanded(child: _Swatch(token: 'cardForeground', color: c.cardForeground,
-          description: 'Text on cards')),
-    ]),
-
-    const _SectionLabel('Structure'),
-    Row(children: [
-      Expanded(child: _Swatch(token: 'border', color: c.border,
-          description: 'Hairlines, dividers', bordered: true)),
-      const SizedBox(width: 12),
-      Expanded(child: _Swatch(token: 'input', color: c.input,
-          description: 'Input border', bordered: true)),
-      const SizedBox(width: 12),
-      Expanded(child: _Swatch(token: 'ring', color: c.ring,
-          description: 'Focus ring')),
-    ]),
-    const SizedBox(height: 12),
-    Row(children: [
-      Expanded(child: _Swatch(token: 'selection', color: c.selection,
-          description: 'Text selection')),
-      const SizedBox(width: 12),
-      const Expanded(child: SizedBox()),
-      const SizedBox(width: 12),
-      const Expanded(child: SizedBox()),
-    ]),
-
-    const _SectionLabel('DS Semantic'),
-    Row(children: [
-      Expanded(child: _SwatchPair(
-        bgToken: 'success', fgToken: 'successForeground',
-        bg: c.success, fg: c.successForeground,
-        description: 'Positive / done',
-      )),
-      const SizedBox(width: 12),
-      Expanded(child: _SwatchPair(
-        bgToken: 'warning', fgToken: 'warningForeground',
-        bg: c.warning, fg: c.warningForeground,
-        description: 'Caution',
-      )),
-      const SizedBox(width: 12),
-      Expanded(child: _SwatchPair(
-        bgToken: 'info', fgToken: 'infoForeground',
-        bg: c.info, fg: c.infoForeground,
-        description: 'Informational',
-      )),
-    ]),
-
-    const SizedBox(height: 40),
-  ]));
+  return ScaffoldBase(
+    scrollable: true,
+    maxWidth: 640,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _SectionLabel('Brand'),
+        Row(
+          children: [
+            Expanded(
+              child: _SwatchPair(
+                bgToken: 'primary',
+                fgToken: 'primaryForeground',
+                bg: c.primary,
+                fg: c.primaryForeground,
+                description: 'Main action color',
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _SwatchPair(
+                bgToken: 'secondary',
+                fgToken: 'secondaryForeground',
+                bg: c.secondary,
+                fg: c.secondaryForeground,
+                description: 'Alternative actions',
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _SwatchPair(
+                bgToken: 'destructive',
+                fgToken: 'destructiveForeground',
+                bg: c.destructive,
+                fg: c.destructiveForeground,
+                description: 'Danger / delete',
+              ),
+            ),
+          ],
+        ),
+        const _SectionLabel('Surfaces'),
+        Row(
+          children: [
+            Expanded(
+              child: _Swatch(
+                token: 'background',
+                color: c.background,
+                description: 'App canvas',
+                bordered: true,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _Swatch(
+                token: 'card',
+                color: c.card,
+                description: 'Cards, panels',
+                bordered: true,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _Swatch(
+                token: 'popover',
+                color: c.popover,
+                description: 'Dropdowns, tooltips',
+                bordered: true,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: _Swatch(
+                token: 'muted',
+                color: c.muted,
+                description: 'Subtle backgrounds',
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _Swatch(
+                token: 'accent',
+                color: c.accent,
+                description: 'Hover state fill',
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(child: SizedBox()),
+          ],
+        ),
+        const _SectionLabel('Text'),
+        Row(
+          children: [
+            Expanded(
+              child: _Swatch(
+                token: 'foreground',
+                color: c.foreground,
+                description: 'Primary text',
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _Swatch(
+                token: 'mutedForeground',
+                color: c.mutedForeground,
+                description: 'Secondary text',
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _Swatch(
+                token: 'cardForeground',
+                color: c.cardForeground,
+                description: 'Text on cards',
+              ),
+            ),
+          ],
+        ),
+        const _SectionLabel('Structure'),
+        Row(
+          children: [
+            Expanded(
+              child: _Swatch(
+                token: 'border',
+                color: c.border,
+                description: 'Hairlines, dividers',
+                bordered: true,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _Swatch(
+                token: 'input',
+                color: c.input,
+                description: 'Input border',
+                bordered: true,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _Swatch(
+                token: 'ring',
+                color: c.ring,
+                description: 'Focus ring',
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: _Swatch(
+                token: 'selection',
+                color: c.selection,
+                description: 'Text selection',
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(child: SizedBox()),
+            const SizedBox(width: 12),
+            const Expanded(child: SizedBox()),
+          ],
+        ),
+        const _SectionLabel('DS Semantic'),
+        Row(
+          children: [
+            Expanded(
+              child: _SwatchPair(
+                bgToken: 'success',
+                fgToken: 'successForeground',
+                bg: c.success,
+                fg: c.successForeground,
+                description: 'Positive / done',
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _SwatchPair(
+                bgToken: 'warning',
+                fgToken: 'warningForeground',
+                bg: c.warning,
+                fg: c.warningForeground,
+                description: 'Caution',
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _SwatchPair(
+                bgToken: 'info',
+                fgToken: 'infoForeground',
+                bg: c.info,
+                fg: c.infoForeground,
+                description: 'Informational',
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 40),
+      ],
+    ),
+  );
 }
 
 @widgetbook.UseCase(name: 'Semantic', type: DsColorTokens)
 Widget colorSemantic(BuildContext context) {
   final c = context.dsColors;
 
-  return ScaffoldBase(scrollable: true, maxWidth: 640, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    const _SectionLabel('Status Colors in Context'),
-    const SizedBox(height: 8),
-
-    _StatusBanner(
-      bgToken: 'success',
-      fgToken: 'successForeground',
-      color: c.success,
-      fgColor: c.successForeground,
-      icon: Icons.check_circle_outline_rounded,
-      title: 'Changes saved',
-      body: 'Your settings have been updated successfully.',
+  return ScaffoldBase(
+    scrollable: true,
+    maxWidth: 640,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _SectionLabel('Status Colors in Context'),
+        const SizedBox(height: 8),
+        _StatusBanner(
+          bgToken: 'success',
+          fgToken: 'successForeground',
+          color: c.success,
+          fgColor: c.successForeground,
+          icon: Icons.check_circle_outline_rounded,
+          title: 'Changes saved',
+          body: 'Your settings have been updated successfully.',
+        ),
+        const SizedBox(height: 28),
+        _StatusBanner(
+          bgToken: 'warning',
+          fgToken: 'warningForeground',
+          color: c.warning,
+          fgColor: c.warningForeground,
+          icon: Icons.warning_amber_rounded,
+          title: 'Action required',
+          body: 'Your session will expire in 5 minutes.',
+        ),
+        const SizedBox(height: 28),
+        _StatusBanner(
+          bgToken: 'info',
+          fgToken: 'infoForeground',
+          color: c.info,
+          fgColor: c.infoForeground,
+          icon: Icons.info_outline_rounded,
+          title: 'Heads up',
+          body: 'A new version of the app is available.',
+        ),
+        const SizedBox(height: 28),
+        _StatusBanner(
+          bgToken: 'destructive',
+          fgToken: 'destructiveForeground',
+          color: c.destructive,
+          fgColor: c.destructiveForeground,
+          icon: Icons.error_outline_rounded,
+          title: 'Something went wrong',
+          body: 'Unable to process your request. Please try again.',
+        ),
+        const SizedBox(height: 40),
+      ],
     ),
-    const SizedBox(height: 28),
-
-    _StatusBanner(
-      bgToken: 'warning',
-      fgToken: 'warningForeground',
-      color: c.warning,
-      fgColor: c.warningForeground,
-      icon: Icons.warning_amber_rounded,
-      title: 'Action required',
-      body: 'Your session will expire in 5 minutes.',
-    ),
-    const SizedBox(height: 28),
-
-    _StatusBanner(
-      bgToken: 'info',
-      fgToken: 'infoForeground',
-      color: c.info,
-      fgColor: c.infoForeground,
-      icon: Icons.info_outline_rounded,
-      title: 'Heads up',
-      body: 'A new version of the app is available.',
-    ),
-    const SizedBox(height: 28),
-
-    _StatusBanner(
-      bgToken: 'destructive',
-      fgToken: 'destructiveForeground',
-      color: c.destructive,
-      fgColor: c.destructiveForeground,
-      icon: Icons.error_outline_rounded,
-      title: 'Something went wrong',
-      body: 'Unable to process your request. Please try again.',
-    ),
-
-    const SizedBox(height: 40),
-  ]));
+  );
 }
 
 @widgetbook.UseCase(name: 'Surfaces', type: DsColorTokens)
 Widget colorSurfaces(BuildContext context) {
   final c = context.dsColors;
 
-  return ScaffoldBase(scrollable: true, maxWidth: 640, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    const _SectionLabel('Elevation & Layering'),
-    const SizedBox(height: 4),
+  return ScaffoldBase(
+    scrollable: true,
+    maxWidth: 640,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _SectionLabel('Elevation & Layering'),
+        const SizedBox(height: 4),
 
-    // Nested surfaces demo
-    Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: c.background,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: c.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _SurfacePill(label: 'background', color: c.background),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: c.card,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: c.border),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withAlpha(13),
-                  blurRadius: 4,
-                  offset: const Offset(0, 1),
+        // Nested surfaces demo
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: c.background,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: c.border),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _SurfacePill(label: 'background', color: c.background),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: c.card,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: c.border),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha(13),
+                      blurRadius: 4,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _SurfacePill(label: 'card', color: c.card),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: c.muted,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: _SurfacePill(label: 'muted', color: c.muted),
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: c.popover,
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: c.border),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(20),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _SurfacePill(label: 'popover', color: c.popover),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: c.accent,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: _SurfacePill(
+                              label: 'accent (hover)',
+                              color: c.accent,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        const _SectionLabel('Structure Tokens'),
+        const SizedBox(height: 4),
+
+        ...[
+          ('border', c.border, 'Hairlines, table rows, card outlines'),
+          ('input', c.input, 'Text field border'),
+          ('ring', c.ring, 'Focus ring — applied as 2px offset outline'),
+          ('selection', c.selection, 'Text selection highlight'),
+        ].map(
+          (row) => Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Row(
               children: [
-                _SurfacePill(label: 'card', color: c.card),
-                const SizedBox(height: 12),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 10),
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
-                    color: c.muted,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: _SurfacePill(label: 'muted', color: c.muted),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: c.popover,
+                    color: row.$2,
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(color: c.border),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withAlpha(20),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _SurfacePill(label: 'popover', color: c.popover),
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: c.accent,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: _SurfacePill(
-                            label: 'accent (hover)', color: c.accent),
+                ),
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      row.$1,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: c.foreground,
                       ),
-                    ],
-                  ),
+                    ),
+                    Text(
+                      '${_hex(row.$2)} · ${row.$3}',
+                      style: TextStyle(fontSize: 11, color: c.mutedForeground),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-        ],
-      ),
-    ),
-
-    const _SectionLabel('Structure Tokens'),
-    const SizedBox(height: 4),
-
-    ...[
-      ('border', c.border, 'Hairlines, table rows, card outlines'),
-      ('input', c.input, 'Text field border'),
-      ('ring', c.ring, 'Focus ring — applied as 2px offset outline'),
-      ('selection', c.selection, 'Text selection highlight'),
-    ].map(
-      (row) => Padding(
-        padding: const EdgeInsets.only(bottom: 12),
-        child: Row(
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: row.$2,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: c.border),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(row.$1,
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: c.foreground)),
-                Text(
-                  '${_hex(row.$2)} · ${row.$3}',
-                  style:
-                      TextStyle(fontSize: 11, color: c.mutedForeground),
-                ),
-              ],
-            ),
-          ],
         ),
-      ),
-    ),
 
-    const SizedBox(height: 40),
-  ]));
+        const SizedBox(height: 40),
+      ],
+    ),
+  );
 }
 
 class _SurfacePill extends StatelessWidget {
@@ -668,16 +802,22 @@ class _SurfacePill extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 6),
-        Text(label,
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: cs.mutedForeground)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: cs.mutedForeground,
+          ),
+        ),
         const SizedBox(width: 6),
-        Text(_hex(color),
-            style: TextStyle(
-                fontSize: 10,
-                color: cs.mutedForeground.withAlpha(140))),
+        Text(
+          _hex(color),
+          style: TextStyle(
+            fontSize: 10,
+            color: cs.mutedForeground.withAlpha(140),
+          ),
+        ),
       ],
     );
   }

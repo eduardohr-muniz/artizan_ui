@@ -8,9 +8,9 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 class DSPopover extends StatelessWidget {
   const DSPopover({
-    super.key,
     required this.child,
     required this.popover,
+    super.key,
     this.controller,
     this.visible,
     this.closeOnTapOutside = true,
@@ -24,7 +24,10 @@ class DSPopover extends StatelessWidget {
     this.groupId,
     this.areaGroupId,
     this.useSameGroupIdForChild = true,
-  }) : assert((controller != null) ^ (visible != null), 'Either controller or visible must be provided');
+  }) : assert(
+         (controller != null) ^ (visible != null),
+         'Either controller or visible must be provided',
+       );
 
   /// O widget filho
   final Widget child;

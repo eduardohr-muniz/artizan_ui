@@ -14,7 +14,8 @@ class DsEmptyState extends StatelessWidget {
 @widgetbook.UseCase(name: 'Default', type: DsEmptyState)
 Widget emptyStateDefault(BuildContext context) {
   final title = context.knobs.string(label: 'Title', initialValue: 'No results found');
-  final subtitle = context.knobs.string(label: 'Subtitle', initialValue: 'Try adjusting your search or filters.');
+  final subtitle = context.knobs
+      .string(label: 'Subtitle', initialValue: 'Try adjusting your search or filters.');
   final showAction = context.knobs.boolean(label: 'Show action', initialValue: true);
 
   return ScaffoldBase(
@@ -29,7 +30,9 @@ DSEmptyState(
       icon: const Icon(LucideIcons.searchX),
       title: title,
       subtitle: subtitle,
-      action: showAction ? DSButton(onPressed: () async {}, child: const Text('Clear filters')) : null,
+      action: showAction
+          ? DSButton(onPressed: () async {}, child: const Text('Clear filters'))
+          : null,
     ),
   );
 }

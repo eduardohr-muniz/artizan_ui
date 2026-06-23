@@ -48,11 +48,28 @@ class DSColorSwatch {
     800 => shade800,
     900 => shade900,
     950 => shade950,
-    _ => throw ArgumentError.value(shade, 'shade', 'Tom inválido. Use 50, 100, 200, ..., 900 ou 950.'),
+    _ =>
+      throw ArgumentError.value(
+        shade,
+        'shade',
+        'Tom inválido. Use 50, 100, 200, ..., 900 ou 950.',
+      ),
   };
 
   /// Todos os tons em ordem crescente (50 → 950).
-  List<Color> get shades => [shade50, shade100, shade200, shade300, shade400, shade500, shade600, shade700, shade800, shade900, shade950];
+  List<Color> get shades => [
+    shade50,
+    shade100,
+    shade200,
+    shade300,
+    shade400,
+    shade500,
+    shade600,
+    shade700,
+    shade800,
+    shade900,
+    shade950,
+  ];
 }
 
 /// Paleta de cores primitivas do design system.

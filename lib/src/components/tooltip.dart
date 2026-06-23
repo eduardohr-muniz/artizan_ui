@@ -9,9 +9,9 @@ typedef DSHoverStrategies = ShadHoverStrategies;
 
 class DSTooltip extends StatelessWidget {
   const DSTooltip({
-    super.key,
     required this.child,
     required this.builder,
+    super.key,
     this.focusNode,
     this.waitDuration,
     this.showDuration,

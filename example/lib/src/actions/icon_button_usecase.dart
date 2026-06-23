@@ -17,11 +17,31 @@ Widget iconButtonAllVariants(BuildContext context) {
   final cs = context.dsColors;
 
   final variants = [
-    ('Primary', DSIconButton(icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)),
-    ('Secondary', DSIconButton.secondary(icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)),
-    ('Outline', DSIconButton.outline(icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)),
-    ('Ghost', DSIconButton.ghost(icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)),
-    ('Destructive', DSIconButton.destructive(icon: const Icon(LucideIcons.trash2), onPressed: enabled ? () async {} : null)),
+    (
+      'Primary',
+      DSIconButton(
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+    ),
+    (
+      'Secondary',
+      DSIconButton.secondary(
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+    ),
+    (
+      'Outline',
+      DSIconButton.outline(
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+    ),
+    (
+      'Ghost',
+      DSIconButton.ghost(
+          icon: const Icon(LucideIcons.plus), onPressed: enabled ? () async {} : null)
+    ),
+    (
+      'Destructive',
+      DSIconButton.destructive(
+          icon: const Icon(LucideIcons.trash2), onPressed: enabled ? () async {} : null)
+    ),
   ];
 
   return ScaffoldBase(
@@ -40,8 +60,10 @@ DSIconButton.destructive(icon: Icon(LucideIcons.trash2), onPressed: () async {})
             children: [
               SizedBox(
                 width: 100,
-                child: Text(v.$1,
-                    style: TextStyle(fontSize: 12, color: cs.mutedForeground)),
+                child: Text(
+                  v.$1,
+                  style: TextStyle(fontSize: 12, color: cs.mutedForeground),
+                ),
               ),
               v.$2,
             ],

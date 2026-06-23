@@ -90,27 +90,36 @@ DSInputOtp(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Verification code',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: cs.foreground)),
+        Text(
+          'Verification code',
+          style:
+              TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: cs.foreground),
+        ),
         const SizedBox(height: 8),
-        Text('Enter the 6-digit code sent to your phone.',
-            style: TextStyle(fontSize: 14, color: cs.mutedForeground)),
+        Text(
+          'Enter the 6-digit code sent to your phone.',
+          style: TextStyle(fontSize: 14, color: cs.mutedForeground),
+        ),
         const SizedBox(height: 24),
         DSInputOtp(
           maxLength: 6,
           onChanged: (_) {},
           children: [
-            DSInputOtpGroup(children: [
-              const DSInputOtpSlot(),
-              const DSInputOtpSlot(),
-              const DSInputOtpSlot(),
-            ]),
+            DSInputOtpGroup(
+              children: [
+                const DSInputOtpSlot(),
+                const DSInputOtpSlot(),
+                const DSInputOtpSlot(),
+              ],
+            ),
             const Text('·'),
-            DSInputOtpGroup(children: [
-              const DSInputOtpSlot(),
-              const DSInputOtpSlot(),
-              const DSInputOtpSlot(),
-            ]),
+            DSInputOtpGroup(
+              children: [
+                const DSInputOtpSlot(),
+                const DSInputOtpSlot(),
+                const DSInputOtpSlot(),
+              ],
+            ),
           ],
         ),
         const SizedBox(height: 24),

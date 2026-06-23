@@ -115,7 +115,9 @@ class _InviteMemberSheetState extends State<_InviteMemberSheet> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Role', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: cs.foreground)),
+              Text('Role',
+                  style: TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w500, color: cs.foreground)),
               const SizedBox(height: 6),
               DSSelect<String>(
                 placeholder: const Text('Select a role...'),
@@ -187,15 +189,19 @@ class _EditProfileSheet extends StatelessWidget {
               CircleAvatar(
                 radius: 28,
                 backgroundColor: cs.primary,
-                child: Text('JD', style: TextStyle(color: cs.primaryForeground, fontWeight: FontWeight.w600)),
+                child: Text('JD',
+                    style: TextStyle(
+                        color: cs.primaryForeground, fontWeight: FontWeight.w600)),
               ),
               const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DSButton.outline(onPressed: () async {}, child: const Text('Change avatar')),
+                  DSButton.outline(
+                      onPressed: () async {}, child: const Text('Change avatar')),
                   const SizedBox(height: 4),
-                  Text('JPG, PNG up to 2 MB', style: TextStyle(fontSize: 12, color: cs.mutedForeground)),
+                  Text('JPG, PNG up to 2 MB',
+                      style: TextStyle(fontSize: 12, color: cs.mutedForeground)),
                 ],
               ),
             ],
@@ -203,9 +209,13 @@ class _EditProfileSheet extends StatelessWidget {
           const SizedBox(height: 20),
           const Row(
             children: [
-              Expanded(child: DSTextFormField(label: Text('First name'), placeholder: Text('Jane'))),
+              Expanded(
+                  child: DSTextFormField(
+                      label: Text('First name'), placeholder: Text('Jane'))),
               SizedBox(width: 12),
-              Expanded(child: DSTextFormField(label: Text('Last name'), placeholder: Text('Doe'))),
+              Expanded(
+                  child: DSTextFormField(
+                      label: Text('Last name'), placeholder: Text('Doe'))),
             ],
           ),
           const SizedBox(height: 16),

@@ -25,8 +25,8 @@ typedef DSSelectController<T> = ShadSelectController<T>;
 /// Widget principal do DSSelect
 class DSSelect<T> extends StatelessWidget {
   const DSSelect({
-    super.key,
     required this.selectedOptionBuilder,
+    super.key,
     this.options,
     this.optionsBuilder,
     this.placeholder,
@@ -238,9 +238,9 @@ class DSSelect<T> extends StatelessWidget {
 /// Variante do DSSelect com busca
 class DSSelectWithSearch<T> extends StatelessWidget {
   const DSSelectWithSearch({
-    super.key,
     required this.selectedOptionBuilder,
     required this.onSearchChanged,
+    super.key,
     this.options,
     this.optionsBuilder,
     this.placeholder,
@@ -394,8 +394,8 @@ class DSSelectWithSearch<T> extends StatelessWidget {
 /// Variante do DSSelect para seleção múltipla
 class DSSelectMultiple<T> extends StatelessWidget {
   const DSSelectMultiple({
-    super.key,
     required this.selectedOptionsBuilder,
+    super.key,
     this.options,
     this.optionsBuilder,
     this.placeholder,
@@ -487,7 +487,8 @@ class DSSelectMultiple<T> extends StatelessWidget {
       label: label,
       description: description,
       onChanged: onChanged != null ? (value) => onChanged!(value?.toList()) : null,
-      toValueTransformer: valueTransformer != null ? (value) => valueTransformer!(value?.toSet()) : null,
+      toValueTransformer:
+          valueTransformer != null ? (value) => valueTransformer!(value?.toSet()) : null,
       onReset: onReset,
       enabled: enabled,
       autovalidateMode: autovalidateMode,
@@ -533,9 +534,9 @@ class DSOption<T> extends StatelessWidget {
   final TextDirection? direction;
 
   const DSOption({
-    super.key,
     required this.value,
     required this.child,
+    super.key,
     this.hoveredBackgroundColor,
     this.padding,
     this.selectedIcon,

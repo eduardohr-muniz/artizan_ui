@@ -47,36 +47,48 @@ class _DSSegmentedBadgeState<T> extends State<DSSegmentedBadge<T>> {
       children: [
         if (widget.label != null)
           DefaultTextStyle(
-            style: DSTheme.of(context).textTheme.muted.copyWith(color: context.dsColors.foreground, fontWeight: FontWeight.w600),
+            style: DSTheme.of(
+              context,
+            ).textTheme.muted.copyWith(
+              color: context.dsColors.foreground,
+              fontWeight: FontWeight.w600,
+            ),
             child: widget.label!,
           ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: context.dsColors.muted, borderRadius: BorderRadius.circular(21)),
+          decoration: BoxDecoration(
+            color: context.dsColors.muted,
+            borderRadius: BorderRadius.circular(21),
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             spacing: 4,
-            children: widget.options.map((e) {
-              final isSelected = _value == e;
-              return IgnorePointer(
-                ignoring: isSelected,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(minWidth: 45),
-                  child: DSBadge.raw(
-                    variant: isSelected ? DSBadgeVariant.primary : DSBadgeVariant.secondary,
-                    backgroundColor: isSelected ? null : context.dsColors.background,
-                    foregroundColor: isSelected ? null : context.dsColors.foreground,
-                    hoverBackgroundColor: context.dsColors.ring.withValues(alpha: .1),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    onPressed: () {
-                      setState(() => _value = e);
-                      widget.onChanged(e);
-                    },
-                    child: widget.childBuilder(e),
-                  ),
-                ),
-              );
-            }).toList(),
+            children:
+                widget.options.map((e) {
+                  final isSelected = _value == e;
+                  return IgnorePointer(
+                    ignoring: isSelected,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minWidth: 45),
+                      child: DSBadge.raw(
+                        variant:
+                            isSelected
+                                ? DSBadgeVariant.primary
+                                : DSBadgeVariant.secondary,
+                        backgroundColor: isSelected ? null : context.dsColors.background,
+                        foregroundColor: isSelected ? null : context.dsColors.foreground,
+                        hoverBackgroundColor: context.dsColors.ring.withValues(alpha: .1),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        onPressed: () {
+                          setState(() => _value = e);
+                          widget.onChanged(e);
+                        },
+                        child: widget.childBuilder(e),
+                      ),
+                    ),
+                  );
+                }).toList(),
           ),
         ),
       ],

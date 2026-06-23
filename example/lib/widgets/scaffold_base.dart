@@ -4,8 +4,8 @@ import 'view_code.dart';
 
 class ScaffoldBase extends StatelessWidget {
   const ScaffoldBase({
-    super.key,
     required this.child,
+    super.key,
     this.code,
     this.scrollable = false,
     this.maxWidth,
@@ -13,7 +13,7 @@ class ScaffoldBase extends StatelessWidget {
 
   final Widget child;
   final String? code;
-  final bool scrollable;  // true = SingleChildScrollView, false = Center
+  final bool scrollable; // true = SingleChildScrollView, false = Center
   final double? maxWidth; // opcional para constringir largura
 
   @override

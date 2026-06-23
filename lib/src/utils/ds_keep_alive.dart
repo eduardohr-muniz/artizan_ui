@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DsKeepAlive extends StatefulWidget {
   final Widget child;
 
-  const DsKeepAlive({super.key, required this.child});
+  const DsKeepAlive({required this.child, super.key});
 
   @override
   State<DsKeepAlive> createState() => _DsKeepAliveState();

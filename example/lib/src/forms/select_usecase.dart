@@ -16,7 +16,8 @@ final _roles = ['Admin', 'Editor', 'Viewer', 'Guest'];
 
 @widgetbook.UseCase(name: 'Default', type: DsSelect)
 Widget selectDefault(BuildContext context) {
-  final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Select a fruit...');
+  final placeholder =
+      context.knobs.string(label: 'Placeholder', initialValue: 'Select a fruit...');
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
 
   return ScaffoldBase(
@@ -39,8 +40,7 @@ DSSelect<String>(
           placeholder: Text(placeholder),
           selectedOptionBuilder: (ctx, val) => Text(val),
           options: [
-            for (final fruit in _fruits)
-              DSOption(value: fruit, child: Text(fruit)),
+            for (final fruit in _fruits) DSOption(value: fruit, child: Text(fruit)),
           ],
           onChanged: (_) {},
         ),
@@ -76,8 +76,7 @@ DSSelectWithSearch<String>(
           selectedOptionBuilder: (ctx, val) => Text(val),
           onSearchChanged: (_) {},
           options: [
-            for (final role in _roles)
-              DSOption(value: role, child: Text(role)),
+            for (final role in _roles) DSOption(value: role, child: Text(role)),
           ],
           onChanged: (_) {},
         ),

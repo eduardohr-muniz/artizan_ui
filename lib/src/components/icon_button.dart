@@ -8,8 +8,8 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 class DSIconButton extends StatefulWidget {
   const DSIconButton({
-    super.key,
     required this.icon,
+    super.key,
     this.iconSize,
     this.onPressed,
     this.cursor,
@@ -52,9 +52,9 @@ class DSIconButton extends StatefulWidget {
   }) : variant = DSButtonVariant.primary;
 
   const DSIconButton.raw({
-    super.key,
     required this.variant,
     required this.icon,
+    super.key,
     this.iconSize,
     this.onPressed,
     this.cursor,
@@ -94,11 +94,14 @@ class DSIconButton extends StatefulWidget {
     this.onDoubleTapCancel,
     this.longPressDuration,
     this.isLoading,
-  }) : assert(variant != DSButtonVariant.link, "ShadIconButton doesn't support the link variant");
+  }) : assert(
+         variant != DSButtonVariant.link,
+         "ShadIconButton doesn't support the link variant",
+       );
 
   const DSIconButton.destructive({
-    super.key,
     required this.icon,
+    super.key,
     this.iconSize,
     this.onPressed,
     this.cursor,
@@ -141,8 +144,8 @@ class DSIconButton extends StatefulWidget {
   }) : variant = DSButtonVariant.destructive;
 
   const DSIconButton.outline({
-    super.key,
     required this.icon,
+    super.key,
     this.iconSize,
     this.onPressed,
     this.cursor,
@@ -185,8 +188,8 @@ class DSIconButton extends StatefulWidget {
   }) : variant = DSButtonVariant.outline;
 
   const DSIconButton.secondary({
-    super.key,
     required this.icon,
+    super.key,
     this.iconSize,
     this.onPressed,
     this.cursor,
@@ -229,8 +232,8 @@ class DSIconButton extends StatefulWidget {
   }) : variant = DSButtonVariant.secondary;
 
   const DSIconButton.ghost({
-    super.key,
     required this.icon,
+    super.key,
     this.iconSize,
     this.onPressed,
     this.cursor,
@@ -272,8 +275,8 @@ class DSIconButton extends StatefulWidget {
     this.isLoading,
   }) : variant = DSButtonVariant.ghost;
   const DSIconButton.darken({
-    super.key,
     required this.icon,
+    super.key,
     this.iconSize,
     this.onPressed,
     this.cursor,
@@ -409,7 +412,11 @@ class _DSIconButtonState extends State<DSIconButton> {
   Widget _effectiveIcon(BuildContext context, DSThemeData theme) {
     final foregroundColor = _buttonTheme(theme).foregroundColor;
     if (_effectiveIsLoading) {
-      return DSLoardOnButton(visibility: _effectiveIsLoading, color: foregroundColor ?? context.dsColors.foreground, child: widget.icon);
+      return DSLoardOnButton(
+        visibility: _effectiveIsLoading,
+        color: foregroundColor ?? context.dsColors.foreground,
+        child: widget.icon,
+      );
     }
     return widget.icon;
   }
@@ -441,40 +448,68 @@ class _DSIconButtonState extends State<DSIconButton> {
       DSButtonVariant.darken => theme.primaryButtonTheme.copyWith(
         backgroundColor: isDark ? Colors.white : Colors.black,
         foregroundColor: isDark ? Colors.black : Colors.white,
-        hoverBackgroundColor: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.1),
+        hoverBackgroundColor:
+            isDark
+                ? Colors.white.withValues(alpha: 0.1)
+                : Colors.black.withValues(alpha: 0.1),
         hoverForegroundColor: isDark ? Colors.black : Colors.white,
-        pressedBackgroundColor: isDark ? Colors.white.withValues(alpha: 0.2) : Colors.black.withValues(alpha: 0.2),
+        pressedBackgroundColor:
+            isDark
+                ? Colors.white.withValues(alpha: 0.2)
+                : Colors.black.withValues(alpha: 0.2),
         pressedForegroundColor: isDark ? Colors.black : Colors.white,
       ),
     };
   }
 
-  Color? _effectiveBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectiveBackgroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
 
-  Color? _effectiveForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectiveForegroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.black : Colors.white;
     return null;
   }
 
-  Color? _effectiveHoverBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
-    if (variant == DSButtonVariant.darken) return isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.1);
+  Color? _effectiveHoverBackgroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
+    if (variant == DSButtonVariant.darken) {
+      return isDark
+          ? Colors.white.withValues(alpha: 0.1)
+          : Colors.black.withValues(alpha: 0.1);
+    }
     return null;
   }
 
-  Color? _effectivePressedBackgroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectivePressedBackgroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
 
-  Color? _effectiveHoverForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectiveHoverForegroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.black : Colors.white;
     return null;
   }
 
-  Color? _effectivePressedForegroundColor({required bool isDark, required DSButtonVariant variant}) {
+  Color? _effectivePressedForegroundColor({
+    required bool isDark,
+    required DSButtonVariant variant,
+  }) {
     if (variant == DSButtonVariant.darken) return isDark ? Colors.white : Colors.black;
     return null;
   }
@@ -493,14 +528,26 @@ class _DSIconButtonState extends State<DSIconButton> {
       width: widget.width,
       height: widget.height,
       padding: widget.padding,
-      backgroundColor: widget.backgroundColor ?? _effectiveBackgroundColor(isDark: isDark, variant: widget.variant),
-      hoverBackgroundColor: widget.hoverBackgroundColor ?? _effectiveHoverBackgroundColor(isDark: isDark, variant: widget.variant),
-      foregroundColor: widget.foregroundColor ?? _effectiveForegroundColor(isDark: isDark, variant: widget.variant),
-      hoverForegroundColor: widget.hoverForegroundColor ?? _effectiveHoverForegroundColor(isDark: isDark, variant: widget.variant),
+      backgroundColor:
+          widget.backgroundColor ??
+          _effectiveBackgroundColor(isDark: isDark, variant: widget.variant),
+      hoverBackgroundColor:
+          widget.hoverBackgroundColor ??
+          _effectiveHoverBackgroundColor(isDark: isDark, variant: widget.variant),
+      foregroundColor:
+          widget.foregroundColor ??
+          _effectiveForegroundColor(isDark: isDark, variant: widget.variant),
+      hoverForegroundColor:
+          widget.hoverForegroundColor ??
+          _effectiveHoverForegroundColor(isDark: isDark, variant: widget.variant),
       autofocus: widget.autofocus,
       focusNode: widget.focusNode,
-      pressedBackgroundColor: widget.pressedBackgroundColor ?? _effectivePressedBackgroundColor(isDark: isDark, variant: widget.variant),
-      pressedForegroundColor: widget.pressedForegroundColor ?? _effectivePressedForegroundColor(isDark: isDark, variant: widget.variant),
+      pressedBackgroundColor:
+          widget.pressedBackgroundColor ??
+          _effectivePressedBackgroundColor(isDark: isDark, variant: widget.variant),
+      pressedForegroundColor:
+          widget.pressedForegroundColor ??
+          _effectivePressedForegroundColor(isDark: isDark, variant: widget.variant),
       shadows: widget.shadows,
       gradient: widget.gradient,
       decoration: widget.decoration,

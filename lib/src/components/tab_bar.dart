@@ -137,7 +137,12 @@ class DSTabBar extends StatelessWidget implements PreferredSizeWidget {
       labelPadding: labelPadding,
       padding: padding,
       indicatorPadding: indicatorPadding,
-      indicator: DSTabBarIndicator(color: accent, strokeWidth: indicatorWeight, radius: Radius.circular(indicatorRadius), glow: glow),
+      indicator: DSTabBarIndicator(
+        color: accent,
+        strokeWidth: indicatorWeight,
+        radius: Radius.circular(indicatorRadius),
+        glow: glow,
+      ),
     );
   }
 }
@@ -145,7 +150,12 @@ class DSTabBar extends StatelessWidget implements PreferredSizeWidget {
 /// Indicador de aba do [DSTabBar]: linha inferior arredondada com um glow sutil.
 /// Exposto para quem quiser usar um [TabBar] do Material com o mesmo indicador.
 class DSTabBarIndicator extends Decoration {
-  const DSTabBarIndicator({required this.color, this.strokeWidth = 2.3, this.radius = const Radius.circular(4), this.glow = true});
+  const DSTabBarIndicator({
+    required this.color,
+    this.strokeWidth = 2.3,
+    this.radius = const Radius.circular(4),
+    this.glow = true,
+  });
 
   /// Cor da linha (e do glow).
   final Color color;
@@ -160,7 +170,8 @@ class DSTabBarIndicator extends Decoration {
   final bool glow;
 
   @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) => _DSTabBarIndicatorPainter(this);
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) =>
+      _DSTabBarIndicatorPainter(this);
 }
 
 class _DSTabBarIndicatorPainter extends BoxPainter {

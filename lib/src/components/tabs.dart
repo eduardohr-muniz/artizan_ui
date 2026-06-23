@@ -18,9 +18,9 @@ typedef DSTabsController<T> = ShadTabsController<T>;
 class DSTabs<T> extends StatefulWidget implements PreferredSizeWidget {
   /// Cria um [DSTabs].
   const DSTabs({
+    required this.tabs,
     super.key,
     this.value,
-    required this.tabs,
     this.controller,
     this.gap,
     this.scrollable,
@@ -37,7 +37,10 @@ class DSTabs<T> extends StatefulWidget implements PreferredSizeWidget {
     this.contentAlignment,
     this.contentGap,
     this.maintainState,
-  }) : assert((value != null) ^ (controller != null), 'Either value or controller must be provided');
+  }) : assert(
+         (value != null) ^ (controller != null),
+         'Either value or controller must be provided',
+       );
 
   /// A aba atualmente selecionada.
   final T? value;
@@ -150,7 +153,9 @@ class _DSTabsState<T> extends State<DSTabs<T>> {
     }
 
     // Atualiza o controlador se o valor mudou.
-    if (widget.value is T && widget.controller == null && controller.selected != widget.value) {
+    if (widget.value is T &&
+        widget.controller == null &&
+        controller.selected != widget.value) {
       controller.select(widget.value as T);
     }
   }
@@ -261,9 +266,9 @@ class _DSTabsState<T> extends State<DSTabs<T>> {
 class DSTab<T> extends StatelessWidget implements PreferredSizeWidget {
   /// Cria um [DSTab].
   const DSTab({
-    super.key,
     required this.value,
     required this.child,
+    super.key,
     this.content,
     this.leading,
     this.trailing,

@@ -103,7 +103,9 @@ class DSRangeSlider extends StatelessWidget {
         disabledInactiveTrackColor: effectiveInactive.withValues(alpha: 0.5),
         overlayColor: effectiveOverlay,
         valueIndicatorColor: effectiveActive,
-        valueIndicatorTextStyle: theme.textTheme.small.copyWith(color: colors.primaryForeground),
+        valueIndicatorTextStyle: theme.textTheme.small.copyWith(
+          color: colors.primaryForeground,
+        ),
         rangeTrackShape: const RoundedRectRangeSliderTrackShape(),
         rangeThumbShape: _DSRangeThumbShape(
           fillColor: effectiveThumb,

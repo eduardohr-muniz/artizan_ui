@@ -14,7 +14,8 @@ class DsCard extends StatelessWidget {
 @widgetbook.UseCase(name: 'Default', type: DsCard)
 Widget cardDefault(BuildContext context) {
   final title = context.knobs.string(label: 'Title', initialValue: 'Notifications');
-  final desc = context.knobs.string(label: 'Description', initialValue: 'You have 3 unread messages.');
+  final desc = context.knobs
+      .string(label: 'Description', initialValue: 'You have 3 unread messages.');
   final showFooter = context.knobs.boolean(label: 'Show footer', initialValue: true);
 
   return ScaffoldBase(
@@ -87,12 +88,15 @@ DSCard(
               leading: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(color: cs.muted, borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(
+                    color: cs.muted, borderRadius: BorderRadius.circular(8)),
                 child: Icon(item.$1, size: 18, color: cs.mutedForeground),
               ),
               title: Text(item.$2, style: const TextStyle(fontWeight: FontWeight.w600)),
               description: Text(item.$3),
-              trailing: Text(item.$4, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
+              trailing: Text(item.$4,
+                  style: TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
             ),
           ),
       ],

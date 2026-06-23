@@ -32,7 +32,8 @@ await showDSDialog(
           context: context,
           builder: (_) => DSDialog(
             title: const Text('Edit profile'),
-            description: const Text('Make changes to your profile here. Click save when done.'),
+            description:
+                const Text('Make changes to your profile here. Click save when done.'),
             actions: [
               DSButton.outline(onPressed: () async {}, child: const Text('Cancel')),
               DSButton(onPressed: () async {}, child: const Text('Save changes')),
@@ -41,7 +42,8 @@ await showDSDialog(
               children: [
                 DSTextFormField(label: Text('Name'), placeholder: Text('João Silva')),
                 SizedBox(height: 12),
-                DSTextFormField(label: Text('Email'), placeholder: Text('joao@email.com')),
+                DSTextFormField(
+                    label: Text('Email'), placeholder: Text('joao@email.com')),
               ],
             ),
           ),

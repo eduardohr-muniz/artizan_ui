@@ -36,8 +36,8 @@ typedef DSMenuBarController = ShadMenubarController;
 /// Widget que encapsula o ShadMenubar
 class DSMenuBar extends StatelessWidget {
   const DSMenuBar({
-    super.key,
     required this.items,
+    super.key,
     this.radius,
     this.controller,
     this.padding,
@@ -84,9 +84,9 @@ class DSMenuBar extends StatelessWidget {
 /// Widget que encapsula o ShadMenubarItem
 class DSMenuBarItem extends StatelessWidget {
   const DSMenuBarItem({
-    super.key,
     required this.child,
     required this.items,
+    super.key,
     this.constraints,
     this.onHoverArea,
     this.padding,

@@ -10,10 +10,10 @@ class DSSegmented<T> extends StatefulWidget {
   final DSSegmentedItem<T> Function(T value) segmentBuilder;
 
   const DSSegmented({
-    super.key,
     required this.selected,
     required this.segments,
     required this.segmentBuilder,
+    super.key,
     this.onSelectionChanged,
     this.multiSelectionEnabled = false,
     this.emptySelectionAllowed = false,
@@ -50,7 +50,9 @@ class _DSSegmentedState<T> extends State<DSSegmented<T>> {
       emptySelectionAllowed: widget.emptySelectionAllowed,
       selectedIcon: const Icon(LucideIcons.check, size: 12),
       style: SegmentedButton.styleFrom(
-        side: BorderSide(color: isDarkTheme ? colorScheme.mutedForeground : colorScheme.border),
+        side: BorderSide(
+          color: isDarkTheme ? colorScheme.mutedForeground : colorScheme.border,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         selectedBackgroundColor: isDarkTheme ? colorScheme.muted : colorScheme.background,
         selectedForegroundColor: colorScheme.foreground,
@@ -69,5 +71,11 @@ class _DSSegmentedState<T> extends State<DSSegmented<T>> {
 }
 
 class DSSegmentedItem<T> extends ButtonSegment<T> {
-  const DSSegmentedItem({required super.value, super.icon, super.label, super.tooltip, super.enabled});
+  const DSSegmentedItem({
+    required super.value,
+    super.icon,
+    super.label,
+    super.tooltip,
+    super.enabled,
+  });
 }

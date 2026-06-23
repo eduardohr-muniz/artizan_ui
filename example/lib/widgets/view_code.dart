@@ -6,7 +6,7 @@ import 'package:flutter_highlight/themes/atom-one-dark.dart';
 
 class ViewCode extends StatefulWidget {
   final String code;
-  const ViewCode({super.key, required this.code});
+  const ViewCode({required this.code, super.key});
 
   @override
   State<ViewCode> createState() => _ViewCodeState();
@@ -63,7 +63,8 @@ class _ViewCodeState extends State<ViewCode> {
                   language: 'dart',
                   theme: atomOneDarkTheme,
                   padding: const EdgeInsets.fromLTRB(16, 16, 48, 16),
-                  textStyle: const TextStyle(fontFamily: 'monospace', fontSize: 12, height: 1.5),
+                  textStyle:
+                      const TextStyle(fontFamily: 'monospace', fontSize: 12, height: 1.5),
                 ),
                 Positioned(
                   top: 8,

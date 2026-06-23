@@ -5,8 +5,8 @@ class BaseWidget extends StatelessWidget {
   final Widget child;
   final String title;
   const BaseWidget({
-    super.key,
     required this.child,
+    super.key,
     this.title = '',
   });
 
@@ -30,8 +30,8 @@ class BaseWidgetForm extends StatefulWidget {
   final Widget child;
   final String title;
   const BaseWidgetForm({
-    super.key,
     required this.child,
+    super.key,
     this.title = '',
   });
 

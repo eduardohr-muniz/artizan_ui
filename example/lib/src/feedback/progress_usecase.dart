@@ -14,7 +14,9 @@ class DsProgress extends StatelessWidget {
 @widgetbook.UseCase(name: 'Determinate', type: DsProgress)
 Widget progressDeterminate(BuildContext context) {
   final value = context.knobs.double.slider(
-    label: 'Value', initialValue: 0.6, min: 0, max: 1,
+    label: 'Value',
+    initialValue: 0.6,
+    max: 1,
   );
   final cs = context.dsColors;
 
@@ -27,13 +29,18 @@ DSProgress(value: 0.6, color: context.dsColors.success)''',
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${(value * 100).toInt()}%',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground)),
+        Text(
+          '${(value * 100).toInt()}%',
+          style:
+              TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground),
+        ),
         const SizedBox(height: 8),
         DSProgress(value: value),
         const SizedBox(height: 32),
-        Text('With custom color',
-            style: TextStyle(fontSize: 12, color: cs.mutedForeground)),
+        Text(
+          'With custom color',
+          style: TextStyle(fontSize: 12, color: cs.mutedForeground),
+        ),
         const SizedBox(height: 8),
         DSProgress(value: value, color: cs.success),
         const SizedBox(height: 16),
@@ -55,8 +62,10 @@ DSProgress()''',
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Indeterminate (value: null)',
-            style: TextStyle(fontSize: 12, color: cs.mutedForeground)),
+        Text(
+          'Indeterminate (value: null)',
+          style: TextStyle(fontSize: 12, color: cs.mutedForeground),
+        ),
         const SizedBox(height: 8),
         const DSProgress(),
       ],

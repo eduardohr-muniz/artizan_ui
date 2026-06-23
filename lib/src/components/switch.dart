@@ -29,6 +29,7 @@ class DSSwitch extends StatelessWidget {
   final TextDirection? direction;
 
   const DSSwitch({
+    required this.initialValue,
     super.key,
     this.onSaved,
     this.label,
@@ -40,7 +41,6 @@ class DSSwitch extends StatelessWidget {
     this.enabled = true,
     this.autovalidateMode,
     this.restorationId,
-    required this.initialValue,
     this.decoration,
     this.focusNode,
     this.validator,
@@ -58,7 +58,8 @@ class DSSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveUncheckedTrackColor = context.isDarkTheme ? context.dsColors.mutedForeground : null;
+    final effectiveUncheckedTrackColor =
+        context.isDarkTheme ? context.dsColors.mutedForeground : null;
 
     return ShadSwitchFormField(
       initialValue: initialValue,

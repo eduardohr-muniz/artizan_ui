@@ -30,7 +30,9 @@ DSSwitch(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Switch', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+        Text('Switch',
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
         const SizedBox(height: 16),
         DSSwitch(
           initialValue: true,
@@ -78,7 +80,9 @@ DSCheckBox(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Checkbox', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+        Text('Checkbox',
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
         const SizedBox(height: 16),
         DSCheckBox(
           initialValue: true,
@@ -111,8 +115,9 @@ DSCheckBox(
 @widgetbook.UseCase(name: 'Slider', type: DsControls)
 Widget controlSlider(BuildContext context) {
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
-  final min = context.knobs.double.slider(label: 'Min', initialValue: 0, min: 0, max: 50);
-  final max = context.knobs.double.slider(label: 'Max', initialValue: 100, min: 50, max: 200);
+  final min = context.knobs.double.slider(label: 'Min', max: 50);
+  final max =
+      context.knobs.double.slider(label: 'Max', initialValue: 100, min: 50, max: 200);
   final cs = context.dsColors;
 
   return ScaffoldBase(
@@ -127,13 +132,22 @@ DSSlider(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Slider', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+        Text('Slider',
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
         const SizedBox(height: 16),
-        DSSlider(initialValue: 40, min: min, max: max, enabled: enabled, onChanged: (_) {}),
+        DSSlider(
+            initialValue: 40, min: min, max: max, enabled: enabled, onChanged: (_) {}),
         const SizedBox(height: 24),
         Text('With divisions', style: TextStyle(fontSize: 13, color: cs.mutedForeground)),
         const SizedBox(height: 8),
-        DSSlider(initialValue: 3, min: 1, max: 5, divisions: 4, enabled: enabled, onChanged: (_) {}),
+        DSSlider(
+            initialValue: 3,
+            min: 1,
+            max: 5,
+            divisions: 4,
+            enabled: enabled,
+            onChanged: (_) {}),
       ],
     ),
   );
@@ -144,7 +158,7 @@ DSSlider(
 @widgetbook.UseCase(name: 'Range Slider', type: DsControls)
 Widget controlRangeSlider(BuildContext context) {
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
-  final divisions = context.knobs.boolean(label: 'Divisions', initialValue: false);
+  final divisions = context.knobs.boolean(label: 'Divisions');
   final cs = context.dsColors;
 
   return ScaffoldBase(
@@ -159,7 +173,9 @@ DSRangeSlider(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Range Slider', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
+        Text('Range Slider',
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w600, color: cs.foreground)),
         const SizedBox(height: 16),
         _RangeSliderDemo(
           initial: const RangeValues(20, 70),
