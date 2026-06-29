@@ -158,13 +158,15 @@ class DSCard extends StatelessWidget {
     final theme = DSTheme.of(context);
 
     final effectivePadding =
-        padding ??
-        theme.cardTheme.padding ??
-        const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
+        padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
+
     final effectiveBackgroundColor =
         backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;
+
     final effectiveRadius = radius ?? theme.cardTheme.radius ?? theme.radius;
+
     final effectiveBorder = border ?? BoxBorder.all(color: theme.colorScheme.border);
+
     final effectiveShadows = shadows ?? theme.cardTheme.shadows;
 
     final effectiveRowMainAxisSize =
@@ -199,8 +201,6 @@ class DSCard extends StatelessWidget {
       width: width,
       height: height,
       padding: effectivePadding,
-
-      // clipBehavior: effectiveClipBehavior,
       decoration: BoxDecoration(
         color: effectiveBackgroundColor,
         borderRadius: effectiveRadius,
@@ -214,11 +214,12 @@ class DSCard extends StatelessWidget {
         spacing: 12,
         children: [
           if (leading != null) leading!,
-          Flexible(
+          Expanded(
             child: Column(
               mainAxisSize: effectiveColumnMainAxisSize,
               crossAxisAlignment: effectiveColumnCrossAxisAlignment,
               mainAxisAlignment: effectiveColumnMainAxisAlignment,
+
               children: [
                 if (title != null)
                   DefaultTextStyle(
@@ -228,7 +229,12 @@ class DSCard extends StatelessWidget {
                     child: title!,
                   ),
                 if (description != null)
-                  DefaultTextStyle(style: theme.textTheme.muted, child: description!),
+                  DefaultTextStyle(
+                    style: theme.textTheme.muted.copyWith(
+                      color: theme.colorScheme.mutedForeground,
+                    ),
+                    child: description!,
+                  ),
                 if (child != null) Flexible(child: child!),
                 if (footer != null) footer!,
               ],

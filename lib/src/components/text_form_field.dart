@@ -355,7 +355,7 @@ class _DSTextFormFieldState extends State<DSTextFormField> {
   }
 
   void Function(String v)? _onChanged(String v) {
-    widget.onChanged ?? widget.onChanged!(v);
+    widget.onChanged?.call(v);
     if (widget.formController != null && widget.formController!.formaters.length > 1) {
       final newValue = widget.formController!.helper.updateMask(
         value: v,

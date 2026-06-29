@@ -22,14 +22,15 @@ import 'package:example/src/forms/select_usecase.dart' as _i10;
 import 'package:example/src/forms/text_field_usecase.dart' as _i11;
 import 'package:example/src/foundation/colors_usecase.dart' as _i13;
 import 'package:example/src/foundation/typography_usecase.dart' as _i12;
+import 'package:example/src/layout/card_dotted_usecase.dart' as _i16;
 import 'package:example/src/layout/card_usecase.dart' as _i15;
 import 'package:example/src/layout/separator_badge_usecase.dart' as _i14;
-import 'package:example/src/navigation/breadcrumb_usecase.dart' as _i16;
-import 'package:example/src/navigation/segmented_usecase.dart' as _i17;
-import 'package:example/src/navigation/tabs_usecase.dart' as _i18;
-import 'package:example/src/overlay/dialog_usecase.dart' as _i19;
-import 'package:example/src/overlay/popover_tooltip_usecase.dart' as _i20;
-import 'package:example/src/overlay/sheet_usecase.dart' as _i21;
+import 'package:example/src/navigation/breadcrumb_usecase.dart' as _i17;
+import 'package:example/src/navigation/segmented_usecase.dart' as _i18;
+import 'package:example/src/navigation/tabs_usecase.dart' as _i19;
+import 'package:example/src/overlay/dialog_usecase.dart' as _i20;
+import 'package:example/src/overlay/popover_tooltip_usecase.dart' as _i21;
+import 'package:example/src/overlay/sheet_usecase.dart' as _i22;
 import 'package:widgetbook/widgetbook.dart' as _i1;
 
 final directories = <_i1.WidgetbookNode>[
@@ -308,6 +309,23 @@ final directories = <_i1.WidgetbookNode>[
           ),
         ],
       ),
+      _i1.WidgetbookComponent(
+        name: 'DsCardDotted',
+        useCases: [
+          _i1.WidgetbookUseCase(
+            name: 'Address (Empty State)',
+            builder: _i16.cardDottedAddressEmpty,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Address (Filled)',
+            builder: _i16.cardDottedAddressFilled,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'Default',
+            builder: _i16.cardDottedDefault,
+          ),
+        ],
+      ),
       _i1.WidgetbookLeafComponent(
         name: 'DsSeparator',
         useCase: _i1.WidgetbookUseCase(
@@ -324,28 +342,28 @@ final directories = <_i1.WidgetbookNode>[
         name: 'DsBreadcrumb',
         useCase: _i1.WidgetbookUseCase(
           name: 'Default',
-          builder: _i16.breadcrumbDefault,
+          builder: _i17.breadcrumbDefault,
         ),
       ),
       _i1.WidgetbookLeafComponent(
         name: 'DsSegmented',
         useCase: _i1.WidgetbookUseCase(
           name: 'Default',
-          builder: _i17.segmentedDefault,
+          builder: _i18.segmentedDefault,
         ),
       ),
       _i1.WidgetbookLeafComponent(
         name: 'DsSegmentedBadge',
         useCase: _i1.WidgetbookUseCase(
           name: 'Badge',
-          builder: _i17.segmentedBadge,
+          builder: _i18.segmentedBadge,
         ),
       ),
       _i1.WidgetbookLeafComponent(
         name: 'DsTabs',
         useCase: _i1.WidgetbookUseCase(
           name: 'Default',
-          builder: _i18.tabsDefault,
+          builder: _i19.tabsDefault,
         ),
       ),
     ],
@@ -358,11 +376,11 @@ final directories = <_i1.WidgetbookNode>[
         useCases: [
           _i1.WidgetbookUseCase(
             name: 'Alert',
-            builder: _i19.dialogAlert,
+            builder: _i20.dialogAlert,
           ),
           _i1.WidgetbookUseCase(
             name: 'Default',
-            builder: _i19.dialogDefault,
+            builder: _i20.dialogDefault,
           ),
         ],
       ),
@@ -370,7 +388,7 @@ final directories = <_i1.WidgetbookNode>[
         name: 'DsPopover',
         useCase: _i1.WidgetbookUseCase(
           name: 'Default',
-          builder: _i20.popoverDefault,
+          builder: _i21.popoverDefault,
         ),
       ),
       _i1.WidgetbookComponent(
@@ -378,11 +396,11 @@ final directories = <_i1.WidgetbookNode>[
         useCases: [
           _i1.WidgetbookUseCase(
             name: 'Edit Profile',
-            builder: _i21.sheetEditProfile,
+            builder: _i22.sheetEditProfile,
           ),
           _i1.WidgetbookUseCase(
             name: 'Invite Member',
-            builder: _i21.sheetInviteMember,
+            builder: _i22.sheetInviteMember,
           ),
         ],
       ),
@@ -390,7 +408,7 @@ final directories = <_i1.WidgetbookNode>[
         name: 'DsTooltip',
         useCase: _i1.WidgetbookUseCase(
           name: 'Tooltip',
-          builder: _i20.tooltipDefault,
+          builder: _i21.tooltipDefault,
         ),
       ),
     ],
