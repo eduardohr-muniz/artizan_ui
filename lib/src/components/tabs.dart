@@ -5,18 +5,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-// typedef DSTabsController = ShadTabsController;
-
-/// Controller para gerenciar a seleção de abas no [DSTabs].
-///
-
 typedef DSTabsController<T> = ShadTabsController<T>;
 
-/// Widget que exibe uma série horizontal de abas com conteúdo associado.
-///
-/// Suporta layouts roláveis e não roláveis, estilização personalizada e gerenciamento de estado.
 class DSTabs<T> extends StatefulWidget implements PreferredSizeWidget {
-  /// Cria um [DSTabs].
   const DSTabs({
     required this.tabs,
     super.key,
@@ -42,55 +33,38 @@ class DSTabs<T> extends StatefulWidget implements PreferredSizeWidget {
          'Either value or controller must be provided',
        );
 
-  /// A aba atualmente selecionada.
   final T? value;
 
-  /// As abas para exibir.
   final List<DSTab<T>> tabs;
 
-  /// O controlador das abas.
   final DSTabsController<T>? controller;
 
-  /// O espaçamento entre a barra de abas e o conteúdo.
   final double? gap;
 
-  /// Se as abas devem ser roláveis, padrão é false.
   final bool? scrollable;
 
-  /// O comportamento de início de arrasto das abas.
   final DragStartBehavior? dragStartBehavior;
 
-  /// A física das abas.
   final ScrollPhysics? physics;
 
-  /// O preenchimento das abas.
   final EdgeInsets? padding;
 
-  /// A decoração das abas.
   final ShadDecoration? decoration;
 
-  /// As restrições da barra de abas.
   final BoxConstraints? tabBarConstraints;
 
-  /// As restrições do conteúdo.
   final BoxConstraints? contentConstraints;
 
-  /// O ID de restauração.
   final String? restorationId;
 
-  /// O callback que é chamado quando o valor das abas muda.
   final ValueChanged<T>? onChanged;
 
-  /// O alinhamento da barra de abas.
   final Alignment? tabBarAlignment;
 
-  /// O espaçamento entre as abas.
   final double? tabsGap;
 
-  /// O alinhamento do conteúdo.
   final Alignment? contentAlignment;
 
-  /// O espaçamento entre o conteúdo e as abas.
   final double? contentGap;
 
   final bool? maintainState;
@@ -152,7 +126,6 @@ class _DSTabsState<T> extends State<DSTabs<T>> {
       orderedValues = widget.tabs.map((e) => e.value).toList();
     }
 
-    // Atualiza o controlador se o valor mudou.
     if (widget.value is T &&
         widget.controller == null &&
         controller.selected != widget.value) {
@@ -167,6 +140,10 @@ class _DSTabsState<T> extends State<DSTabs<T>> {
     super.dispose();
   }
 
+  bool get _hasContent => widget.tabs.any((tab) => tab.content != null);
+
+  double? get _effectiveGap => widget.gap ?? (_hasContent ? null : 0);
+
   ShadButtonSize? _mapSize(DSButtonSize? size) {
     if (size == null) return null;
     return switch (size) {
@@ -178,8 +155,14 @@ class _DSTabsState<T> extends State<DSTabs<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final tabs = _buildShadTabs(context);
+
+    if (_hasContent) return tabs;
+    return IntrinsicHeight(child: tabs);
+  }
+
+  Widget _buildShadTabs(BuildContext context) {
     return ShadTabs<T>(
-      // Passa apenas value OU controller, não ambos (ShadTabs tem assert para isso)
       value: widget.controller != null ? null : controller.selected,
       controller: widget.controller != null ? controller : null,
       tabs:
@@ -240,11 +223,11 @@ class _DSTabsState<T> extends State<DSTabs<T>> {
                 ),
               )
               .toList(),
-      gap: widget.gap,
+      gap: _effectiveGap,
       scrollable: widget.scrollable,
       dragStartBehavior: widget.dragStartBehavior,
       physics: widget.physics,
-      padding: widget.padding,
+      padding: EdgeInsets.zero,
       decoration: widget.decoration,
       tabBarConstraints: widget.tabBarConstraints,
       contentConstraints: widget.contentConstraints,
@@ -260,11 +243,7 @@ class _DSTabsState<T> extends State<DSTabs<T>> {
   }
 }
 
-/// Representa um único item de aba dentro de um widget [DSTabs].
-///
-/// Inclui propriedades para estilização, conteúdo e manipulação de interação.
 class DSTab<T> extends StatelessWidget implements PreferredSizeWidget {
-  /// Cria um [DSTab].
   const DSTab({
     required this.value,
     required this.child,
@@ -320,202 +299,110 @@ class DSTab<T> extends StatelessWidget implements PreferredSizeWidget {
     this.expandContent,
   });
 
-  /// O valor associado a esta aba, usado para seleção e identificação.
   final T value;
 
-  /// O widget para exibir como o rótulo da aba, tipicamente um widget [Text].
   final Widget child;
 
-  /// O widget para exibir como o conteúdo associado a esta aba.
-  ///
-  /// Exibido quando a aba está selecionada.
   final Widget? content;
 
-  /// Um widget para exibir no início da aba, frequentemente um [Icon].
   final Widget? leading;
 
-  /// Um widget para exibir no final da aba.
   final Widget? trailing;
 
-  /// Se a aba está habilitada e pode ser selecionada.
-  ///
-  /// Padrão é true.
   final bool enabled;
 
-  /// Fator flex para a aba quando faz parte de um [Row] em um [DSTabs] não rolável.
-  ///
-  /// Ignorado quando [DSTabs] é rolável. Padrão é 1.
   final int flex;
 
-  /// Altura da aba.
-  ///
-  /// Padrão é 32.
   final double? height;
 
-  /// Largura da aba.
-  ///
-  /// Em [DSTabs] não rolável, padrão é `double.infinity`. Em [DSTabs] rolável,
-  /// padrão é null, permitindo que a aba se ajuste ao seu conteúdo.
   final double? width;
 
-  /// Cor de fundo da aba quando não selecionada.
-  ///
-  /// Padrão é `Colors.transparent`.
   final Color? backgroundColor;
 
-  /// Cor de fundo da aba quando selecionada.
-  ///
-  /// Padrão é a cor de fundo do tema.
   final Color? selectedBackgroundColor;
 
-  /// Cor de fundo quando hover.
-  ///
-  /// Padrão é [backgroundColor].
   final Color? hoverBackgroundColor;
 
-  /// Cor de fundo quando selecionada e hover.
-  ///
-  /// Padrão é [selectedBackgroundColor].
   final Color? selectedHoverBackgroundColor;
 
-  /// Preenchimento dentro da aba.
-  ///
-  /// Padrão é `EdgeInsets.symmetric(horizontal: 12, vertical: 6)`.
   final EdgeInsets? padding;
 
-  /// Decoração para a aba quando não selecionada.
-  ///
-  /// Usa [ShadDecoration].
   final DSDecoration? decoration;
 
-  /// Decoração para a aba quando selecionada.
-  ///
-  /// Padrão é [decoration]. Usa [ShadDecoration].
   final DSDecoration? selectedDecoration;
 
-  /// Cor do primeiro plano (cor do texto/ícone) quando não selecionada.
-  ///
-  /// Padrão é a cor do primeiro plano do tema.
   final Color? foregroundColor;
 
-  /// Cor do primeiro plano quando selecionada.
-  ///
-  /// Padrão é [foregroundColor].
   final Color? selectedForegroundColor;
 
-  /// Estilo de texto para o rótulo da aba.
-  ///
-  /// Padrão é o estilo de texto pequeno do tema.
   final TextStyle? textStyle;
 
-  /// Sombras para a aba quando não selecionada.
-  ///
-  /// Padrão são sombras pequenas ([ShadShadows.sm]).
   final List<BoxShadow>? shadows;
 
-  /// Sombras para a aba quando selecionada.
-  ///
-  /// Padrão são sombras pequenas ([ShadShadows.sm]).
   final List<BoxShadow>? selectedShadows;
 
-  /// Nó de foco para controlar o estado de foco da aba.
-  ///
-  /// Se null, um [FocusNode] interno é criado.
   final FocusNode? focusNode;
 
-  /// Callback para eventos de toque na aba.
   final VoidCallback? onPressed;
 
-  /// Callback para eventos de toque longo na aba.
   final VoidCallback? onLongPress;
 
-  /// Configuração de tamanho para a aba, usa [ShadButtonSize].
   final DSButtonSize? size;
 
-  /// Cursor do mouse ao passar o mouse sobre a aba.
   final MouseCursor? cursor;
 
-  /// Cor do primeiro plano quando hover.
   final Color? hoverForegroundColor;
 
-  /// Se a aba deve focar automaticamente na construção.
-  ///
-  /// Padrão é false.
   final bool autofocus;
 
-  /// Cor de fundo quando pressionada.
   final Color? pressedBackgroundColor;
 
-  /// Cor do primeiro plano quando pressionada.
   final Color? pressedForegroundColor;
 
-  /// Gradiente de fundo para a aba.
   final Gradient? gradient;
 
-  /// Decoração de texto para o rótulo da aba.
   final TextDecoration? textDecoration;
 
-  /// Decoração de texto quando hover.
   final TextDecoration? hoverTextDecoration;
 
-  /// Controlador de estados personalizado para gerenciar estados da aba.
   final ShadStatesController? statesController;
 
-  /// Alinhamento principal do botão.
   final MainAxisAlignment? mainAxisAlignment;
 
-  /// Alinhamento cruzado do botão.
   final CrossAxisAlignment? crossAxisAlignment;
 
-  /// Estratégias de hover do botão.
   final ShadHoverStrategies? hoverStrategies;
 
-  /// Callback para mudanças de hover.
   final ValueChanged<bool>? onHoverChange;
 
-  /// Callback para toque para baixo.
   final ValueChanged<TapDownDetails>? onTapDown;
 
-  /// Callback para toque para cima.
   final ValueChanged<TapUpDetails>? onTapUp;
 
-  /// Callback para cancelamento de toque.
   final VoidCallback? onTapCancel;
 
-  /// Callback para início de toque longo.
   final ValueChanged<LongPressStartDetails>? onLongPressStart;
 
-  /// Callback para cancelamento de toque longo.
   final VoidCallback? onLongPressCancel;
 
-  /// Callback para toque longo para cima.
   final VoidCallback? onLongPressUp;
 
-  /// Callback para toque longo para baixo.
   final ValueChanged<LongPressDownDetails>? onLongPressDown;
 
-  /// Callback para fim de toque longo.
   final ValueChanged<LongPressEndDetails>? onLongPressEnd;
 
-  /// Callback para duplo toque.
   final VoidCallback? onDoubleTap;
 
-  /// Callback para duplo toque para baixo.
   final ValueChanged<TapDownDetails>? onDoubleTapDown;
 
-  /// Callback para cancelamento de duplo toque.
   final VoidCallback? onDoubleTapCancel;
 
-  /// Duração do toque longo.
   final Duration? longPressDuration;
 
-  /// Se o conteúdo da aba deve ser expandido, padrão é `false`.
   final bool? expandContent;
 
   @override
   Widget build(BuildContext context) {
-    // Este widget é apenas uma definição de dados
-    // A renderização real é feita pelo DSTabs
     return const SizedBox.shrink();
   }
 
