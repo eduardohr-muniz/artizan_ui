@@ -1,12 +1,12 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 
 class BaseWidget extends StatelessWidget {
   final Widget child;
   final String title;
   const BaseWidget({
-    super.key,
     required this.child,
+    super.key,
     this.title = '',
   });
 
@@ -30,8 +30,8 @@ class BaseWidgetForm extends StatefulWidget {
   final Widget child;
   final String title;
   const BaseWidgetForm({
-    super.key,
     required this.child,
+    super.key,
     this.title = '',
   });
 
@@ -59,7 +59,7 @@ class _BaseWidgetFormState extends State<BaseWidgetForm> {
               Row(
                 children: [
                   Expanded(
-                    child: ArtButton.outline(
+                    child: DSButton.outline(
                       // expands: true,
                       onPressed: () {
                         formKey.currentState!.reset();
@@ -68,7 +68,7 @@ class _BaseWidgetFormState extends State<BaseWidgetForm> {
                     ),
                   ),
                   Expanded(
-                    child: ArtButton(
+                    child: DSButton(
                       // expands: true,
                       onPressed: () {
                         if (formKey.currentState!.validate()) {}

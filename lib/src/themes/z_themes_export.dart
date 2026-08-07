@@ -8,6 +8,7 @@ export './color_scheme/green.dart';
 export './color_scheme/neutral.dart';
 export './color_scheme/orange.dart';
 export './color_scheme/paip.dart';
+export './color_scheme/primitives.dart';
 export './color_scheme/red.dart';
 export './color_scheme/rose.dart';
 export './color_scheme/slate.dart';

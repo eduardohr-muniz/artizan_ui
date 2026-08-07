@@ -1,29 +1,29 @@
 import 'dart:ui';
 
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-/// Variants available for the [ArtDatePicker] widget.
-enum ArtDatePickerVariant { single, range }
+/// Variants available for the [DSDatePicker] widget.
+enum DSDatePickerVariant { single, range }
 
-typedef ArtDateTimeRange = ShadDateTimeRange;
-typedef ArtCalendarCaptionLayout = ShadCalendarCaptionLayout;
+typedef DSDateTimeRange = ShadDateTimeRange;
+typedef DSCalendarCaptionLayout = ShadCalendarCaptionLayout;
 
 /// A customizable date picker widget with a button and popover calendar.
 ///
-/// The [ArtDatePicker] widget combines a button with a popover calendar,
+/// The [DSDatePicker] widget combines a button with a popover calendar,
 /// allowing users to select a single date or a date range. It supports
 /// extensive customization for both the button and calendar, integrating with
-/// [ArtTheme] for consistent styling. Use named constructors like
-/// [ArtDatePicker.range] for range selection or [ArtDatePicker.raw] for full
+/// [DSTheme] for consistent styling. Use named constructors like
+/// [DSDatePicker.range] for range selection or [DSDatePicker.raw] for full
 /// control.
 
-class ArtDatePicker extends StatefulWidget {
+class DSDatePicker extends StatefulWidget {
   /// Creates a single-date picker widget with a button and popover calendar.
-  const ArtDatePicker({
+  const DSDatePicker({
     super.key,
     this.id,
     this.label,
@@ -174,7 +174,7 @@ class ArtDatePicker extends StatefulWidget {
     this.expands,
     this.popoverReverseDuration,
     this.buttonTextStyle,
-  }) : variant = ArtDatePickerVariant.single,
+  }) : variant = DSDatePickerVariant.single,
        formatDateRange = null,
        selectedRange = null,
        rangeValidator = null,
@@ -183,7 +183,7 @@ class ArtDatePicker extends StatefulWidget {
        fromValueTransformerRange = null;
 
   /// Creates a date range picker widget with a button and popover calendar.
-  const ArtDatePicker.range({
+  const DSDatePicker.range({
     super.key,
     this.id,
     this.label,
@@ -199,7 +199,7 @@ class ArtDatePicker extends StatefulWidget {
     this.fromValueTransformerRange,
     this.popoverController,
     this.placeholder,
-    ArtDateTimeRange? selected,
+    DSDateTimeRange? selected,
     this.formatDateRange,
     this.closeOnSelection,
     this.allowDeselection,
@@ -334,7 +334,7 @@ class ArtDatePicker extends StatefulWidget {
     this.expands,
     this.popoverReverseDuration,
     this.buttonTextStyle,
-  }) : variant = ArtDatePickerVariant.range,
+  }) : variant = DSDatePickerVariant.range,
        selected = null,
        formatDate = null,
        selectedRange = selected,
@@ -345,9 +345,9 @@ class ArtDatePicker extends StatefulWidget {
 
   /// Creates a date picker widget with a specified [variant], offering full
   /// customization.
-  const ArtDatePicker.raw({
-    super.key,
+  const DSDatePicker.raw({
     required this.variant,
+    super.key,
     this.id,
     this.label,
     this.description,
@@ -508,14 +508,14 @@ class ArtDatePicker extends StatefulWidget {
   /// The placeholder of the date picker, shown when no date is selected.
   final Widget? placeholder;
 
-  /// The [ArtPopoverController] to use.
-  final ArtPopoverController? popoverController;
+  /// The [DSPopoverController] to use.
+  final DSPopoverController? popoverController;
 
   /// The selected date, defaults to `null`.
   final DateTime? selected;
 
   /// The selected range, defaults to `null`.
-  final ArtDateTimeRange? selectedRange;
+  final DSDateTimeRange? selectedRange;
 
   /// Whether to close the popover when a date is selected.
   /// Defaults to `true`.
@@ -525,13 +525,13 @@ class ArtDatePicker extends StatefulWidget {
   final String Function(DateTime)? formatDate;
 
   /// A function that formats the selected date range.
-  final String Function(ArtDateTimeRange)? formatDateRange;
+  final String Function(DSDateTimeRange)? formatDateRange;
 
   /// Whether to allow deselection of the selected date.
   final bool? allowDeselection;
 
   /// The variant of the date picker.
-  final ArtDatePickerVariant variant;
+  final DSDatePickerVariant variant;
 
   /// Optional form field id for [ShadForm] integration.
   final String? id;
@@ -560,26 +560,26 @@ class ArtDatePicker extends StatefulWidget {
   /// Validator for single-date variant. [DateTime?] → error message or null.
   final String? Function(DateTime?)? validator;
 
-  /// Validator for range variant. [ArtDateTimeRange?] → error message or null.
-  final String? Function(ArtDateTimeRange?)? rangeValidator;
+  /// Validator for range variant. [DSDateTimeRange?] → error message or null.
+  final String? Function(DSDateTimeRange?)? rangeValidator;
 
   /// Called when form is saved (single-date value).
   final void Function(DateTime?)? onSaved;
 
   /// Called when form is saved (range value).
-  final void Function(ArtDateTimeRange?)? onSavedRange;
+  final void Function(DSDateTimeRange?)? onSavedRange;
 
   /// Transforms value before save/processing (single-date).
   final dynamic Function(DateTime?)? toValueTransformer;
 
   /// Transforms value before save/processing (range).
-  final dynamic Function(ArtDateTimeRange?)? toValueTransformerRange;
+  final dynamic Function(DSDateTimeRange?)? toValueTransformerRange;
 
   /// Transforms external value into field value (single-date).
   final DateTime? Function(dynamic)? fromValueTransformer;
 
   /// Transforms external value into field value (range).
-  final ArtDateTimeRange? Function(dynamic)? fromValueTransformerRange;
+  final DSDateTimeRange? Function(dynamic)? fromValueTransformerRange;
 
   /// The header of the date picker.
   final Widget? header;
@@ -592,7 +592,7 @@ class ArtDatePicker extends StatefulWidget {
 
   /// The decoration of the calendar.
   /// Defaults to `ShadDecoration.none`.
-  final ArtDecoration? calendarDecoration;
+  final DSDecoration? calendarDecoration;
 
   /// {@macro ShadPopover.padding}
   final EdgeInsetsGeometry? popoverPadding;
@@ -661,10 +661,10 @@ class ArtDatePicker extends StatefulWidget {
   final bool Function(DateTime day)? selectableDayPredicate;
 
   /// {@macro ShadCalendar.onRangeChanged}
-  final ValueChanged<ArtDateTimeRange?>? onRangeChanged;
+  final ValueChanged<DSDateTimeRange?>? onRangeChanged;
 
   /// {@macro ShadCalendar.captionLayout}
-  final ArtCalendarCaptionLayout? captionLayout;
+  final DSCalendarCaptionLayout? captionLayout;
 
   /// {@macro ShadCalendar.hideNavigation}
   final bool? hideNavigation;
@@ -700,7 +700,7 @@ class ArtDatePicker extends StatefulWidget {
   final double? navigationButtonDisabledOpacity;
 
   /// {@macro ShadCalendar.decoration}
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
 
   /// {@macro ShadCalendar.spacingBetweenMonths}
   final double? spacingBetweenMonths;
@@ -754,7 +754,7 @@ class ArtDatePicker extends StatefulWidget {
   final EdgeInsetsGeometry? dayButtonPadding;
 
   /// {@macro ShadCalendar.dayButtonDecoration}
-  final ArtDecoration? dayButtonDecoration;
+  final DSDecoration? dayButtonDecoration;
 
   /// {@macro ShadCalendar.selectedDayButtonTextStyle}
   final TextStyle? selectedDayButtonTextStyle;
@@ -766,16 +766,16 @@ class ArtDatePicker extends StatefulWidget {
   final TextStyle? dayButtonTextStyle;
 
   /// {@macro ShadCalendar.dayButtonVariant}
-  final ArtButtonVariant? dayButtonVariant;
+  final DSButtonVariant? dayButtonVariant;
 
   /// {@macro ShadCalendar.selectedDayButtonVariant}
-  final ArtButtonVariant? selectedDayButtonVariant;
+  final DSButtonVariant? selectedDayButtonVariant;
 
   /// {@macro ShadCalendar.insideRangeDayButtonVariant}
-  final ArtButtonVariant? insideRangeDayButtonVariant;
+  final DSButtonVariant? insideRangeDayButtonVariant;
 
   /// {@macro ShadCalendar.todayButtonVariant}
-  final ArtButtonVariant? todayButtonVariant;
+  final DSButtonVariant? todayButtonVariant;
 
   /// {@macro ShadCalendar.gridMainAxisSpacing}
   final double? gridMainAxisSpacing;
@@ -787,10 +787,10 @@ class ArtDatePicker extends StatefulWidget {
   final TextStyle? dayButtonOutsideMonthTextStyle;
 
   /// {@macro ShadCalendar.dayButtonOutsideMonthVariant}
-  final ArtButtonVariant? dayButtonOutsideMonthVariant;
+  final DSButtonVariant? dayButtonOutsideMonthVariant;
 
   /// {@macro ShadCalendar.selectedDayButtonOusideMonthVariant}
-  final ArtButtonVariant? selectedDayButtonOusideMonthVariant;
+  final DSButtonVariant? selectedDayButtonOusideMonthVariant;
 
   // ---
   // POPOVER
@@ -803,7 +803,7 @@ class ArtDatePicker extends StatefulWidget {
   final FocusNode? focusNode;
 
   ///{@macro ShadPopover.anchor}
-  final ArtAnchorBase? anchor;
+  final DSAnchorBase? anchor;
 
   /// {@macro ShadPopover.effects}
   final List<Effect<dynamic>>? effects;
@@ -812,7 +812,7 @@ class ArtDatePicker extends StatefulWidget {
   final List<BoxShadow>? shadows;
 
   /// {@macro ShadPopover.decoration}
-  final ArtDecoration? popoverDecoration;
+  final DSDecoration? popoverDecoration;
 
   /// {@macro ShadPopover.filter}
   final ImageFilter? filter;
@@ -849,10 +849,10 @@ class ArtDatePicker extends StatefulWidget {
   final Widget? buttonChild;
 
   /// {@macro ShadButton.variant}
-  final ArtButtonVariant? buttonVariant;
+  final DSButtonVariant? buttonVariant;
 
   /// {@macro ShadButton.size}
-  final ArtButtonSize? size;
+  final DSButtonSize? size;
 
   /// {@macro ShadButton.cursor}
   final MouseCursor? cursor;
@@ -903,7 +903,7 @@ class ArtDatePicker extends StatefulWidget {
   final TextDecoration? hoverTextDecoration;
 
   /// {@macro ShadButton.decoration}
-  final ArtDecoration? buttonDecoration;
+  final DSDecoration? buttonDecoration;
 
   /// {@macro ShadButton.enabled}
   final bool enabled;
@@ -921,7 +921,7 @@ class ArtDatePicker extends StatefulWidget {
   final CrossAxisAlignment? crossAxisAlignment;
 
   /// {@macro ShadButton.hoverStrategies}
-  final ArtHoverStrategies? hoverStrategies;
+  final DSHoverStrategies? hoverStrategies;
 
   /// {@macro ShadButton.onHoverChange}
   final ValueChanged<bool>? onHoverChange;
@@ -984,28 +984,28 @@ class ArtDatePicker extends StatefulWidget {
   final TextStyle? buttonTextStyle;
 
   @override
-  State<ArtDatePicker> createState() => _ArtDatePickerState();
+  State<DSDatePicker> createState() => _DSDatePickerState();
 }
 
-class _ArtDatePickerState extends State<ArtDatePicker> {
-  ShadButtonVariant? _mapButtonVariant(ArtButtonVariant? variant) {
+class _DSDatePickerState extends State<DSDatePicker> {
+  ShadButtonVariant? _mapButtonVariant(DSButtonVariant? variant) {
     if (variant == null) return null;
     return variant.shadVariant;
   }
 
-  ShadButtonSize? _mapSize(ArtButtonSize? size) {
+  ShadButtonSize? _mapSize(DSButtonSize? size) {
     if (size == null) return null;
     return switch (size) {
-      ArtButtonSize.regular => ShadButtonSize.regular,
-      ArtButtonSize.sm => ShadButtonSize.sm,
-      ArtButtonSize.lg => ShadButtonSize.lg,
+      DSButtonSize.regular => ShadButtonSize.regular,
+      DSButtonSize.sm => ShadButtonSize.sm,
+      DSButtonSize.lg => ShadButtonSize.lg,
     };
   }
 
   @override
   Widget build(BuildContext context) {
     switch (widget.variant) {
-      case ArtDatePickerVariant.single:
+      case DSDatePickerVariant.single:
         return ShadDatePickerFormField(
           key: widget.key,
           id: widget.id,
@@ -1066,11 +1066,9 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
           navigationButtonSize: widget.navigationButtonSize,
           navigationButtonIconSize: widget.navigationButtonIconSize,
           backNavigationButtonIconData: widget.backNavigationButtonIconData,
-          forwardNavigationButtonIconData:
-              widget.forwardNavigationButtonIconData,
+          forwardNavigationButtonIconData: widget.forwardNavigationButtonIconData,
           navigationButtonPadding: widget.navigationButtonPadding,
-          navigationButtonDisabledOpacity:
-              widget.navigationButtonDisabledOpacity,
+          navigationButtonDisabledOpacity: widget.navigationButtonDisabledOpacity,
           spacingBetweenMonths: widget.spacingBetweenMonths,
           runSpacingBetweenMonths: widget.runSpacingBetweenMonths,
           monthConstraints: widget.monthConstraints,
@@ -1098,9 +1096,7 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
           selectedDayButtonTextStyle: widget.selectedDayButtonTextStyle,
           dayButtonTextStyle: widget.dayButtonTextStyle,
           dayButtonVariant: _mapButtonVariant(widget.dayButtonVariant),
-          selectedDayButtonVariant: _mapButtonVariant(
-            widget.selectedDayButtonVariant,
-          ),
+          selectedDayButtonVariant: _mapButtonVariant(widget.selectedDayButtonVariant),
           todayButtonVariant: _mapButtonVariant(widget.todayButtonVariant),
           gridMainAxisSpacing: widget.gridMainAxisSpacing,
           gridCrossAxisSpacing: widget.gridCrossAxisSpacing,
@@ -1170,7 +1166,7 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
           expands: widget.expands,
           buttonTextStyle: widget.buttonTextStyle,
         );
-      case ArtDatePickerVariant.range:
+      case DSDatePickerVariant.range:
         return ShadDateRangePickerFormField(
           key: widget.key,
           id: widget.id,
@@ -1231,11 +1227,9 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
           navigationButtonSize: widget.navigationButtonSize,
           navigationButtonIconSize: widget.navigationButtonIconSize,
           backNavigationButtonIconData: widget.backNavigationButtonIconData,
-          forwardNavigationButtonIconData:
-              widget.forwardNavigationButtonIconData,
+          forwardNavigationButtonIconData: widget.forwardNavigationButtonIconData,
           navigationButtonPadding: widget.navigationButtonPadding,
-          navigationButtonDisabledOpacity:
-              widget.navigationButtonDisabledOpacity,
+          navigationButtonDisabledOpacity: widget.navigationButtonDisabledOpacity,
           spacingBetweenMonths: widget.spacingBetweenMonths,
           runSpacingBetweenMonths: widget.runSpacingBetweenMonths,
           monthConstraints: widget.monthConstraints,
@@ -1264,9 +1258,7 @@ class _ArtDatePickerState extends State<ArtDatePicker> {
           insideRangeDayButtonTextStyle: widget.insideRangeDayButtonTextStyle,
           dayButtonTextStyle: widget.dayButtonTextStyle,
           dayButtonVariant: _mapButtonVariant(widget.dayButtonVariant),
-          selectedDayButtonVariant: _mapButtonVariant(
-            widget.selectedDayButtonVariant,
-          ),
+          selectedDayButtonVariant: _mapButtonVariant(widget.selectedDayButtonVariant),
           insideRangeDayButtonVariant: _mapButtonVariant(
             widget.insideRangeDayButtonVariant,
           ),

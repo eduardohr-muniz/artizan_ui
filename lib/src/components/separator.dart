@@ -1,44 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-/// Variantes disponíveis para o widget ArtSeparator
-enum ArtSeparatorVariant {
+/// Variantes disponíveis para o widget DSSeparator
+enum DSSeparatorVariant {
   vertical(ShadSeparatorVariant.vertical),
   horizontal(ShadSeparatorVariant.horizontal);
 
   final ShadSeparatorVariant shadVariant;
 
-  const ArtSeparatorVariant(this.shadVariant);
+  const DSSeparatorVariant(this.shadVariant);
 }
 
 /// Widget personalizável que suporta separadores horizontais e verticais
 ///
 /// Tipicamente usado para separar conteúdo ou seções de linhas, colunas ou listas.
-class ArtSeparator extends StatelessWidget {
+class DSSeparator extends StatelessWidget {
   /// Cria um separador vertical
-  const ArtSeparator.vertical({
+  const DSSeparator.vertical({
     this.margin,
     this.thickness,
     this.color,
     this.radius,
     super.key,
-  }) : variant = ArtSeparatorVariant.vertical;
+  }) : variant = DSSeparatorVariant.vertical;
 
   /// Cria um separador horizontal
-  const ArtSeparator.horizontal({
+  const DSSeparator.horizontal({
     this.margin,
     this.thickness,
     this.color,
     this.radius,
     super.key,
-  }) : variant = ArtSeparatorVariant.horizontal;
+  }) : variant = DSSeparatorVariant.horizontal;
 
   /// Cria um separador com uma variante especificada
-  const ArtSeparator.raw({
+  const DSSeparator.raw({
+    required this.variant,
     this.margin,
     this.thickness,
     this.color,
-    required this.variant,
     this.radius,
     super.key,
   });
@@ -54,7 +54,7 @@ class ArtSeparator extends StatelessWidget {
   final Color? color;
 
   /// A variante do separador
-  final ArtSeparatorVariant variant;
+  final DSSeparatorVariant variant;
 
   /// A quantidade de raio para a borda do separador
   final BorderRadiusGeometry? radius;

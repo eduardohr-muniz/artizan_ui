@@ -1,8 +1,8 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class ArtSwitch extends StatelessWidget {
+class DSSwitch extends StatelessWidget {
   final void Function(bool?)? onSaved;
   final Widget? label;
   final Widget Function(String)? error;
@@ -28,7 +28,8 @@ class ArtSwitch extends StatelessWidget {
   final EdgeInsets? padding;
   final TextDirection? direction;
 
-  const ArtSwitch({
+  const DSSwitch({
+    required this.initialValue,
     super.key,
     this.onSaved,
     this.label,
@@ -40,7 +41,6 @@ class ArtSwitch extends StatelessWidget {
     this.enabled = true,
     this.autovalidateMode,
     this.restorationId,
-    required this.initialValue,
     this.decoration,
     this.focusNode,
     this.validator,
@@ -58,7 +58,8 @@ class ArtSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveUncheckedTrackColor = context.isDarkTheme ? context.artColorScheme.mutedForeground : null;
+    final effectiveUncheckedTrackColor =
+        context.isDarkTheme ? context.dsColors.mutedForeground : null;
 
     return ShadSwitchFormField(
       initialValue: initialValue,
@@ -80,7 +81,7 @@ class ArtSwitch extends StatelessWidget {
       onReset: onReset,
       onChanged: onChanged,
       onSaved: onSaved,
-      valueTransformer: valueTransformer,
+      toValueTransformer: valueTransformer,
       label: label,
       description: description,
       restorationId: restorationId,

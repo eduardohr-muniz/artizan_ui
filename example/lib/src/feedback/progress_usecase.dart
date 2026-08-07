@@ -1,0 +1,74 @@
+import 'package:ds_ui/ds_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:widgetbook/widgetbook.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+
+import '../../widgets/scaffold_base.dart';
+
+class DsProgress extends StatelessWidget {
+  const DsProgress({super.key});
+  @override
+  Widget build(BuildContext context) => const SizedBox.shrink();
+}
+
+@widgetbook.UseCase(name: 'Determinate', type: DsProgress)
+Widget progressDeterminate(BuildContext context) {
+  final value = context.knobs.double.slider(
+    label: 'Value',
+    initialValue: 0.6,
+    max: 1,
+  );
+  final cs = context.dsColors;
+
+  return ScaffoldBase(
+    scrollable: true,
+    code: '''
+DSProgress(value: 0.6)
+DSProgress(value: 0.6, color: context.dsColors.success)''',
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${(value * 100).toInt()}%',
+          style:
+              TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: cs.foreground),
+        ),
+        const SizedBox(height: 8),
+        DSProgress(value: value),
+        const SizedBox(height: 32),
+        Text(
+          'With custom color',
+          style: TextStyle(fontSize: 12, color: cs.mutedForeground),
+        ),
+        const SizedBox(height: 8),
+        DSProgress(value: value, color: cs.success),
+        const SizedBox(height: 16),
+        DSProgress(value: value, color: cs.warning),
+        const SizedBox(height: 16),
+        DSProgress(value: value, color: cs.destructive),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Indeterminate', type: DsProgress)
+Widget progressIndeterminate(BuildContext context) {
+  final cs = context.dsColors;
+  return ScaffoldBase(
+    code: '''
+// value: null → indeterminate
+DSProgress()''',
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Indeterminate (value: null)',
+          style: TextStyle(fontSize: 12, color: cs.mutedForeground),
+        ),
+        const SizedBox(height: 8),
+        const DSProgress(),
+      ],
+    ),
+  );
+}

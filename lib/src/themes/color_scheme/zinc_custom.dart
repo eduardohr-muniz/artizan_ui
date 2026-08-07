@@ -1,8 +1,8 @@
+import 'package:ds_ui/src/themes/color_scheme/base.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shadcn_ui/shadcn_ui.dart';
 
-class ArtZincCustomColorScheme extends ShadColorScheme {
-  const ArtZincCustomColorScheme({
+class DSZincCustomColorScheme extends DSColorScheme {
+  const DSZincCustomColorScheme({
     required super.background,
     required super.foreground,
     required super.card,
@@ -24,9 +24,15 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
     required super.ring,
     required super.selection,
     super.custom,
+    super.success,
+    super.successForeground,
+    super.warning,
+    super.warningForeground,
+    super.info,
+    super.infoForeground,
   });
 
-  const ArtZincCustomColorScheme.light({
+  const DSZincCustomColorScheme.light({
     super.background = const Color(0xFFFFFFFF),
     super.foreground = const Color(0xff09090b),
     super.card = const Color(0xffffffff),
@@ -50,7 +56,7 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
     super.custom,
   });
 
-  const ArtZincCustomColorScheme.dark({
+  const DSZincCustomColorScheme.dark({
     super.background = const Color(0xff09090b),
     super.foreground = const Color(0xfffafafa),
     super.card = const Color(0xff09090b),
@@ -75,7 +81,7 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
   });
 
   @override
-  ArtZincCustomColorScheme copyWith({
+  DSZincCustomColorScheme copyWith({
     Color? background,
     Color? foreground,
     Color? card,
@@ -97,8 +103,14 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
     Color? ring,
     Color? selection,
     Map<String, Color>? custom,
+    Color? success,
+    Color? successForeground,
+    Color? warning,
+    Color? warningForeground,
+    Color? info,
+    Color? infoForeground,
   }) {
-    return ArtZincCustomColorScheme(
+    return DSZincCustomColorScheme(
       background: background ?? this.background,
       foreground: foreground ?? this.foreground,
       card: card ?? this.card,
@@ -120,6 +132,12 @@ class ArtZincCustomColorScheme extends ShadColorScheme {
       ring: ring ?? this.ring,
       selection: selection ?? this.selection,
       custom: custom ?? this.custom,
+      success: success ?? this.success,
+      successForeground: successForeground ?? this.successForeground,
+      warning: warning ?? this.warning,
+      warningForeground: warningForeground ?? this.warningForeground,
+      info: info ?? this.info,
+      infoForeground: infoForeground ?? this.infoForeground,
     );
   }
 }

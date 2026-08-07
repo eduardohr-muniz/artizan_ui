@@ -1,42 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-enum ArtDividerVariant {
-  vertical,
-  horizontal;
-}
+enum DSDividerVariant { vertical, horizontal }
 
-class ArtDivider extends StatelessWidget {
+class DSDivider extends StatelessWidget {
   final EdgeInsets? margin;
 
   final double? thickness;
 
   final Color? color;
 
-  final ArtDividerVariant variant;
+  final DSDividerVariant variant;
 
   final BorderRadiusGeometry? radius;
 
-  const ArtDivider.vertical({
+  const DSDivider.vertical({
     this.margin,
     this.thickness,
     this.color,
     this.radius,
     super.key,
-  }) : variant = ArtDividerVariant.vertical;
+  }) : variant = DSDividerVariant.vertical;
 
-  const ArtDivider.horizontal({
+  const DSDivider.horizontal({
     this.margin,
     this.thickness,
     this.color,
     this.radius,
     super.key,
-  }) : variant = ArtDividerVariant.horizontal;
+  }) : variant = DSDividerVariant.horizontal;
 
   @override
   Widget build(BuildContext context) {
     return ShadSeparator.raw(
-      variant: _buildShadSeparatorVariantFromArtDividerVariant(variant),
+      variant: _buildShadSeparatorVariantFromDSDividerVariant(variant),
       color: color,
       thickness: thickness,
       margin: margin,
@@ -44,11 +41,13 @@ class ArtDivider extends StatelessWidget {
     );
   }
 
-  ShadSeparatorVariant _buildShadSeparatorVariantFromArtDividerVariant(ArtDividerVariant variant) {
+  ShadSeparatorVariant _buildShadSeparatorVariantFromDSDividerVariant(
+    DSDividerVariant variant,
+  ) {
     switch (variant) {
-      case ArtDividerVariant.vertical:
+      case DSDividerVariant.vertical:
         return ShadSeparatorVariant.vertical;
-      case ArtDividerVariant.horizontal:
+      case DSDividerVariant.horizontal:
         return ShadSeparatorVariant.horizontal;
     }
   }

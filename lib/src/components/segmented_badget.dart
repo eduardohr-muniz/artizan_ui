@@ -1,13 +1,42 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/widgets.dart';
 
-class ArtSegmentedBadge<T> extends StatelessWidget {
+class DSSegmentedBadge<T> extends StatefulWidget {
   final T value;
   final List<T> options;
   final Function(T value) onChanged;
   final Widget Function(T value) childBuilder;
   final Widget? label;
-  const ArtSegmentedBadge({required this.value, required this.options, required this.onChanged, required this.childBuilder, this.label, super.key});
+
+  const DSSegmentedBadge({
+    required this.value,
+    required this.options,
+    required this.onChanged,
+    required this.childBuilder,
+    this.label,
+    super.key,
+  });
+
+  @override
+  State<DSSegmentedBadge<T>> createState() => _DSSegmentedBadgeState<T>();
+}
+
+class _DSSegmentedBadgeState<T> extends State<DSSegmentedBadge<T>> {
+  late T _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
+  }
+
+  @override
+  void didUpdateWidget(DSSegmentedBadge<T> old) {
+    super.didUpdateWidget(old);
+    if (old.value != widget.value) {
+      _value = widget.value;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,33 +45,50 @@ class ArtSegmentedBadge<T> extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
       children: [
-        if (label != null) DefaultTextStyle(style: context.artTextTheme.muted.copyWith(color: context.artColorScheme.foreground, fontWeight: FontWeight.w600), child: label!),
+        if (widget.label != null)
+          DefaultTextStyle(
+            style: DSTheme.of(
+              context,
+            ).textTheme.muted.copyWith(
+              color: context.dsColors.foreground,
+              fontWeight: FontWeight.w600,
+            ),
+            child: widget.label!,
+          ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: context.artColorScheme.muted, borderRadius: BorderRadius.circular(21)),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: context.dsColors.muted,
+            borderRadius: BorderRadius.circular(21),
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             spacing: 4,
             children:
-                options
-                    .map(
-                      (e) => IgnorePointer(
-                        ignoring: value == e,
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(minWidth: 45),
-                          child: ArtBadge.raw(
-                            variant: value == e ? ArtBadgeVariant.primary : ArtBadgeVariant.secondary,
-                            backgroundColor: value == e ? null : context.artColorScheme.background,
-                            foregroundColor: value == e ? null : context.artColorScheme.foreground,
-                            hoverBackgroundColor: context.artColorScheme.ring.withValues(alpha: .1),
-                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                            child: childBuilder(e),
-                            onPressed: () => onChanged(e),
-                          ),
-                        ),
+                widget.options.map((e) {
+                  final isSelected = _value == e;
+                  return IgnorePointer(
+                    ignoring: isSelected,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minWidth: 45),
+                      child: DSBadge.raw(
+                        variant:
+                            isSelected
+                                ? DSBadgeVariant.primary
+                                : DSBadgeVariant.secondary,
+                        backgroundColor: isSelected ? null : context.dsColors.background,
+                        foregroundColor: isSelected ? null : context.dsColors.foreground,
+                        hoverBackgroundColor: context.dsColors.ring.withValues(alpha: .1),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        onPressed: () {
+                          setState(() => _value = e);
+                          widget.onChanged(e);
+                        },
+                        child: widget.childBuilder(e),
                       ),
-                    )
-                    .toList(),
+                    ),
+                  );
+                }).toList(),
           ),
         ),
       ],

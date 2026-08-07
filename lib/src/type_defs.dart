@@ -1,3 +1,7 @@
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef ArtBorder = ShadBorder;
+typedef DSBorder = ShadBorder;
+
+/// Calendário inline (mês com grade de dias). Para o seletor com botão +
+/// popover, use `DSDatePicker`.
+typedef DSCalendar = ShadCalendar;

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,10 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef ArtContextMenuController = ShadContextMenuController;
+typedef DSContextMenuController = ShadContextMenuController;
 
 /// Tipos de gatilho para abrir o menu de contexto
-enum ArtContextMenuTrigger {
+enum DSContextMenuTrigger {
   /// Abre apenas com clique esquerdo
   leftClick,
 
@@ -29,21 +29,21 @@ enum ArtContextMenuTrigger {
 }
 
 /// Variantes do contexto menu
-enum ArtContextMenuItemVariant {
+enum DSContextMenuItemVariant {
   primary(ShadContextMenuItemVariant.primary),
   inset(ShadContextMenuItemVariant.inset);
 
   final ShadContextMenuItemVariant shadVariant;
 
-  const ArtContextMenuItemVariant(this.shadVariant);
+  const DSContextMenuItemVariant(this.shadVariant);
 }
 
 /// Widget que encapsula o ShadContextMenuRegion
-class ArtContextMenuRegion extends StatefulWidget {
-  const ArtContextMenuRegion({
-    super.key,
+class DSContextMenuRegion extends StatefulWidget {
+  const DSContextMenuRegion({
     required this.child,
     required this.items,
+    super.key,
     this.visible,
     this.constraints,
     this.onHoverArea,
@@ -56,7 +56,7 @@ class ArtContextMenuRegion extends StatefulWidget {
     this.controller,
     this.supportedDevices,
     this.longPressEnabled,
-    this.trigger = ArtContextMenuTrigger.rightClick,
+    this.trigger = DSContextMenuTrigger.rightClick,
     this.hitTestBehavior,
     this.popoverReverseDuration,
     this.offset,
@@ -90,13 +90,13 @@ class ArtContextMenuRegion extends StatefulWidget {
   final List<BoxShadow>? shadows;
 
   /// Decoração
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
 
   /// Filtro de imagem
   final ImageFilter? filter;
 
   /// Controlador do menu
-  final ArtContextMenuController? controller;
+  final DSContextMenuController? controller;
 
   /// Tipos de dispositivos suportados
   final Set<PointerDeviceKind>? supportedDevices;
@@ -105,7 +105,7 @@ class ArtContextMenuRegion extends StatefulWidget {
   final bool? longPressEnabled;
 
   /// Tipo de gatilho para abrir o menu
-  final ArtContextMenuTrigger trigger;
+  final DSContextMenuTrigger trigger;
 
   /// Comportamento durante hit testing
   final HitTestBehavior? hitTestBehavior;
@@ -119,23 +119,33 @@ class ArtContextMenuRegion extends StatefulWidget {
   final Offset? offset;
 
   @override
-  State<ArtContextMenuRegion> createState() => _ArtContextMenuRegionState();
+  State<DSContextMenuRegion> createState() => _DSContextMenuRegionState();
 }
 
-class _ArtContextMenuRegionState extends State<ArtContextMenuRegion> {
-  ArtContextMenuController? _controller;
+class _DSContextMenuRegionState extends State<DSContextMenuRegion> {
+  DSContextMenuController? _controller;
   Offset? _offset;
 
-  ArtContextMenuController get controller => widget.controller ?? (_controller ??= ArtContextMenuController(isOpen: widget.visible ?? false));
+  DSContextMenuController get controller =>
+      widget.controller ??
+      (_controller ??= DSContextMenuController(isOpen: widget.visible ?? false));
 
-  bool get _enableLeftClick => widget.trigger == ArtContextMenuTrigger.leftClick || widget.trigger == ArtContextMenuTrigger.leftAndRight || widget.trigger == ArtContextMenuTrigger.all;
+  bool get _enableLeftClick =>
+      widget.trigger == DSContextMenuTrigger.leftClick ||
+      widget.trigger == DSContextMenuTrigger.leftAndRight ||
+      widget.trigger == DSContextMenuTrigger.all;
 
-  bool get _enableRightClick => widget.trigger == ArtContextMenuTrigger.rightClick || widget.trigger == ArtContextMenuTrigger.leftAndRight || widget.trigger == ArtContextMenuTrigger.all;
+  bool get _enableRightClick =>
+      widget.trigger == DSContextMenuTrigger.rightClick ||
+      widget.trigger == DSContextMenuTrigger.leftAndRight ||
+      widget.trigger == DSContextMenuTrigger.all;
 
-  bool get _enableLongPress => widget.trigger == ArtContextMenuTrigger.longPress || widget.trigger == ArtContextMenuTrigger.all;
+  bool get _enableLongPress =>
+      widget.trigger == DSContextMenuTrigger.longPress ||
+      widget.trigger == DSContextMenuTrigger.all;
 
   @override
-  void didUpdateWidget(covariant ArtContextMenuRegion oldWidget) {
+  void didUpdateWidget(covariant DSContextMenuRegion oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.visible != null) {
       controller.setOpen(widget.visible!);
@@ -165,7 +175,11 @@ class _ArtContextMenuRegionState extends State<ArtContextMenuRegion> {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveLongPressEnabled = _enableLongPress && (widget.longPressEnabled ?? (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS));
+    final effectiveLongPressEnabled =
+        _enableLongPress &&
+        (widget.longPressEnabled ??
+            (defaultTargetPlatform == TargetPlatform.android ||
+                defaultTargetPlatform == TargetPlatform.iOS));
 
     // Aplica offset se fornecido
     final finalOffset =
@@ -175,7 +189,7 @@ class _ArtContextMenuRegionState extends State<ArtContextMenuRegion> {
             ? Offset(_offset!.dx + widget.offset!.dx, _offset!.dy + widget.offset!.dy)
             : _offset;
 
-    return ArtContextMenu(
+    return DSContextMenu(
       anchor: finalOffset == null ? null : ShadGlobalAnchor(finalOffset),
       controller: controller,
       items: widget.items,
@@ -200,7 +214,8 @@ class _ArtContextMenuRegionState extends State<ArtContextMenuRegion> {
         onSecondaryTapDown:
             _enableRightClick
                 ? (d) async {
-                  final isContextMenuAlreadyDisabled = kIsWeb && !BrowserContextMenu.enabled;
+                  final isContextMenuAlreadyDisabled =
+                      kIsWeb && !BrowserContextMenu.enabled;
                   if (kIsWeb && !isContextMenuAlreadyDisabled) {
                     await BrowserContextMenu.disableContextMenu();
                   }
@@ -212,7 +227,8 @@ class _ArtContextMenuRegionState extends State<ArtContextMenuRegion> {
         onSecondaryTapUp:
             _enableRightClick
                 ? (d) async {
-                  final isContextMenuAlreadyDisabled = kIsWeb && !BrowserContextMenu.enabled;
+                  final isContextMenuAlreadyDisabled =
+                      kIsWeb && !BrowserContextMenu.enabled;
                   if (defaultTargetPlatform == TargetPlatform.windows) {
                     _show(d.globalPosition);
                     await Future<void>.delayed(Duration.zero);
@@ -236,11 +252,11 @@ class _ArtContextMenuRegionState extends State<ArtContextMenuRegion> {
 }
 
 /// Widget que encapsula o ShadContextMenu
-class ArtContextMenu extends StatelessWidget {
-  const ArtContextMenu({
-    super.key,
+class DSContextMenu extends StatelessWidget {
+  const DSContextMenu({
     required this.child,
     required this.items,
+    super.key,
     this.anchor,
     this.visible,
     this.constraints,
@@ -339,10 +355,10 @@ class ArtContextMenu extends StatelessWidget {
 }
 
 /// Widget que encapsula o ShadContextMenuItem
-class ArtContextMenuItem extends StatelessWidget {
-  const ArtContextMenuItem({
-    super.key,
+class DSContextMenuItem extends StatelessWidget {
+  const DSContextMenuItem({
     required this.child,
+    super.key,
     this.items = const [],
     this.enabled = true,
     this.leading,
@@ -363,11 +379,11 @@ class ArtContextMenuItem extends StatelessWidget {
     this.backgroundColor,
     this.selectedBackgroundColor,
     this.closeOnTap,
-  }) : variant = ArtContextMenuItemVariant.primary;
+  }) : variant = DSContextMenuItemVariant.primary;
 
-  const ArtContextMenuItem.inset({
-    super.key,
+  const DSContextMenuItem.inset({
     required this.child,
+    super.key,
     this.items = const [],
     this.enabled = true,
     this.leading,
@@ -388,10 +404,10 @@ class ArtContextMenuItem extends StatelessWidget {
     this.backgroundColor,
     this.selectedBackgroundColor,
     this.closeOnTap,
-  }) : variant = ArtContextMenuItemVariant.inset;
+  }) : variant = DSContextMenuItemVariant.inset;
 
   /// Variante do item
-  final ArtContextMenuItemVariant variant;
+  final DSContextMenuItemVariant variant;
 
   /// O widget filho
   final Widget child;

@@ -1,6 +1,5 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
-
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'main.directories.g.dart';
@@ -20,9 +19,11 @@ class WidgetbookApp extends StatefulWidget {
 class _WidgetbookAppState extends State<WidgetbookApp> {
   @override
   Widget build(BuildContext context) {
-    return ArtApp(
-      theme: ArtThemeData(colorScheme: const ArtPaipColorScheme.light(), brightness: Brightness.light),
-      darkTheme: ArtThemeData(colorScheme: const ArtPaipColorScheme.dark(), brightness: Brightness.dark),
+    return DSApp(
+      theme: DSThemeData(
+          colorScheme: const DSPaipColorScheme.light(), brightness: Brightness.light,),
+      darkTheme: DSThemeData(
+          colorScheme: const DSPaipColorScheme.dark(), brightness: Brightness.dark,),
       builder: (context, child) => Widgetbook.cupertino(
         directories: directories,
         addons: [
@@ -34,44 +35,185 @@ class _WidgetbookAppState extends State<WidgetbookApp> {
               Devices.ios.iPadPro11Inches,
             ],
           ),
-          ThemeAddon<ArtThemeData>(
+          ThemeAddon<DSThemeData>(
             themes: [
-              WidgetbookTheme(name: 'Paip Light', data: ArtThemeData(colorScheme: const ArtPaipColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Paip Dark', data: ArtThemeData(colorScheme: const ArtPaipColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Zinc Light', data: ArtThemeData(colorScheme: const ArtZincColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Zinc Dark', data: ArtThemeData(colorScheme: const ArtZincColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Blue Light', data: ArtThemeData(colorScheme: const ArtBlueColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Blue Dark', data: ArtThemeData(colorScheme: const ArtBlueColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Gray Light', data: ArtThemeData(colorScheme: const ArtBlueColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Gray Dark', data: ArtThemeData(colorScheme: const ArtBlueColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Green Light', data: ArtThemeData(colorScheme: const ArtGreenColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Green Dark', data: ArtThemeData(colorScheme: const ArtGreenColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Neutral Light', data: ArtThemeData(colorScheme: const ArtNeutralColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Neutral Dark', data: ArtThemeData(colorScheme: const ArtNeutralColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Orange Light', data: ArtThemeData(colorScheme: const ArtOrangeColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Orange Dark', data: ArtThemeData(colorScheme: const ArtOrangeColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Red Light', data: ArtThemeData(colorScheme: const ArtRedColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Red Dark', data: ArtThemeData(colorScheme: const ArtRedColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Rose Light', data: ArtThemeData(colorScheme: const ArtRoseColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Rose Dark', data: ArtThemeData(colorScheme: const ArtRoseColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Stone Light', data: ArtThemeData(colorScheme: const ArtStoneColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Stone Dark', data: ArtThemeData(colorScheme: const ArtStoneColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Slate Light', data: ArtThemeData(colorScheme: const ArtSlateColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Slate Dark', data: ArtThemeData(colorScheme: const ArtSlateColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Violet Light', data: ArtThemeData(colorScheme: const ArtVioletColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Violet Dark', data: ArtThemeData(colorScheme: const ArtVioletColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Yellow Light', data: ArtThemeData(colorScheme: const ArtYellowColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Yellow Dark', data: ArtThemeData(colorScheme: const ArtYellowColorScheme.dark(), brightness: Brightness.dark)),
-              WidgetbookTheme(name: 'Zinc Light', data: ArtThemeData(colorScheme: const ArtZincColorScheme.light(), brightness: Brightness.light)),
-              WidgetbookTheme(name: 'Zinc Dark', data: ArtThemeData(colorScheme: const ArtZincColorScheme.dark(), brightness: Brightness.dark)),
+              WidgetbookTheme(
+                name: 'Paip Light',
+                data: DSThemeData(
+                    colorScheme: const DSPaipColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Paip Dark',
+                data: DSThemeData(
+                    colorScheme: const DSPaipColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Zinc Light',
+                data: DSThemeData(
+                    colorScheme: const DSZincColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Zinc Dark',
+                data: DSThemeData(
+                    colorScheme: const DSZincColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Blue Light',
+                data: DSThemeData(
+                    colorScheme: const DSBlueColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Blue Dark',
+                data: DSThemeData(
+                    colorScheme: const DSBlueColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Gray Light',
+                data: DSThemeData(
+                    colorScheme: const DSBlueColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Gray Dark',
+                data: DSThemeData(
+                    colorScheme: const DSBlueColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Green Light',
+                data: DSThemeData(
+                    colorScheme: const DSGreenColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Green Dark',
+                data: DSThemeData(
+                    colorScheme: const DSGreenColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Neutral Light',
+                data: DSThemeData(
+                    colorScheme: const DSNeutralColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Neutral Dark',
+                data: DSThemeData(
+                    colorScheme: const DSNeutralColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Orange Light',
+                data: DSThemeData(
+                    colorScheme: const DSOrangeColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Orange Dark',
+                data: DSThemeData(
+                    colorScheme: const DSOrangeColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Red Light',
+                data: DSThemeData(
+                    colorScheme: const DSRedColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Red Dark',
+                data: DSThemeData(
+                    colorScheme: const DSRedColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Rose Light',
+                data: DSThemeData(
+                    colorScheme: const DSRoseColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Rose Dark',
+                data: DSThemeData(
+                    colorScheme: const DSRoseColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Stone Light',
+                data: DSThemeData(
+                    colorScheme: const DSStoneColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Stone Dark',
+                data: DSThemeData(
+                    colorScheme: const DSStoneColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Slate Light',
+                data: DSThemeData(
+                    colorScheme: const DSSlateColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Slate Dark',
+                data: DSThemeData(
+                    colorScheme: const DSSlateColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Violet Light',
+                data: DSThemeData(
+                    colorScheme: const DSVioletColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Violet Dark',
+                data: DSThemeData(
+                    colorScheme: const DSVioletColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Yellow Light',
+                data: DSThemeData(
+                    colorScheme: const DSYellowColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Yellow Dark',
+                data: DSThemeData(
+                    colorScheme: const DSYellowColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
+              WidgetbookTheme(
+                name: 'Zinc Light',
+                data: DSThemeData(
+                    colorScheme: const DSZincColorScheme.light(),
+                    brightness: Brightness.light,),
+              ),
+              WidgetbookTheme(
+                name: 'Zinc Dark',
+                data: DSThemeData(
+                    colorScheme: const DSZincColorScheme.dark(),
+                    brightness: Brightness.dark,),
+              ),
             ],
-            themeBuilder: (context, theme, child) => ArtApp(
+            themeBuilder: (context, theme, child) => DSApp(
               theme: theme,
               darkTheme: theme,
-              themeMode: theme.brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark,
+              themeMode:
+                  theme.brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark,
               home: child,
             ),
-          )
+          ),
         ],
       ),
     );

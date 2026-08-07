@@ -1,15 +1,15 @@
 import 'dart:developer';
 
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'dart:ui' as ui;
 
-enum ArtTextFieldVariant { primary, underline }
+enum DSTextFieldVariant { primary, underline }
 
-class ArtTextFormField extends StatefulWidget {
+class DSTextFormField extends StatefulWidget {
   final String? id;
   final void Function(String? value)? onSaved;
   final String? Function(String? value)? validator;
@@ -76,7 +76,8 @@ class ArtTextFormField extends StatefulWidget {
   final bool scribbleEnabled;
   final bool enableIMEPersonalizedLearning;
   final ContentInsertionConfiguration? contentInsertionConfiguration;
-  final Widget Function(BuildContext context, EditableTextState state)? contextMenuBuilder;
+  final Widget Function(BuildContext context, EditableTextState state)?
+  contextMenuBuilder;
   final UndoHistoryController? undoController;
   final SpellCheckConfiguration? spellCheckConfiguration;
   final Color? selectionColor;
@@ -91,7 +92,7 @@ class ArtTextFormField extends StatefulWidget {
   final double? gap;
   final BoxConstraints? constraints;
   final Object? groupId;
-  final ArtTextFieldVariant variant;
+  final DSTextFieldVariant variant;
   final FormController? formController;
 
   // Propriedades adicionais para o variant underline
@@ -102,7 +103,7 @@ class ArtTextFormField extends StatefulWidget {
   final String? suffixText;
   final String? placeHolderText;
 
-  const ArtTextFormField({
+  const DSTextFormField({
     super.key,
     this.id,
     this.onSaved,
@@ -186,14 +187,14 @@ class ArtTextFormField extends StatefulWidget {
     this.constraints,
     this.groupId,
     this.formController,
-  }) : variant = ArtTextFieldVariant.primary,
+  }) : variant = DSTextFieldVariant.primary,
        helperText = null,
        counterText = null,
        prefixText = null,
        suffixText = null,
        placeHolderText = null;
 
-  const ArtTextFormField.underline({
+  const DSTextFormField.underline({
     super.key,
     this.id,
     this.onSaved,
@@ -282,33 +283,45 @@ class ArtTextFormField extends StatefulWidget {
     this.suffixText,
     this.placeHolderText,
     this.formController,
-  }) : variant = ArtTextFieldVariant.underline;
+  }) : variant = DSTextFieldVariant.underline;
 
   @override
-  State<ArtTextFormField> createState() => _ArtTextFormFieldState();
+  State<DSTextFormField> createState() => _DSTextFormFieldState();
 }
 
-class _ArtTextFormFieldState extends State<ArtTextFormField> {
+class _DSTextFormFieldState extends State<DSTextFormField> {
   late final FocusNode? _focusNode;
   late bool _obscureText = widget.obscureText;
 
   @override
   void initState() {
     _validate();
-    _focusNode = widget.formController?.helper.prepareFocusNode(widget.focusNode) ?? widget.focusNode;
+    _focusNode =
+        widget.formController?.helper.prepareFocusNode(widget.focusNode) ??
+        widget.focusNode;
     if (widget.controller != null) _handleInitalValueController();
     super.initState();
   }
 
-  _validate() {
-    assert(!(widget.formController != null && widget.formController!.formaters.length >= 2 && widget.controller == null), 'To use two masks it is necessary to provide a controller');
-    assert(!(widget.initialValue != null && widget.controller != null), 'When you have a controller, you do not need to provide an initialValue');
+  void _validate() {
+    assert(
+      !(widget.formController != null &&
+          widget.formController!.formaters.length >= 2 &&
+          widget.controller == null),
+      'To use two masks it is necessary to provide a controller',
+    );
+    assert(
+      !(widget.initialValue != null && widget.controller != null),
+      'When you have a controller, you do not need to provide an initialValue',
+    );
   }
 
-  _handleInitalValueController() {
+  void _handleInitalValueController() {
     if (widget.formController == null) return;
     if (widget.controller!.text.isNotEmpty) {
-      widget.controller!.text = widget.formController!.helper.formatValue(value: widget.controller!.text);
+      widget.controller!.text = widget.formController!.helper.formatValue(
+        value: widget.controller!.text,
+      );
     }
   }
 
@@ -327,17 +340,31 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
 
   Widget? _trailing() {
     if (widget.obscureText == true) {
-      return ExcludeFocus(child: ArtIconButton.secondary(icon: Icon(_obscureText ? LucideIcons.eyeOff : LucideIcons.eye), iconSize: 18, height: 24, width: 24, padding: EdgeInsets.zero, onPressed: () => setState(() => _obscureText = !_obscureText)));
+      return ExcludeFocus(
+        child: DSIconButton.secondary(
+          icon: Icon(_obscureText ? LucideIcons.eyeOff : LucideIcons.eye),
+          iconSize: 18,
+          height: 24,
+          width: 24,
+          padding: EdgeInsets.zero,
+          onPressed: () => setState(() => _obscureText = !_obscureText),
+        ),
+      );
     }
     return widget.trailing;
   }
 
   void Function(String v)? _onChanged(String v) {
-    widget.onChanged == null ? null : widget.onChanged!(v);
+    widget.onChanged?.call(v);
     if (widget.formController != null && widget.formController!.formaters.length > 1) {
-      final newValue = widget.formController!.helper.updateMask(value: v, controller: widget.controller!, regexFilter: widget.formController!.regexFilter, textInputType: widget.formController!.textInputType);
+      final newValue = widget.formController!.helper.updateMask(
+        value: v,
+        controller: widget.controller!,
+        regexFilter: widget.formController!.regexFilter,
+        textInputType: widget.formController!.textInputType,
+      );
       if (newValue != null) {
-        print('newValue: $newValue');
+        debugPrint('newValue: $newValue');
       }
     }
     return null;
@@ -346,9 +373,12 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
   String? Function(String?)? _validator() {
     if (widget.validator != null) return widget.validator;
     if (widget.formController != null && _focusNode != null) {
-      return (v) => widget.formController?.helper.validate(value: v, focusNode: _focusNode);
+      return (v) =>
+          widget.formController?.helper.validate(value: v, focusNode: _focusNode);
     }
-    if (widget.formController != null && _focusNode == null) log('🔍 [ArtTextFormField] Error: FormController != null && _focusNode == null');
+    if (widget.formController != null && _focusNode == null) {
+      log('🔍 [DSTextFormField] Error: FormController != null && _focusNode == null');
+    }
     return null;
   }
 
@@ -366,10 +396,10 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    ArtTextTheme textTheme = ArtTheme.of(context).textTheme;
-    ArtColorScheme colors = ArtTheme.of(context).colorScheme;
+    final textTheme = DSTheme.of(context).textTheme;
+    final colors = DSTheme.of(context).colorScheme;
     switch (widget.variant) {
-      case ArtTextFieldVariant.primary:
+      case DSTextFieldVariant.primary:
         return ShadInputFormField(
           id: widget.id,
           onSaved: widget.onSaved,
@@ -383,7 +413,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           error: widget.error,
           description: widget.description,
           onChanged: (v) => _onChanged(v),
-          valueTransformer: widget.valueTransformer,
+          toValueTransformer: widget.valueTransformer,
           onReset: widget.onReset,
           focusNode: _focusNode,
           decoration: widget.decoration,
@@ -453,7 +483,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           constraints: widget.constraints,
           groupId: widget.groupId,
         );
-      case ArtTextFieldVariant.underline:
+      case DSTextFieldVariant.underline:
         return TextFormField(
           onSaved: widget.onSaved,
           initialValue: _initialValue(),
@@ -467,7 +497,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           keyboardType: _keyboardType(),
           textInputAction: widget.textInputAction,
           textCapitalization: widget.textCapitalization,
-          style: widget.style,
+          style: widget.style ?? textTheme.p.copyWith(color: colors.foreground),
           strutStyle: widget.strutStyle,
           textAlign: widget.textAlign,
           textDirection: widget.textDirection,
@@ -481,6 +511,7 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           maxLines: widget.maxLines,
           minLines: widget.minLines,
           expands: widget.expands,
+          cursorColor: widget.cursorColor ?? colors.primary,
           decoration: InputDecoration(
             filled: false,
             constraints: widget.constraints,
@@ -490,13 +521,34 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
             counterText: widget.counterText,
             prefixIconColor: colors.primary,
             prefixText: widget.prefixText,
-            hintStyle: widget.placeholderStyle?.copyWith(color: colors.mutedForeground) ?? textTheme.muted,
+            hintStyle:
+                widget.placeholderStyle?.copyWith(color: colors.mutedForeground) ??
+                textTheme.muted,
             suffixText: widget.suffixText,
             label: widget.label,
+            labelStyle: textTheme.small.copyWith(color: colors.mutedForeground),
+            floatingLabelStyle: textTheme.small.copyWith(color: colors.foreground),
+            errorStyle: textTheme.small.copyWith(color: colors.destructive),
             hintText: widget.placeHolderText,
             suffixIcon: _trailing(),
             alignLabelWithHint: true,
             isDense: true,
+            border: UnderlineInputBorder(borderSide: BorderSide(color: colors.border)),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.border),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.primary),
+            ),
+            errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.destructive),
+            ),
+            focusedErrorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.destructive),
+            ),
+            disabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: colors.border.withValues(alpha: 0.5)),
+            ),
           ),
           readOnly: widget.readOnly,
           showCursor: widget.showCursor,
@@ -509,7 +561,6 @@ class _ArtTextFormFieldState extends State<ArtTextFormField> {
           cursorHeight: widget.cursorHeight,
           cursorRadius: widget.cursorRadius,
           cursorOpacityAnimates: widget.cursorOpacityAnimates,
-          cursorColor: widget.cursorColor,
           selectionHeightStyle: widget.selectionHeightStyle,
           selectionWidthStyle: widget.selectionWidthStyle,
           keyboardAppearance: widget.keyboardAppearance,

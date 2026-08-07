@@ -1,61 +1,100 @@
-# CLAUDE.md
+# CLAUDE.md — Design System (`artizan_ui`)
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> **TL;DR**
+> - Pacote Flutter de design system: encapsula [`shadcn_ui`](https://pub.dev/packages/shadcn_ui) e re-exporta tudo no namespace **`DS*`**. Apps importam só `artizan_ui` e usam `DS*` exclusivamente.
+> - Todo `DS*` é um **typedef de `Shad*`** ou um **wrapper StatefulWidget** que delega ao `Shad*` e adiciona comportamento Artizan.
+> - Tokens semânticos via `context.dsColors`; tipografia via `context.dsTextTheme`.
+> - Catálogo de componentes + exemplos de uso: skill **`ds-ui-flutter`**.
 
-## Commands
+## O que é
+
+`artizan_ui` empacota `shadcn_ui` sob o namespace `DS*` (Design System). Path do pacote: `/Volumes/External/projects/paipfood/workspace/projects/artizan_ui`.
+
+## Comandos
 
 ```bash
-# Package
-flutter pub get          # Install dependencies
-flutter analyze          # Run linter (extends flutter_lints)
-flutter test             # Run tests
+# raiz do pacote
+flutter pub get && flutter analyze && dart format . && flutter test
+flutter test test/artizan_ui_test.dart       # um arquivo
 
-# Example app (Widgetbook showcase)
-cd example
-flutter pub get
-flutter run              # Launch Widgetbook on a connected device/simulator
-
-# Regenerate Widgetbook navigation after adding/removing use cases
-cd example
-dart run build_runner build --delete-conflicting-outputs
+# Widgetbook (explorador de componentes), em example/
+cd example && flutter pub get
+dart run build_runner build --delete-conflicting-outputs   # regenera main.directories.g.dart (após nova @widgetbook.UseCase)
+flutter run
 ```
 
-## Architecture
+## Layout do pacote
 
-`artizan_ui` is a Flutter component library that wraps [`shadcn_ui`](https://pub.dev/packages/shadcn_ui) and adds Artizan-specific variants, patterns, and 13 color schemes.
-
-**Layer model:**
-- `lib/src/components/` — 30+ `Art*` widgets, each wrapping their `Shad*` counterpart
-- `lib/src/themes/` — `ArtTheme`/`ArtThemeData` typedefs over `ShadTheme`/`ShadThemeData`, plus `color_scheme/` with `.light()` / `.dark()` factories
-- `lib/src/utils/context_extension.dart` — `BuildContext` extension: `context.artTextTheme`, `context.artColorScheme`, `context.isDarkTheme`
-- `lib/src/type_defs.dart` — typedef aliases mapping Artizan types → shadcn_ui types
-
-**Component naming convention:** All public widgets are prefixed `Art` (e.g. `ArtButton`, `ArtSelect<T>`).
-
-**Variant pattern:** Components expose multiple named constructors instead of an enum parameter:
-```dart
-ArtButton()              // primary (default)
-ArtButton.destructive()
-ArtButton.outline()
-ArtButton.secondary()
-ArtButton.ghost()
-ArtButton.link()
-ArtButton.raw()          // full customization
+```
+lib/
+  artizan_ui.dart          # único barrel export (o que os consumidores importam)
+  src/
+    app.dart               # DSApp = ShadApp
+    type_defs.dart         # DSBorder = ShadBorder, etc.
+    components/            # widgets DS* (um arquivo por componente)
+    themes/                # DSTheme*, DSColorScheme*, DSTextTheme, paletas
+    utils/                 # extensions de BuildContext
+example/                   # Widgetbook (não publicado)
+test/                      # testes do pacote
 ```
 
-**Theme integration:** Wrap any app (or the Widgetbook story) in `ShadApp` / `ShadApp.material` and supply an `ArtThemeData` (which is just `ShadThemeData`). Color schemes live in `lib/src/themes/color_scheme/` — each file exports a class with static `.light()` and `.dark()` methods returning `ShadColorScheme`.
+## Padrão DS* = Shad*
 
-## Example App
+Todo símbolo `DS*` é um **typedef** do `Shad*` correspondente ou um **wrapper StatefulWidget** que delega ao `Shad*` e adiciona comportamento.
 
-`example/` is a [Widgetbook](https://pub.dev/packages/widgetbook) app that serves as the living component gallery. Device-frame presets (iPhone 13 Mini, Galaxy A50, iPad Pro) and a theme/color-scheme switcher are pre-configured. Navigation is auto-generated into `example/lib/main.directories.g.dart` by `widgetbook_generator` — do not edit that file manually.
-
-## Key Dependencies
-
-| Package | Role |
+| DS | Shad subjacente |
 |---|---|
-| `shadcn_ui ^0.46.1` | Base UI primitives wrapped by every `Art*` component |
-| `lucide_icons_flutter ^3.1.10` | Icon set used across components |
-| `flutter_animate` | Animation helpers |
-| `auto_form_validate` | Form field validation utilities |
-| `flutter_breakpoints` | Responsive layout helpers |
-| `boxy` | Advanced layout widgets |
+| `DSApp` | `ShadApp` |
+| `DSTheme` / `DSThemeData` | `ShadTheme` / `ShadThemeData` |
+| `DSColorScheme` | `ShadColorScheme` |
+| `DSTextTheme` | `ShadTextTheme` |
+| `DSDecoration` | `ShadDecoration` |
+
+`DSButton` e `DSTextFormField` são wrappers completos com lógica extra (ex.: `DSButton` gerencia o loading sozinho quando `onPressed` retorna `Future`).
+
+## Theming
+
+```dart
+DSApp(
+  theme: DSThemeData(colorScheme: const DSZincColorScheme.light(), brightness: Brightness.light),
+  darkTheme: DSThemeData(colorScheme: const DSZincColorScheme.dark(), brightness: Brightness.dark),
+  themeMode: ThemeMode.system,
+  home: const MyPage(),
+)
+```
+
+Color schemes built-in (todos com `.light()` e `.dark()`): `DSZinc`, `DSBlue`, `DSGray`, `DSGreen`, `DSNeutral`, `DSOrange`, `DSRed`, `DSRose`, `DSSlate`, `DSStone`, `DSViolet`, `DSYellow`, `DSPaip` (sufixo `ColorScheme`). Paleta totalmente custom: estenda `DSZincCustomColorScheme` (`lib/src/themes/color_scheme/zinc_custom.dart`).
+
+## Tokens semânticos (`lib/src/themes/color_scheme/base.dart`)
+
+`DSColorScheme` é uma classe abstrata (não typedef) que estende `ShadColorScheme` e adiciona campos tipados de status. Todos os schemes built-in a estendem.
+
+| Campo | Default |
+|---|---|
+| `success` / `successForeground` | `#22c55e` / `#fafafa` |
+| `warning` / `warningForeground` | `#f59e0b` / `#fafafa` |
+| `info` / `infoForeground` | `#3b82f6` / `#fafafa` |
+
+Acesso via `context.dsColors.success`, etc. Para tokens custom, estenda `DSColorScheme` e passe os overrides ao `super()`.
+
+## Context extensions (`lib/src/utils/context_extension.dart`)
+
+```dart
+context.dsTextTheme    // DSTextTheme    — tipografia
+context.dsColors       // DSColorScheme  — tokens base Shad + tokens semânticos DS (cast tipado)
+context.isDarkTheme    // bool
+context.isLightTheme   // bool
+```
+
+`context.dsColors` lança em runtime se o app usar um `ShadColorScheme` puro em vez de um `DSColorScheme`.
+
+## Adicionar um componente
+
+1. Crie `lib/src/components/<name>.dart` com o widget `DS<Name>`.
+2. Exporte em `lib/src/components/z_components_export.dart`.
+3. Adicione um use-case Widgetbook em `example/lib/src/<name>/`.
+4. Rode `dart run build_runner build` de `example/`.
+
+## Pacotes re-exportados
+
+Consumidores de `artizan_ui` ganham sem adicionar ao próprio `pubspec.yaml`: `auto_form_validate` (`FormController`), `flutter_breakpoints`, `flutter_animate`, `lucide_icons_flutter` (`LucideIcons.<name>`).

@@ -1,4 +1,4 @@
-import 'package:artizan_ui/src/themes/z_themes_export.dart';
+import 'package:ds_ui/src/themes/z_themes_export.dart';
 import 'package:flutter/material.dart';
 
 // A customizable card widget for displaying structured content.
@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 /// content, and optional footer, styled with a background, border, and shadows.
 /// It integrates with [ShadTheme] for consistent styling and supports leading
 /// and trailing widgets for additional layout flexibility.
-class ArtCard extends StatelessWidget {
+class DSCard extends StatelessWidget {
   /// Creates a card widget with optional content and styling.
-  const ArtCard({
+  const DSCard({
     super.key,
     this.title,
     this.description,
@@ -155,25 +155,45 @@ class ArtCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ArtTheme.of(context);
+    final theme = DSTheme.of(context);
 
-    final effectivePadding = padding ?? theme.cardTheme.padding ?? const EdgeInsets.all(24);
-    final effectiveBackgroundColor = backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;
+    final effectivePadding =
+        padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
+
+    final effectiveBackgroundColor =
+        backgroundColor ?? theme.cardTheme.backgroundColor ?? theme.colorScheme.card;
+
     final effectiveRadius = radius ?? theme.cardTheme.radius ?? theme.radius;
+
     final effectiveBorder = border ?? BoxBorder.all(color: theme.colorScheme.border);
+
     final effectiveShadows = shadows ?? theme.cardTheme.shadows;
 
-    final effectiveRowMainAxisSize = rowMainAxisSize ?? theme.cardTheme.rowMainAxisSize ?? MainAxisSize.min;
+    final effectiveRowMainAxisSize =
+        rowMainAxisSize ?? theme.cardTheme.rowMainAxisSize ?? MainAxisSize.min;
 
-    final effectiveRowMainAxisAlignment = rowMainAxisAlignment ?? theme.cardTheme.rowMainAxisAlignment ?? MainAxisAlignment.spaceBetween;
+    final effectiveRowMainAxisAlignment =
+        rowMainAxisAlignment ??
+        theme.cardTheme.rowMainAxisAlignment ??
+        MainAxisAlignment.spaceBetween;
 
-    final effectiveRowCrossAxisAlignment = rowCrossAxisAlignment ?? theme.cardTheme.rowCrossAxisAlignment ?? CrossAxisAlignment.start;
+    final effectiveRowCrossAxisAlignment =
+        rowCrossAxisAlignment ??
+        theme.cardTheme.rowCrossAxisAlignment ??
+        CrossAxisAlignment.start;
 
-    final effectiveColumnMainAxisSize = columnMainAxisSize ?? theme.cardTheme.columnMainAxisSize ?? MainAxisSize.min;
+    final effectiveColumnMainAxisSize =
+        columnMainAxisSize ?? theme.cardTheme.columnMainAxisSize ?? MainAxisSize.min;
 
-    final effectiveColumnMainAxisAlignment = columnMainAxisAlignment ?? theme.cardTheme.columnMainAxisAlignment ?? MainAxisAlignment.start;
+    final effectiveColumnMainAxisAlignment =
+        columnMainAxisAlignment ??
+        theme.cardTheme.columnMainAxisAlignment ??
+        MainAxisAlignment.start;
 
-    final effectiveColumnCrossAxisAlignment = columnCrossAxisAlignment ?? theme.cardTheme.columnCrossAxisAlignment ?? CrossAxisAlignment.start;
+    final effectiveColumnCrossAxisAlignment =
+        columnCrossAxisAlignment ??
+        theme.cardTheme.columnCrossAxisAlignment ??
+        CrossAxisAlignment.start;
 
     // final effectiveClipBehavior = clipBehavior ?? theme.cardTheme.clipBehavior ?? Clip.antiAlias;
 
@@ -181,23 +201,40 @@ class ArtCard extends StatelessWidget {
       width: width,
       height: height,
       padding: effectivePadding,
-
-      // clipBehavior: effectiveClipBehavior,
-      decoration: BoxDecoration(color: effectiveBackgroundColor, borderRadius: effectiveRadius, border: effectiveBorder, boxShadow: effectiveShadows),
+      decoration: BoxDecoration(
+        color: effectiveBackgroundColor,
+        borderRadius: effectiveRadius,
+        border: effectiveBorder,
+        boxShadow: effectiveShadows,
+      ),
       child: Row(
         mainAxisSize: effectiveRowMainAxisSize,
         mainAxisAlignment: effectiveRowMainAxisAlignment,
         crossAxisAlignment: effectiveRowCrossAxisAlignment,
+        spacing: 12,
         children: [
           if (leading != null) leading!,
-          Flexible(
+          Expanded(
             child: Column(
               mainAxisSize: effectiveColumnMainAxisSize,
               crossAxisAlignment: effectiveColumnCrossAxisAlignment,
               mainAxisAlignment: effectiveColumnMainAxisAlignment,
+
               children: [
-                if (title != null) DefaultTextStyle(style: theme.textTheme.h3.copyWith(color: theme.colorScheme.cardForeground), child: title!),
-                if (description != null) DefaultTextStyle(style: theme.textTheme.muted, child: description!),
+                if (title != null)
+                  DefaultTextStyle(
+                    style: theme.textTheme.h3.copyWith(
+                      color: theme.colorScheme.cardForeground,
+                    ),
+                    child: title!,
+                  ),
+                if (description != null)
+                  DefaultTextStyle(
+                    style: theme.textTheme.muted.copyWith(
+                      color: theme.colorScheme.mutedForeground,
+                    ),
+                    child: description!,
+                  ),
                 if (child != null) Flexible(child: child!),
                 if (footer != null) footer!,
               ],

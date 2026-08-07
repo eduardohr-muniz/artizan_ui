@@ -1,17 +1,17 @@
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef ArtTooltipController = ShadTooltipController;
+typedef DSTooltipController = ShadTooltipController;
 
-typedef ArtHoverStrategies = ShadHoverStrategies;
+typedef DSHoverStrategies = ShadHoverStrategies;
 
-class ArtTooltip extends StatelessWidget {
-  const ArtTooltip({
-    super.key,
+class DSTooltip extends StatelessWidget {
+  const DSTooltip({
     required this.child,
     required this.builder,
+    super.key,
     this.focusNode,
     this.waitDuration,
     this.showDuration,
@@ -33,10 +33,10 @@ class ArtTooltip extends StatelessWidget {
   final Duration? showDuration;
   final List<Effect<dynamic>>? effects;
   final EdgeInsetsGeometry? padding;
-  final ArtDecoration? decoration;
-  final ArtAnchorBase? anchor;
-  final ArtHoverStrategies? hoverStrategies;
-  final ArtTooltipController? controller;
+  final DSDecoration? decoration;
+  final DSAnchorBase? anchor;
+  final DSHoverStrategies? hoverStrategies;
+  final DSTooltipController? controller;
   final Duration? longPressDuration;
   final Duration? duration;
   final Duration? reverseDuration;

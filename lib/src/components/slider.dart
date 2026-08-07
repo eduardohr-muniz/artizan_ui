@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-typedef ArtSliderController = ShadSliderController;
+typedef DSSliderController = ShadSliderController;
 
-typedef ArtSliderInteraction = ShadSliderInteraction;
+typedef DSSliderInteraction = ShadSliderInteraction;
 
-class ArtSlider extends StatelessWidget {
+class DSSlider extends StatelessWidget {
   /// {@macro ShadSlider.initialValue}
   final double? initialValue;
 
@@ -79,12 +79,12 @@ class ArtSlider extends StatelessWidget {
   final SemanticFormatterCallback? semanticFormatterCallback;
 
   /// {@macro ShadSlider.allowedInteraction}
-  final ArtSliderInteraction? allowedInteraction;
+  final DSSliderInteraction? allowedInteraction;
 
   /// {@macro ShadSliderController}
-  final ArtSliderController? controller;
+  final DSSliderController? controller;
 
-  const ArtSlider({
+  const DSSlider({
     super.key,
     this.initialValue,
     this.onChanged,

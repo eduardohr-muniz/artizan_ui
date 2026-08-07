@@ -1,4 +1,4 @@
-name: artizan_ui
+name: ds_ui
 description: "A new Flutter package project."
 version: 0.0.1
 homepage: none
@@ -16,15 +16,21 @@ dependencies:
   boxy: ^2.2.0
   collection: ^1.18.0
   flutter_breakpoints: ^1.0.1
+  dotted_border: ^3.1.0
   # auto_form_validate: ^1.0.5+2
   auto_form_validate: ^2.0.3
-  lucide_icons_flutter: ^3.1.10
+  lucide_icons_flutter:
+    ^3.1.10
     # git: https://github.com/eduardohr-muniz/auto_form_validate
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  analysis_options_shared:
+    git:
+      url: https://github.com/artizan-paipfood/analysis_options_shared.git
+      ref: main
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

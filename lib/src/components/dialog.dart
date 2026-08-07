@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-enum ArtDialogVariant { primary, alert }
+enum DSDialogVariant { primary, alert }
 
-typedef ArtPosition = ShadPosition;
+typedef DSPosition = ShadPosition;
 
-/// Converts ArtDialogVariant to ShadDialogVariant
-ShadDialogVariant _buildShadDialogVariantFromArtDialogVariant(ArtDialogVariant variant) {
+/// Converts DSDialogVariant to ShadDialogVariant
+ShadDialogVariant _buildShadDialogVariantFromDSDialogVariant(DSDialogVariant variant) {
   switch (variant) {
-    case ArtDialogVariant.primary:
+    case DSDialogVariant.primary:
       return ShadDialogVariant.primary;
-    case ArtDialogVariant.alert:
+    case DSDialogVariant.alert:
       return ShadDialogVariant.alert;
   }
 }
 
-/// Displays an [ArtDialog] as a modal dialog with animation.
+/// Displays an [DSDialog] as a modal dialog with animation.
 ///
 /// Shows a dialog with customizable barrier and animation properties, returning
 /// a [Future] with the result when the dialog is dismissed.
-Future<T?> showArtDialog<T>({
+Future<T?> showDSDialog<T>({
   /// The build context in which to show the dialog.
   required BuildContext context,
 
@@ -58,8 +58,8 @@ Future<T?> showArtDialog<T>({
   List<Effect<dynamic>>? animateOut,
 
   /// The variant of the dialog to display.
-  /// Defaults to [ArtDialogVariant.primary].
-  ArtDialogVariant variant = ArtDialogVariant.primary,
+  /// Defaults to [DSDialogVariant.primary].
+  DSDialogVariant variant = DSDialogVariant.primary,
 }) {
   return showShadDialog<T>(
     context: context,
@@ -72,14 +72,14 @@ Future<T?> showArtDialog<T>({
     anchorPoint: anchorPoint,
     animateIn: animateIn,
     animateOut: animateOut,
-    variant: _buildShadDialogVariantFromArtDialogVariant(variant),
+    variant: _buildShadDialogVariantFromDSDialogVariant(variant),
   );
 }
 
-/// Displays an [ArtDialog] alert variant as a modal dialog with animation.
+/// Displays an [DSDialog] alert variant as a modal dialog with animation.
 ///
 /// Convenience function for showing alert dialogs with pre-configured styling.
-Future<T?> showArtDialogAlert<T>({
+Future<T?> showDSDialogAlert<T>({
   /// The build context in which to show the dialog.
   required BuildContext context,
 
@@ -116,7 +116,7 @@ Future<T?> showArtDialogAlert<T>({
   /// Defaults to fade and scale-out if not specified.
   List<Effect<dynamic>>? animateOut,
 }) {
-  return showArtDialog<T>(
+  return showDSDialog<T>(
     context: context,
     builder: builder,
     barrierDismissible: barrierDismissible,
@@ -127,19 +127,19 @@ Future<T?> showArtDialogAlert<T>({
     anchorPoint: anchorPoint,
     animateIn: animateIn,
     animateOut: animateOut,
-    variant: ArtDialogVariant.alert,
+    variant: DSDialogVariant.alert,
   );
 }
 
-class ArtDialog extends StatelessWidget {
-  final ArtDialogVariant variant;
+class DSDialog extends StatelessWidget {
+  final DSDialogVariant variant;
   final Widget? title;
   final Widget? description;
   final Widget? child;
   final List<Widget> actions;
   final Widget? closeIcon;
   final IconData? closeIconData;
-  final ArtPosition? closeIconPosition;
+  final DSPosition? closeIconPosition;
   final BorderRadius? radius;
   final Color? backgroundColor;
   final bool? expandActionsWhenTiny;
@@ -163,7 +163,7 @@ class ArtDialog extends StatelessWidget {
   final bool? scrollable;
   final EdgeInsets? scrollPadding;
 
-  const ArtDialog({
+  const DSDialog({
     super.key,
     this.title,
     this.description,
@@ -194,9 +194,9 @@ class ArtDialog extends StatelessWidget {
     this.crossAxisAlignment,
     this.scrollable,
     this.scrollPadding,
-  }) : variant = ArtDialogVariant.primary;
+  }) : variant = DSDialogVariant.primary;
 
-  const ArtDialog.alert({
+  const DSDialog.alert({
     super.key,
     this.title,
     this.description,
@@ -227,14 +227,14 @@ class ArtDialog extends StatelessWidget {
     this.crossAxisAlignment,
     this.scrollable,
     this.scrollPadding,
-  }) : variant = ArtDialogVariant.alert;
+  }) : variant = DSDialogVariant.alert;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 21),
       child: ShadDialog.raw(
-        variant: _buildShadDialogVariantFromArtDialogVariant(variant),
+        variant: _buildShadDialogVariantFromDSDialogVariant(variant),
         title: title,
         description: description,
         actions: actions,

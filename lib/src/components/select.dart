@@ -1,32 +1,32 @@
 import 'dart:ui';
 
-import 'package:artizan_ui/artizan_ui.dart';
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 // /// Typedef para decoração
-// typedef ArtDecoration = ShadDecoration;
+// typedef DSDecoration = ShadDecoration;
 
 /// Typedef para o construtor da opção selecionada
-typedef ArtSelectedOptionBuilder<T> = ShadSelectedOptionBuilder<T>;
+typedef DSSelectedOptionBuilder<T> = ShadSelectedOptionBuilder<T>;
 
 /// Typedef para o construtor das opções múltiplas selecionadas
-typedef ArtSelectedOptionsBuilder<T> = ShadSelectedOptionBuilder<List<T>>;
+typedef DSSelectedOptionsBuilder<T> = ShadSelectedOptionBuilder<List<T>>;
 
 /// Base para ancoragem do popover
-typedef ArtAnchorBase = ShadAnchorBase;
+typedef DSAnchorBase = ShadAnchorBase;
 
 /// Controlador do popover
-typedef ArtPopoverController = ShadPopoverController;
+typedef DSPopoverController = ShadPopoverController;
 
 /// Controlador do select
-typedef ArtSelectController<T> = ShadSelectController<T>;
+typedef DSSelectController<T> = ShadSelectController<T>;
 
-/// Widget principal do ArtSelect
-class ArtSelect<T> extends StatelessWidget {
-  const ArtSelect({
-    super.key,
+/// Widget principal do DSSelect
+class DSSelect<T> extends StatelessWidget {
+  const DSSelect({
     required this.selectedOptionBuilder,
+    super.key,
     this.options,
     this.optionsBuilder,
     this.placeholder,
@@ -69,7 +69,7 @@ class ArtSelect<T> extends StatelessWidget {
   });
 
   /// Construtor para o widget que renderiza a opção selecionada
-  final ArtSelectedOptionBuilder<T> selectedOptionBuilder;
+  final DSSelectedOptionBuilder<T> selectedOptionBuilder;
 
   /// Lista de opções do select
   final Iterable<Widget>? options;
@@ -120,7 +120,7 @@ class ArtSelect<T> extends StatelessWidget {
   final bool closeOnSelect;
 
   /// Decoração personalizada
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
 
   /// Widget trailing (final)
   final Widget? trailing;
@@ -141,13 +141,13 @@ class ArtSelect<T> extends StatelessWidget {
   final ScrollController? scrollController;
 
   /// Ancoragem do popover
-  final ArtAnchorBase? anchor;
+  final DSAnchorBase? anchor;
 
   /// Filtro de imagem
   final ImageFilter? filter;
 
   /// Controlador do popover
-  final ArtPopoverController? popoverController;
+  final DSPopoverController? popoverController;
 
   /// Header do select
   final Widget? header;
@@ -168,7 +168,7 @@ class ArtSelect<T> extends StatelessWidget {
   final FocusNode? focusNode;
 
   /// Controlador do select
-  final ArtSelectController<T>? controller;
+  final DSSelectController<T>? controller;
 
   /// ID do campo
   final String? id;
@@ -235,12 +235,12 @@ class ArtSelect<T> extends StatelessWidget {
   }
 }
 
-/// Variante do ArtSelect com busca
-class ArtSelectWithSearch<T> extends StatelessWidget {
-  const ArtSelectWithSearch({
-    super.key,
+/// Variante do DSSelect com busca
+class DSSelectWithSearch<T> extends StatelessWidget {
+  const DSSelectWithSearch({
     required this.selectedOptionBuilder,
     required this.onSearchChanged,
+    super.key,
     this.options,
     this.optionsBuilder,
     this.placeholder,
@@ -288,7 +288,7 @@ class ArtSelectWithSearch<T> extends StatelessWidget {
     this.restorationId,
   });
 
-  final ArtSelectedOptionBuilder<T> selectedOptionBuilder;
+  final DSSelectedOptionBuilder<T> selectedOptionBuilder;
   final ValueChanged<String> onSearchChanged;
   final Iterable<Widget>? options;
   final Widget? Function(BuildContext context, int index)? optionsBuilder;
@@ -306,14 +306,14 @@ class ArtSelectWithSearch<T> extends StatelessWidget {
   final double? maxHeight;
   final bool allowDeselection;
   final bool closeOnSelect;
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
   final Widget? trailing;
   final EdgeInsets? padding;
   final EdgeInsets? optionsPadding;
   final bool? showScrollToTopChevron;
   final bool? showScrollToBottomChevron;
   final ScrollController? scrollController;
-  final ArtAnchorBase? anchor;
+  final DSAnchorBase? anchor;
   final ImageFilter? filter;
   final Widget? searchDivider;
   final Widget? searchInputLeading;
@@ -321,14 +321,14 @@ class ArtSelectWithSearch<T> extends StatelessWidget {
   final EdgeInsets? searchPadding;
   final Widget? search;
   final bool? clearSearchOnClose;
-  final ArtPopoverController? popoverController;
+  final DSPopoverController? popoverController;
   final Widget? header;
   final Widget? footer;
   final Object? groupId;
   final int? itemCount;
   final bool? shrinkWrap;
   final FocusNode? focusNode;
-  final ArtSelectController<T>? controller;
+  final DSSelectController<T>? controller;
   final String? id;
   final FormFieldSetter<T>? onSaved;
   final VoidCallback? onReset;
@@ -391,11 +391,11 @@ class ArtSelectWithSearch<T> extends StatelessWidget {
   }
 }
 
-/// Variante do ArtSelect para seleção múltipla
-class ArtSelectMultiple<T> extends StatelessWidget {
-  const ArtSelectMultiple({
-    super.key,
+/// Variante do DSSelect para seleção múltipla
+class DSSelectMultiple<T> extends StatelessWidget {
+  const DSSelectMultiple({
     required this.selectedOptionsBuilder,
+    super.key,
     this.options,
     this.optionsBuilder,
     this.placeholder,
@@ -437,7 +437,7 @@ class ArtSelectMultiple<T> extends StatelessWidget {
     this.restorationId,
   });
 
-  final ArtSelectedOptionsBuilder<T> selectedOptionsBuilder;
+  final DSSelectedOptionsBuilder<T> selectedOptionsBuilder;
   final Iterable<Widget>? options;
   final Widget? Function(BuildContext context, int index)? optionsBuilder;
   final Widget? placeholder;
@@ -454,23 +454,23 @@ class ArtSelectMultiple<T> extends StatelessWidget {
   final double? maxHeight;
   final bool allowDeselection;
   final bool closeOnSelect;
-  final ArtDecoration? decoration;
+  final DSDecoration? decoration;
   final Widget? trailing;
   final EdgeInsets? padding;
   final EdgeInsets? optionsPadding;
   final bool? showScrollToTopChevron;
   final bool? showScrollToBottomChevron;
   final ScrollController? scrollController;
-  final ArtAnchorBase? anchor;
+  final DSAnchorBase? anchor;
   final ImageFilter? filter;
-  final ArtPopoverController? popoverController;
+  final DSPopoverController? popoverController;
   final Widget? header;
   final Widget? footer;
   final Object? groupId;
   final int? itemCount;
   final bool? shrinkWrap;
   final FocusNode? focusNode;
-  final ArtSelectController<T>? controller;
+  final DSSelectController<T>? controller;
   final String? id;
   final FormFieldSetter<List<T>>? onSaved;
   final VoidCallback? onReset;
@@ -486,20 +486,16 @@ class ArtSelectMultiple<T> extends StatelessWidget {
       onSaved: onSaved != null ? (value) => onSaved!(value?.toList()) : null,
       label: label,
       description: description,
-      onChanged:
-          onChanged != null ? (value) => onChanged!(value?.toList()) : null,
+      onChanged: onChanged != null ? (value) => onChanged!(value?.toList()) : null,
       toValueTransformer:
-          valueTransformer != null
-              ? (value) => valueTransformer!(value?.toSet())
-              : null,
+          valueTransformer != null ? (value) => valueTransformer!(value?.toSet()) : null,
       onReset: onReset,
       enabled: enabled,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
       initialValue: initialValue?.toSet(),
       focusNode: focusNode,
-      validator:
-          validator != null ? (value) => validator!(value?.toList()) : null,
+      validator: validator != null ? (value) => validator!(value?.toList()) : null,
       selectedOptionsBuilder: selectedOptionsBuilder,
       options: options,
       optionsBuilder: optionsBuilder,
@@ -528,7 +524,7 @@ class ArtSelectMultiple<T> extends StatelessWidget {
   }
 }
 
-class ArtOption<T> extends StatelessWidget {
+class DSOption<T> extends StatelessWidget {
   final T value;
   final Widget child;
   final Color? hoveredBackgroundColor;
@@ -537,10 +533,10 @@ class ArtOption<T> extends StatelessWidget {
   final BorderRadius? radius;
   final TextDirection? direction;
 
-  const ArtOption({
-    super.key,
+  const DSOption({
     required this.value,
     required this.child,
+    super.key,
     this.hoveredBackgroundColor,
     this.padding,
     this.selectedIcon,
